@@ -473,6 +473,14 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .mgrid.mhdr>*{grid-column:auto !important}
   .mscroll{text-rendering:geometricPrecision}
   .bar{position:static !important}
+  .mscroll.nofit .mrt thead{display:none}
+  .mscroll.nofit .mrt,.mscroll.nofit .mrt tbody{display:block;width:100%}
+  .mscroll.nofit .mrt tr{display:block;background:rgba(255,255,255,.85);border:1px solid rgba(47,98,201,.25);border-radius:14px;padding:6px 10px;margin:0 0 10px}
+  .mscroll.nofit .mrt td{display:flex;justify-content:space-between;align-items:center;gap:10px;white-space:normal;font-size:15px;padding:5px 2px;border-bottom:1px dashed rgba(18,50,110,.15);text-align:left}
+  .mscroll.nofit .mrt td:before{content:attr(data-l);font-weight:800;color:#0c2454;flex:none;text-align:right}
+  .mscroll.nofit .mrt td:last-child{border-bottom:0;justify-content:flex-start;flex-wrap:wrap;gap:6px}
+  .mscroll.nofit .mrt td:last-child:before{display:none}
+  .mscroll.nofit .mrt .btn{padding:8px 14px;font-size:14px}
   .mchip.mctl .mt{font-size:17.5px !important;line-height:1.35}
   .mchip.mctl{min-height:52px}
   .mhead .hcode{display:none}
@@ -1750,7 +1758,7 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
   function fit(){
     try {
       var phone = window.innerWidth <= 760, sig = [];
-      document.querySelectorAll('.mscroll').forEach(function(sc){
+      document.querySelectorAll('.mscroll:not(.nofit)').forEach(function(sc){
         var kids = sc.children, need = 0, i;
         if (!kids.length) return;
         var big = phone && /سرویس\s*LMU/.test(sc.textContent || '') && /بازدید/.test(sc.textContent || '');
@@ -1764,7 +1772,7 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
     } catch(e){}
   }
   window.addEventListener('resize', fit); window.addEventListener('orientationchange', fit);
-  setInterval(function(){ if (window.innerWidth <= 760 && document.querySelector('.mscroll')){ var need = false; document.querySelectorAll('.mscroll').forEach(function(sc){ var k = sc.firstElementChild; if (k && !k.style.zoom && k.scrollWidth > sc.clientWidth + 1) need = true; }); if (need) fit(); } }, 400);
+  setInterval(function(){ if (window.innerWidth <= 760 && document.querySelector('.mscroll:not(.nofit)')){ var need = false; document.querySelectorAll('.mscroll:not(.nofit)').forEach(function(sc){ var k = sc.firstElementChild; if (k && !k.style.zoom && k.scrollWidth > sc.clientWidth + 1) need = true; }); if (need) fit(); } }, 400);
 })();
 (function(){   // app icon (tab icon, phone home screen, installable web app) + TÜV logo
   try {
@@ -1943,10 +1951,10 @@ function renderReport(){
     listBox.appendChild(tb);
   }
   function table(cols, rows, act){
-    var wrap = el('div','mscroll'); var t = el('table','mrt'); var thd = document.createElement('thead'), tr = document.createElement('tr');
+    var wrap = el('div','mscroll nofit'); var t = el('table','mrt'); var thd = document.createElement('thead'), tr = document.createElement('tr');
     cols.forEach(function(c){ var th = document.createElement('th'); th.textContent = c; tr.appendChild(th); }); thd.appendChild(tr); t.appendChild(thd);
     var tbd = document.createElement('tbody');
-    rows.forEach(function(r){ var tr2 = document.createElement('tr'); r.forEach(function(c, i){ var td = document.createElement('td'); if (act && i === r.length - 1) act(td, c); else td.textContent = c; tr2.appendChild(td); }); tbd.appendChild(tr2); });
+    rows.forEach(function(r){ var tr2 = document.createElement('tr'); r.forEach(function(c, i){ var td = document.createElement('td'); td.setAttribute('data-l', cols[i] || ''); if (act && i === r.length - 1) act(td, c); else td.textContent = c; tr2.appendChild(td); }); tbd.appendChild(tr2); });
     t.appendChild(tbd); wrap.appendChild(t); return wrap;
   }
   refresh(); markTab();
