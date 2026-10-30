@@ -473,6 +473,10 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .mgrid.mhdr>*{grid-column:auto !important}
   .mscroll{text-rendering:geometricPrecision}
   .bar{position:static !important}
+  .mhead .hcode{display:none}
+  .mhead .brandlogo{height:auto;max-height:26px;max-width:42%;min-width:0;flex:0 1 auto}
+  .mhead:not(.ctr){flex-wrap:nowrap;align-items:center;justify-content:space-between}
+  .mhead:not(.ctr) h2{font-size:19px;white-space:nowrap}
   body .welcome{white-space:nowrap;font-size:14px !important;padding:8px 12px !important;gap:6px;max-width:96vw;border-radius:12px !important}
   body .welcome i{width:22px;height:22px;flex:none}
   .fadein{animation:none !important}
@@ -1189,7 +1193,7 @@ function renderModern(){
   var code = null;
   sh.cells.forEach(function(c){ if (c.r === 1 && c.c === 1 && c.text) code = String(c.text); });
   var head = el('div','mhead' + ((sh.key === 'plc' || sh.key === 'lmu') ? ' ctr' : '')); var h2 = el('h2'); h2.textContent = cfg.title; head.appendChild(h2);
-  if (code){ var sm = el('small'); sm.textContent = code; sm.setAttribute('dir','auto'); head.appendChild(sm); }
+  if (code){ var sm = el('small'); sm.textContent = code; sm.setAttribute('dir','auto'); if (sh.key === 'selta' || sh.key === 'abb') sm.className = 'hcode'; head.appendChild(sm); }
   if (BRAND[sh.key]){ var bl = el('img','brandlogo'); bl.src = BRAND[sh.key]; bl.alt = sh.key.toUpperCase(); bl.setAttribute('draggable','false'); head.appendChild(bl); }
   page.appendChild(head);
 
