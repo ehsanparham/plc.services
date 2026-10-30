@@ -473,6 +473,8 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .mgrid.mhdr>*{grid-column:auto !important}
   .mscroll{text-rendering:geometricPrecision}
   .bar{position:static !important}
+  .mchip.mctl .mt{font-size:17.5px !important;line-height:1.35}
+  .mchip.mctl{min-height:52px}
   .mhead .hcode{display:none}
   .mhead .brandlogo{height:auto;max-height:26px;max-width:42%;min-width:0;flex:0 1 auto}
   .mhead:not(.ctr){flex-wrap:nowrap;align-items:center;justify-content:space-between}
@@ -495,6 +497,8 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .actions>#btnClear{grid-column:3 / span 2;grid-row:2}
   .actions>#btnBackup{grid-column:1 / -1;grid-row:3}
   .actions .btn,.actions .umenu>button{width:100%;min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 6px;font-size:14px;white-space:normal;line-height:1.3}
+  .mscroll.lmubig .mt,.mscroll.lmubig .mlbl,.mscroll.lmubig .mchip{font-size:15px !important;letter-spacing:0;line-height:1.35}
+  .mscroll.lmubig .mitem{min-height:40px}
   .mscroll .mlbl{font-size:12px;letter-spacing:-.2px}
   .mscroll .mchip{padding:6px 1px;font-size:11.5px;gap:3px;letter-spacing:-.2px}
   .mscroll{scrollbar-width:thin;scrollbar-color:#1f9d7a transparent;padding-bottom:6px}
@@ -857,8 +861,8 @@ var POSTS = {
 };   // names (posts + lines) of each area, from Post_Name.xlsx
 function postCombo(form, areaRef){
   function area(){ return String((state.vals[form] || {})[areaRef] || '').trim(); }
-  return {opts: function(){ return POSTS[area()] || []; },
-          emptyMsg: function(){ return area() ? (POSTS[area()] && POSTS[area()].length ? '' : 'برای این ناحیه پستی ثبت نشده (نام را تایپ کنید)') : 'ابتدا ناحیه را انتخاب کنید (یا نام پست را تایپ کنید)'; }};
+  return {strict:true, opts: function(){ return POSTS[area()] || []; },
+          emptyMsg: function(){ return area() ? (POSTS[area()] && POSTS[area()].length ? '' : 'برای این ناحیه موردی ثبت نشده است') : 'ابتدا ناحیه را انتخاب کنید (یا نام پست را تایپ کنید)'; }};
 }
 var SUP_GROUPS = [['سورمق'],['فسا','داراب','نیریز'],['جهرم'],['لار','لامرد'],['کازرون','قائمیه','نورآباد'],['مرودشت','پاسارگاد'],['شیراز','فیروزآباد'],['بوشهر']];
 var SUP_DEF = ['مهندس سلیمی','مهندس اسدی','مهندس بادیه پیما','مهندس علی عسکر قانع','مهندس مهدی کریمی','مهندس مصطفی شاهیجان پور','مهندس مهدی تراب فر','مهندس خدری'];
@@ -885,11 +889,11 @@ function onAreaChange(form, areaRef, postRef){
   });
 }
 var COMBOS = {
-  plc: {E10:{opts:AREAS}, G10:postCombo('plc','E10'), I10:postCombo('plc','E10'), M10:{opts:DEVICES, strict:true}, K13:{opts:['20وات','40وات'], strict:true},
+  plc: {E10:{opts:AREAS, strict:true}, G10:postCombo('plc','E10'), I10:postCombo('plc','E10'), M10:{opts:DEVICES, strict:true}, K13:{opts:['20وات','40وات'], strict:true},
         E33:{opts:TPS_TYPES, strict:true}, E35:{opts:TPS_TYPES, strict:true}, E37:{opts:TPS_TYPES, strict:true}, E39:{opts:TPS_TYPES, strict:true},
         N13:{opts:['پارس تارا','الکترومغناطیس','تبدیل انرژی پردیس','PSP','اسکات','ITI'], strict:true}},
   dimat: {G4:{opts:['Single Channel','Double Channel'], strict:true}, C5:{opts:['Teleprotection','Data & voice','Data','Voice'], strict:true}},
-  lmu: {D11:{opts:AREAS}, G11:postCombo('lmu','D11'), I11:postCombo('lmu','D11'), M11:{opts:['موج نیرو','فراپیام','تکاب','پارسیان','هفلی','ABB','Simens','BBC'], strict:true},
+  lmu: {D11:{opts:AREAS, strict:true}, G11:postCombo('lmu','D11'), I11:postCombo('lmu','D11'), M11:{opts:['موج نیرو','فراپیام','تکاب','پارسیان','هفلی','ABB','Simens','BBC'], strict:true},
         O11:{opts:['A','B','B,C','A,B','A,B,C'], strict:true}, R11:{opts:['فاز به زمین','فاز به فاز'], strict:true}}
 };
 var HIDE_HEADER = {abb:2, dimat:2, selta:2};
@@ -1124,7 +1128,7 @@ function normFa(t){ return String(t||'').replace(/ي/g,'ی').replace(/ك/g,'ک')
 var openCbx = null;
 function closeCbx(){ if (openCbx){ openCbx.box.remove(); openCbx = null; } }
 function makeCombo(f, cfg, onPick){
-  f.classList.add('combo'); if (cfg.strict){ f.classList.add('strict'); f.readOnly = true; }
+  f.classList.add('combo'); if (cfg.strict){ f.classList.add('strict'); f.readOnly = true; f.setAttribute('inputmode','none'); f.setAttribute('autocomplete','off'); f.style.caretColor = 'transparent'; }
   var idx = -1, typed = false;   // the list is filtered only while the user is typing; opening it shows every option
   function items(){
     var q = (cfg.strict || !typed) ? '' : normFa(f.value);
@@ -1155,6 +1159,7 @@ function makeCombo(f, cfg, onPick){
   }
   f.addEventListener('focus', function(){ typed = false; show(); });
   f.addEventListener('click', function(){ if (!openCbx || openCbx.f !== f || typed){ typed = false; show(); } });
+  if (cfg.strict) f.addEventListener('pointerup', function(){ if (!openCbx || openCbx.f !== f){ typed = false; show(); } });
   f.addEventListener('input', function(){ typed = true; show(); });
   f.addEventListener('blur', function(){ setTimeout(function(){ if (openCbx && openCbx.f === f) closeCbx(); }, 0); });
   f.addEventListener('keydown', function(e){
@@ -1748,7 +1753,9 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
       document.querySelectorAll('.mscroll').forEach(function(sc){
         var kids = sc.children, need = 0, i;
         if (!kids.length) return;
-        for (i = 0; i < kids.length; i++) kids[i].style.zoom = '';
+        var big = phone && /سرویس\s*LMU/.test(sc.textContent || '') && /بازدید/.test(sc.textContent || '');
+        sc.classList.toggle('lmubig', !!big);
+        for (i = 0; i < kids.length; i++){ kids[i].style.zoom = ''; if (big) kids[i].style.setProperty('min-width','330px','important'); else kids[i].style.removeProperty('min-width'); }
         if (!phone || !sc.clientWidth) return;
         for (i = 0; i < kids.length; i++) need = Math.max(need, kids[i].scrollWidth);
         if (need > sc.clientWidth + 1){ var z = Math.max(0.5, (sc.clientWidth - 22) / need); for (i = 0; i < kids.length; i++) kids[i].style.zoom = z; sig.push(z.toFixed(2)); }
@@ -1778,22 +1785,45 @@ function askSaveAll(){
   done.forEach(function(s,i){
     h += '<label class="fl" for="sa'+i+'">'+s.tab+'</label><div style="display:flex;align-items:center;gap:8px;direction:ltr"><input class="in" id="sa'+i+'" dir="auto" autocomplete="off" spellcheck="false" style="flex:1"><span style="font-weight:700;color:#33465c">.xlsx</span></div>';
   });
-  h += '<div class="msg" id="saMsg"></div><div class="row2"><button class="btn sec" id="saCancel">انصراف</button><button class="btn pri" id="saOk">ادامه و انتخاب محل ذخیره</button></div>';
+  h += '<div class="msg" id="saMsg"></div><button class="btn pri" id="saZip" style="width:100%;margin:6px 0 10px;justify-content:center">🗜 ذخیره به صورت فایل فشرده</button><div class="row2"><button class="btn sec" id="saCancel">انصراف</button><button class="btn pri" id="saOk">ادامه و انتخاب محل ذخیره</button></div>';
   openModal(h);
   done.forEach(function(s,i){ $('sa'+i).value = buildName(s).replace(/\.xlsx$/i,''); });
   function clean(v){ return v.replace(/[\\\/:*?"<>|\r\n\t]+/g,'_').replace(/\.xlsx$/i,'').trim().replace(/[. ]+$/,''); }
   $('saCancel').onclick = closeModal;
-  $('saOk').onclick = function(){
+  function collect(){
     var names = [], seen = {};
     for (var i=0;i<done.length;i++){
       var n = clean($('sa'+i).value);
-      if (!n){ msg($('saMsg'), 'نام فایل «' + done[i].tab + '» را وارد کنید', false); return; }
-      if (seen[n.toLowerCase()]){ msg($('saMsg'), 'نام فایل‌ها باید با هم فرق داشته باشد', false); return; }
+      if (!n){ msg($('saMsg'), 'نام فایل «' + done[i].tab + '» را وارد کنید', false); return null; }
+      if (seen[n.toLowerCase()]){ msg($('saMsg'), 'نام فایل‌ها باید با هم فرق داشته باشد', false); return null; }
       seen[n.toLowerCase()] = 1; names.push(n + '.xlsx');
     }
-    closeModal(); done.forEach(function(s){ addRecord(s); }); saveAllForms(done, names);
-  };
+    return names;
+  }
+  $('saOk').onclick = function(){ var names = collect(); if (!names) return; closeModal(); done.forEach(function(s){ addRecord(s); }); saveAllForms(done, names); };
+  $('saZip').onclick = function(){ var names = collect(); if (!names) return; closeModal(); done.forEach(function(s){ addRecord(s); }); saveZipForms(done, names); };
   setTimeout(function(){ var f = $('sa0'); if (f){ f.focus(); f.select(); } }, 60);
+}
+function saveZipForms(list, names){
+  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  var d = faDigits(jalaliToday() || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
+  var zname = 'PLC_Forms' + (d ? '_' + d : '') + '.zip';
+  function fail(e){ console.error(e); toast('خطا در ساخت فایل فشرده: ' + (e && e.message || e)); }
+  function finish(nm){ saveStore(); toast('فایل فشرده ذخیره شد و در بایگانی ثبت شد: ' + nm); }
+  var zip = new JSZip();
+  var chain = Promise.resolve();
+  list.forEach(function(s,i){ chain = chain.then(function(){ return buildBlob(s, state.vals[s.key]).then(function(b){ zip.file(names[i], b); }); }); });
+  chain.then(function(){ return zip.generateAsync({type:'blob', compression:'DEFLATE'}); }).then(function(blob){
+    function viaDownload(){ downloadBlob(blob, zname); finish(zname); }
+    if (typeof window.showSaveFilePicker !== 'function'){ viaDownload(); return; }
+    var pick; try { pick = window.showSaveFilePicker({suggestedName: zname, types: [{description: 'ZIP Archive (*.zip)', accept: {'application/zip': ['.zip']}}]}); } catch(e){ viaDownload(); return; }
+    pick.then(function(h){ return h.createWritable().then(function(w){ return w.write(blob).then(function(){ return w.close(); }); }).then(function(){ finish(h.name || zname); }); })
+    .catch(function(err){
+      if (err && err.name === 'AbortError'){ toast('ذخیره لغو شد'); return; }
+      if (err && (err.name === 'SecurityError' || err.name === 'NotAllowedError' || err.name === 'TypeError')){ viaDownload(); return; }
+      fail(err);
+    });
+  }).catch(fail);
 }
 function saveAllForms(list, names){
   if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
@@ -2193,7 +2223,7 @@ $('infoForm').addEventListener('submit', function(e){
 });
 $('hdrMeta').addEventListener('click', enterInfo);
 function showInSup(){ var sp = supFor($('inArea').value); $('inSupShow').textContent = sp ? 'ناظر ناحیه: ' + sp : ''; }
-makeCombo($('inArea'), {opts:AREAS}, function(){ showInSup(); });
+makeCombo($('inArea'), {opts:AREAS, strict:true}, function(){ showInSup(); });
 $('inArea').addEventListener('input', showInSup);
 
 // user menu
