@@ -471,6 +471,7 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .mgrid{min-width:max(100%,560px) !important}
   .mgrid.mhdr{min-width:0 !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important}
   .mgrid.mhdr>*{grid-column:auto !important}
+  .mgrid.mhdr>.wfreq{grid-column:1 / -1 !important}
   .mscroll{text-rendering:geometricPrecision}
   .bar{position:static !important}
   .mgrid.rfilter{min-width:0 !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important}
@@ -598,6 +599,29 @@ body[data-theme="dark"] .mrt .rf{background:rgba(39,198,255,.2);color:#bfe3ff}
 
 .login-co{color:#fff;font:700 21px FaTitr,FaNazanin,Tahoma,sans-serif;text-align:center;margin:-2px 0 8px;text-shadow:0 2px 8px rgba(0,0,0,.45)}
 .mrt td.rcell{white-space:normal}
+.mlbl.phlbl{white-space:nowrap;justify-content:flex-start !important;text-align:right}
+.mlbl.phlbl .mt,.mlbl.phlbl{white-space:nowrap}
+
+.mfreq{gap:8px}
+.mfrow{display:flex;align-items:center;gap:8px}
+.mffw{position:relative;flex:1 1 0;min-width:0}
+.mffw .mi{width:100%;padding-inline:34px}
+.mfsuf{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:12.5px;font-weight:700;color:#14397f;pointer-events:none;direction:ltr;white-space:nowrap}
+.mfch{width:98px;display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap;flex:none}
+
+.hidmob{}
+@media (max-width:760px){
+  #stage .mi[data-wide="1"]{grid-column-end:span 2 !important}
+  #stage .hidmob{visibility:hidden}
+  #stage .rcvt{grid-column:1 / 6 !important}#stage .rcvl{grid-column:6 / 7 !important}#stage .rcvi{grid-column:7 / 9 !important}#stage .rcvc{grid-column:9 / 11 !important}
+}
+
+@media (max-width:760px){
+  #stage .svcl{grid-column:1 / 6 !important;white-space:nowrap}#stage .svcl,#stage .svcl *{white-space:nowrap !important;overflow:visible}
+  #stage .svck{grid-column:6 / 8 !important}
+  #stage .phlbl{grid-column:8 / 12 !important}#stage .phlbl,#stage .phlbl *{white-space:nowrap !important}
+  #stage .phin{grid-column:12 / 19 !important}
+}
 </style>
 </head>
 <body data-view="login">
@@ -614,7 +638,7 @@ body[data-theme="dark"] .mrt .rf{background:rgba(39,198,255,.2);color:#bfe3ff}
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.1.0</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.0</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -641,7 +665,7 @@ body[data-theme="dark"] .mrt .rf{background:rgba(39,198,255,.2);color:#bfe3ff}
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
 <div class="hint">با هر بار باز شدن برنامه فرم‌ها خالی می‌شوند؛ برای نگه‌داشتن اطلاعات «ثبت در بایگانی» را بزنید · کلید Enter شما را به خانهٔ بعدی می‌برد</div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.1.0</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.0</i></div></main>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -676,7 +700,7 @@ var TAB_NAMES = {plc:'PLC CheckList', lmu:'LMU CheckList', selta:'SELTA TestShee
 SHEETS.forEach(function(s){ if (TAB_NAMES[s.key]) s.tab = TAB_NAMES[s.key]; });
 SHEETS.forEach(function(s){ if (s.key === 'lmu') s.cells.forEach(function(c){ if (c.ref === 'D35'){ c.input = false; c.labelInput = true; c.text = 'تاریخ:'; } }); });   // LMU: a date box under the group-leader name (like the one under the supervisor)
 var AREAS = ['شیراز','مرودشت','فسا','کازرون','قائمیه','نورآباد','فیروزآباد','داراب','جهرم','پاسارگاد','بوشهر','سورمق','نیریز','لار','لامرد'];
-var DEVICES = ['SELTA','ABB','Dimat'];
+var DEVICES = ['SELTA','ABB','DIMAT'];
 var TPS_TYPES = ['DTT','Dis-SUB 1','DeF','Dis-SUB 2'];
 // Posts (substations) of each area: fill in as  'ناحیه': ['پست ۱','پست ۲', ...]
 var POSTS = {
@@ -926,7 +950,7 @@ var COMBOS = {
 };
 var HIDE_HEADER = {abb:2, dimat:2, selta:2};
 var DEFAULTS = { plc: {E13:'53ولت', H13:'50ولت', K13:'20وات', C33:'1', C35:'2', C37:'3', C39:'4'}, selta: {D8:'50', G8:'20'}, abb: {D8:'50', G8:'40'}, dimat: {G3:'40W'} };
-var PLC_YES = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,20];   // checklist items that start with a "بلی" tick
+var PLC_YES = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,20];   // checklist items that start with a "بلی" tick
 // SELTA: these input cells are check boxes in the app (a tick is written to the Excel cell)
 var CHECKS = { plc: ['E27','E28','I28','M28','R28'], selta: ['G3','G4','D6','F6','H6','J6','D7','F7','H7'], abb: ['G3','G4','D6','F6','H6','J6','D7','F7','H7'], lmu: ['M27','M28'] };
 // SELTA: read-only boxes next to F(carr) / F(Sig+) / F(Sig-), calculated from the RX value (app only)
@@ -1347,15 +1371,26 @@ function renderModern(){
     w.appendChild(b); return w;
   }
   function mkFreq(){
-    var w = el('div','mfreq');
-    ['tx','rx'].forEach(function(p){
-      var key = 'O10:' + p, ff = el('input','mi'); ff.type = 'text'; ff.setAttribute('inputmode','decimal'); ff.setAttribute('autocomplete','off'); ff.spellcheck = false; ff.placeholder = p.toUpperCase(); ff.dataset.ref = key;
+    var w = el('div','mfreq'), sufs = [];
+    function refreshSuf(){ var sf = chSuf(vals); sufs.forEach(function(o){ o.sp.textContent = (sf && o.ff.value.trim()) ? sf : ''; }); }
+    [['tx','SingleCH','s'],['rx','DoubleCH','d']].forEach(function(q){
+      var p = q[0], key = 'O10:' + p, row = el('div','mfrow'), ffw = el('div','mffw'), ff = el('input','mi'), sp = el('span','mfsuf');
+      ff.type = 'text'; ff.setAttribute('inputmode','decimal'); ff.setAttribute('autocomplete','off'); ff.spellcheck = false; ff.placeholder = p.toUpperCase(); ff.dataset.ref = key;
       ff.value = vals[key] !== undefined ? vals[key] : '';
-      ff.addEventListener('input', function(){ var n = faDigits(ff.value).replace(/[^0-9.+\-]/g,''); if (n !== ff.value) ff.value = n; vals[key] = ff.value; saveSoon(); markTab(); syncDevice(); });
+      ff.addEventListener('input', function(){ var n = faDigits(ff.value).replace(/[^0-9.+\-]/g,''); if (n !== ff.value) ff.value = n; vals[key] = ff.value; refreshSuf(); saveSoon(); markTab(); syncDevice(); });
       ff.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); focusNext(ff); } });
       ff.setAttribute('dir','ltr'); ff.style.textAlign = 'center';
-      w.appendChild(ff);
+      ffw.appendChild(ff); ffw.appendChild(sp); sufs.push({ff:ff, sp:sp}); row.appendChild(ffw);
+      var lab = el('label','mfch'), box = el('div','mcb' + (vals['O10:ch'] === q[2] ? ' on' : '')), tx = el('span'); tx.textContent = q[1];
+      box.tabIndex = 0; box.setAttribute('role','checkbox'); box.setAttribute('aria-checked', vals['O10:ch'] === q[2] ? 'true' : 'false'); box.dataset.ch = q[2];
+      function toggle(ev){ if (ev) ev.preventDefault();
+        var on = vals['O10:ch'] !== q[2]; if (on) vals['O10:ch'] = q[2]; else delete vals['O10:ch'];
+        w.querySelectorAll('.mcb').forEach(function(b){ var a = vals['O10:ch'] === b.dataset.ch; b.classList.toggle('on', a); b.setAttribute('aria-checked', a ? 'true' : 'false'); });
+        refreshSuf(); saveSoon(); markTab(); syncDevice(); }
+      lab.addEventListener('click', toggle); box.addEventListener('keydown', function(e){ if (e.key === ' ' || e.key === 'Enter'){ toggle(e); } });
+      lab.appendChild(box); lab.appendChild(tx); row.appendChild(lab); w.appendChild(row);
     });
+    refreshSuf();
     return w;
   }
   function mkLabelInput(c){
@@ -1483,12 +1518,13 @@ function renderModern(){
   }
   if (sh.key === 'plc'){
     var pc = el('section','mcard'); page.insertBefore(pc, head.nextSibling);
-    [[[['E10','ناحیه'],['G10','نام پست'],['I10','نام خط'],['K10','شماره خط'],['M10','نام دستگاه'],['O10','فرکانس TX-RX (khz)']],6],
+    [[[['E10','ناحیه'],['G10','نام پست'],['I10','نام خط'],['K10','شماره خط'],['M10','نام دستگاه'],['O10','فرکانس TX-RX (khz)']],'repeat(5,minmax(0,1fr)) minmax(0,1.9fr)'],
      [[['E13','ولتاژ شارژ 48 ولت'],['H13','ولتاژ تغذیه PLC'],['K13','قدرت خروجی'],['N13','مدل شارژر']],4]].forEach(function(gs){
-      var g = el('div','mgrid mhdr'); g.style.gridTemplateColumns = 'repeat('+gs[1]+',minmax(0,1fr))'; g.style.minWidth = '0';
+      var g = el('div','mgrid mhdr'); g.style.gridTemplateColumns = typeof gs[1] === 'string' ? gs[1] : 'repeat('+gs[1]+',minmax(0,1fr))'; g.style.minWidth = '0';
       gs[0].forEach(function(q){
         var w = el('div','mlf'), l = el('span'); l.textContent = q[1]; w.appendChild(l);
         var f; if (q[0] === 'O10') f = mkFreq(); else { f = mkInput({ref:q[0]}, false); f.classList.add('mone'); }
+        if (q[0] === 'O10') w.classList.add('wfreq');
         w.appendChild(f); g.appendChild(w);
       });
       var gw = el('div','mscroll'); gw.appendChild(g); pc.appendChild(gw);
@@ -1504,6 +1540,24 @@ function renderModern(){
       });
       var hw = el('div','mscroll'); hw.appendChild(hg); c0.insertBefore(hw, c0.firstChild);
     }
+  }
+  if (sh.key === 'plc'){   // phone label + box sit right after the "device service" check box, on the same row
+    var phIn = stage.querySelector('[data-ref="R27"]');
+    if (phIn && phIn.previousElementSibling){ var phLb = phIn.previousElementSibling; phLb.style.gridColumn = '5 / 9'; phIn.style.gridColumn = '9 / 15'; phLb.classList.add('phlbl'); phIn.classList.add('phin'); var sk = stage.querySelector('[data-ref="E27"]'); if (sk){ sk = sk.closest('.mcbf') || sk; sk.classList.add('svck'); if (sk.previousElementSibling) sk.previousElementSibling.classList.add('svcl'); } }
+  }
+  window.__devForm = (sh.key === 'selta' || sh.key === 'abb');
+  if (window.__devForm){   // phones: Tx / Rx boxes use two columns (Khz moves into the box); SELTA receiver rows are re-laid so the bigger boxes fit
+    ['D5','G5'].forEach(function(r){ var f = stage.querySelector('[data-ref="'+r+'"]'); if (!f) return; var a = parseInt(f.style.gridColumn, 10); if (!a) return; f.dataset.wide = '1'; f.placeholder = 'Khz'; var u = f.nextElementSibling; if (u && /munit/.test(u.className)) u.classList.add('hidmob'); });
+    if (sh.key === 'selta') stage.querySelectorAll('.mscroll').forEach(function(sc){
+      if (!/RECEIVER|ReceiveLevel|F\(carr\)/.test(sc.textContent)) return;
+      Array.prototype.forEach.call(sc.firstElementChild.children, function(e){
+        var gc = e.style.gridColumn;
+        if (/mtitle/.test(e.className) && gc === '2 / 8') { e.classList.add('rcvt'); }
+        else if (/mlbl/.test(e.className) && gc === '8 / 9'){ e.classList.add('rcvl'); }
+        else if (e.dataset.ref && /^J(18|19|20)$/.test(e.dataset.ref)){ e.classList.add('rcvi'); }
+        else if (/mro/.test(e.className) && gc === '10 / 11'){ e.classList.add('rcvc'); }
+      });
+    });
   }
   applyTps();
   if (!state.base[sh.key] || ((sh.key === 'plc' || sh.key === 'lmu') && !vals['_init'])){ var bs = {}; Object.keys(vals).forEach(function(k){ bs[k] = vals[k]; }); state.base[sh.key] = bs; }
@@ -1538,6 +1592,8 @@ function applyScale(){
 
 var SYNC = {E10:'D11', G10:'G11', I10:'I11', K10:'K11', C43:'D33', K43:'L33', C45:'D35', K45:'L35'};   // PLC cell -> LMU cell
 // PLC post / line -> the form of the selected device (Station: / Direction:)
+function chSuf(v){ var c = (v || {})['O10:ch']; return c === 's' ? '(+4)' : c === 'd' ? '(\u00b14)' : ''; }
+function fq(v, k){ var n = String((v || {})[k] || '').trim(); var sf = chSuf(v); return n ? (sf ? n + ' ' + sf : n) : ''; }
 var DEV_FORM = {selta:'selta', abb:'abb', dimat:'dimat'}, devLast = {};
 var DEV_CHECKS = [['R28','D6'], ['I28','F6'], ['I28','H6'], ['M28','F7'], ['E28','D7']];   // PLC TPS / PAX / DTS / data  ->  Pro / Pax / DTS / Data (SELTA, ABB)
 function dimatApp(pv){   // Dimat has one "Application" box instead of check boxes
@@ -1552,15 +1608,15 @@ function syncDevice(onlyBlank){
   if (!dev) return;
   var f = state.vals[dev]; if (!f) return;
   var want = {C3: post, C4: line};
-  var tx = String(pv['O10:tx'] || ''), rx = String(pv['O10:rx'] || '');
-  if (dev === 'dimat'){ want.C5 = dimatApp(pv); want.K5 = String(pv.K10 || ''); want.K3 = tx; want.K4 = rx; }   // line number -> IP Address
-  else { DEV_CHECKS.forEach(function(p){ want[p[1]] = pv[p[0]] ? '\u2713' : ''; }); want.I3 = String(pv.K10 || ''); want.D5 = tx; want.G5 = rx; }   // line number -> Linkno
+  var tx = fq(pv, 'O10:tx'), rx = fq(pv, 'O10:rx'), chs = pv['O10:ch'] || '';
+  if (dev === 'dimat'){ want.C5 = dimatApp(pv); want.K5 = String(pv.K10 || ''); want.K3 = tx; want.K4 = rx; want.G4 = chs === 's' ? 'Single Channel' : chs === 'd' ? 'Double Channel' : ''; }   // line number -> IP Address
+  else { DEV_CHECKS.forEach(function(p){ want[p[1]] = pv[p[0]] ? '\u2713' : ''; }); want.I3 = String(pv.K10 || ''); want.D5 = tx; want.G5 = rx; want.G3 = chs === 's' ? '\u2713' : ''; want.G4 = chs === 'd' ? '\u2713' : ''; }   // line number -> Linkno
   var last = devLast[dev] || (devLast[dev] = {});
   Object.keys(want).forEach(function(r){
     var v = want[r];
     if (onlyBlank){ if (f[r] === undefined && v){ f[r] = v; last[r] = v; } }
     else if (v){ f[r] = v; last[r] = v; }
-    else if (r === 'C3' || r === 'C4' || r === 'I3' || r === 'K5' || r === 'D5' || r === 'G5' || r === 'K3' || r === 'K4'){ f[r] = ''; last[r] = ''; }
+    else if (r === 'C3' || r === 'C4' || r === 'I3' || r === 'K5' || r === 'D5' || r === 'G5' || r === 'K3' || r === 'K4' || r === 'G3' || r === 'G4'){ f[r] = ''; last[r] = ''; }
     else if (last[r] !== undefined && f[r] === last[r]){ delete f[r]; delete last[r]; }
   });
   saveSoon();
@@ -1646,7 +1702,7 @@ function buildBlob(sh, vals){
     return zip.file(path).async('string').then(function(xml){
       sh.cells.forEach(function(c){
         if (sh.key === 'plc' && c.ref === 'O10'){
-          var tx = (vals['O10:tx']||'').trim(), rx = (vals['O10:rx']||'').trim();
+          var tx = fq(vals, 'O10:tx'), rx = fq(vals, 'O10:rx');
           if (tx || rx){ xml = setCell(xml, 'O10', tx + '\n' + rx); wrapO10 = true; }
         } else if (c.input){
           var def = (c.text === undefined ? '' : String(c.text));
@@ -1787,6 +1843,21 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
         if (!phone || !sc.clientWidth) return;
         for (i = 0; i < kids.length; i++) need = Math.max(need, kids[i].scrollWidth);
         if (need > sc.clientWidth + 1){ var z = Math.max(0.5, (sc.clientWidth - 22) / need); for (i = 0; i < kids.length; i++) kids[i].style.zoom = z; sig.push(z.toFixed(2)); }
+      });
+      // SELTA / ABB on phones: Tx / Rx and every box of the TRANSMITTER / RECEIVER sections get the size of the Station box
+      var stIn = document.querySelector('#stage [data-ref="C3"]');
+      document.querySelectorAll('#stage .mscroll:not(.nofit)').forEach(function(sc){
+        var k0 = sc.firstElementChild; if (!k0) return;
+        Array.prototype.forEach.call(sc.querySelectorAll('.mi'), function(e){ e.style.width = ''; e.style.height = ''; e.style.minWidth = ''; e.style.justifySelf = ''; });
+        if (!phone || !stIn || !(window.__devForm)) return;
+        var sec = !sc.querySelector('[data-ref="C3"]') && !sc.querySelector('textarea'), top = sc.querySelector('[data-ref="D5"]');
+        if (!sec && !top) return;
+        var z = parseFloat(k0.style.zoom) || 1, rs = stIn.getBoundingClientRect(); if (!rs.width) return;
+        Array.prototype.forEach.call(sc.querySelectorAll('.mi'), function(e){
+          if (e.tagName === 'TEXTAREA') return;
+          if (!sec && e.dataset.ref !== 'D5' && e.dataset.ref !== 'G5') return;
+          e.style.width = (rs.width / z) + 'px'; e.style.minWidth = (rs.width / z) + 'px'; e.style.height = (rs.height / z) + 'px'; e.style.justifySelf = 'center';
+        });
       });
       last = sig.join();
     } catch(e){}
@@ -1945,6 +2016,7 @@ function renderReport(){
   var bar = el('div','mrbar'); card.appendChild(bar);
   function btn(t, cls, fn){ var b = el('button','btn '+cls); b.textContent = t; b.addEventListener('click', fn); bar.appendChild(b); return b; }
   if (can('rep_export')) btn('⬇ خروجی Excel گزارش','pri', function(){ exportReport(); });
+  btn('📡 گزارش فرکانس TX/RX','sec', askFreq);
   btn('پاک‌کردن فیلترها','sec', function(){ FILT = {from:'',to:'',form:'',user:'',q:''}; renderReport(); });
   if (can('rep_backup')) btn('پشتیبان‌گیری (JSON)','sec', askBackup);
   if (can('rep_restore')) btn('بازیابی از پشتیبان','sec', restoreRecs);
@@ -2025,6 +2097,54 @@ function exportReport(){
   z.file('xl/worksheets/sheet2.xml', sheetXml(r2,[32,14,9,14], titles));
   var nm = 'Report_' + dFrom.replace(/\D+/g,'') + '_' + dTo.replace(/\D+/g,'') + '.xlsx';
   z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
+}
+function freqRows(list){
+  var out = [];
+  list.forEach(function(r){
+    var v = r.vals || {}, tx = '', rx = '', ch = '';
+    if (r.form === 'plc'){ tx = fq(v, 'O10:tx'); rx = fq(v, 'O10:rx'); ch = v['O10:ch'] === 's' ? 'Single' : v['O10:ch'] === 'd' ? 'Double' : ''; }
+    else if (r.form === 'dimat'){ tx = String(v.K3 || '').trim(); rx = String(v.K4 || '').trim(); ch = /single/i.test(v.G4 || '') ? 'Single' : /double/i.test(v.G4 || '') ? 'Double' : ''; }
+    else { tx = String(v.D5 || '').trim(); rx = String(v.G5 || '').trim(); ch = v.G3 ? 'Single' : v.G4 ? 'Double' : ''; }
+    if (!tx && !rx) return;
+    out.push({form: tabName(r.form), area: rv(r,'area'), post: rv(r,'post'), line: rv(r,'line'), num: rv(r,'num'), dev: rv(r,'device'), tx: tx, rx: rx, ch: ch, date: r.date, user: r.user});
+  });
+  return out;
+}
+function askFreq(){
+  var fr = freqRows(filtered());
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var h = '<h2>گزارش فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحهٔ Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
+  if (!fr.length) h += '<div class="msg" style="display:block">رکوردی که فرکانس TX یا RX داشته باشد پیدا نشد.</div>';
+  else {
+    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:700px"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>فرم</th><th>تاریخ</th></tr></thead><tbody>';
+    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td>' + esc(o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
+    h += '</tbody></table></div>';
+  }
+  h += '<div class="row2"><button class="btn sec" id="frClose">بستن</button>' + (fr.length ? '<button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
+  openModal(h);
+  $('frClose').onclick = closeModal;
+  if (fr.length) $('frXls').onclick = function(){ exportFreqXlsx(); };
+}
+function exportFreqXlsx(){
+  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  var list = filtered(), fr = freqRows(list); if (!fr.length){ toast('رکوردی با فرکانس TX/RX برای خروجی وجود ندارد'); return; }
+  var ds = list.map(function(r){ return r.dk; }).filter(Boolean), mn = ds.length ? Math.min.apply(null, ds) : 0, mx = ds.length ? Math.max.apply(null, ds) : 0;
+  function dstr(k){ var s = String(k); return s.length === 8 ? s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6) : '—'; }
+  var dFrom = FILT.from.trim() ? faDigits(FILT.from.trim()) : dstr(mn), dTo = FILT.to.trim() ? faDigits(FILT.to.trim()) : dstr(mx);
+  var titles = ['شرکت تعمیرات نیروی برق فارس', 'گزارش فرکانس TX/RX ایستگاه‌ها (از تاریخ ' + dFrom + ' تا تاریخ ' + dTo + ')'];
+  var r1 = [['ردیف','نام فرم','ناحیه','نام پست','نام خط','شماره خط','نام دستگاه','TX','RX','نوع کانال','تاریخ','ثبت‌کننده']].concat(fr.map(function(o,i){ return [String(i+1), o.form, o.area, o.post, o.line, o.num, o.dev, o.tx, o.rx, o.ch, o.date, o.user]; }));
+  var cnt = {}; fr.forEach(function(o){ [o.tx, o.rx].forEach(function(v){ var k = String(v || '').replace(/\s*\(.*\)\s*$/, '').trim(); if (!k) return; (cnt[k] = cnt[k] || {n:0, p:{}}).n++; cnt[k].p[o.post || '—'] = 1; }); });
+  var r2 = [['فرکانس','دفعات استفاده','ایستگاه‌ها']].concat(Object.keys(cnt).sort(function(x,y){ return parseFloat(x) - parseFloat(y) || (x < y ? -1 : 1); }).map(function(k){ return [k, String(cnt[k].n), Object.keys(cnt[k].p).join('، ')]; }));
+  var z = new JSZip();
+  z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
+  z.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
+  z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="فرکانس TX-RX" sheetId="1" r:id="rId1"/><sheet name="خلاصه فرکانس‌ها" sheetId="2" r:id="rId2"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\'گزارش\'!$4:$4</definedName><definedName name="_xlnm.Print_Titles" localSheetId="1">\'خلاصه پست‌ها\'!$4:$4</definedName></definedNames></workbook>');
+  z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+  z.file('xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD9E8F5"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FF999999"/></left><right style="thin"><color rgb="FF999999"/></right><top style="thin"><color rgb="FF999999"/></top><bottom style="thin"><color rgb="FF999999"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf></cellXfs></styleSheet>');
+  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,14,12,22,16,10,12,16,16,12,12,18], titles));
+  z.file('xl/worksheets/sheet2.xml', sheetXml(r2,[16,14,60], titles));
+  var nm = 'Freq_Report_' + dFrom.replace(/\D+/g,'') + '_' + dTo.replace(/\D+/g,'') + '.xlsx';
+  z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش فرکانس ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
 }
 
 // ================= Search tab =================
@@ -2283,7 +2403,7 @@ $('miOut').addEventListener('click', function(){
 });
 
 // modal helpers
-function openModal(html){ $('modal').innerHTML = html; $('ov').classList.add('open'); }
+function openModal(html){ try { closeCbx(); } catch(e){} $('modal').innerHTML = html; $('ov').classList.add('open'); }
 function closeModal(){ $('ov').classList.remove('open'); $('modal').innerHTML = ''; $('modal').style.width = ''; }
 $('ov').addEventListener('mousedown', function(e){ if (e.target === $('ov')) closeModal(); });
 function msg(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'bad'); }
