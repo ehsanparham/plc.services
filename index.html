@@ -2,10 +2,10 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.5.5">
+<meta name="app-version" content="1.6.0">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>سامانه دیجیتال سرویس‌های PLC</title><link rel="manifest" href="manifest.webmanifest">
 <style>
 /* Persian text always uses the company fonts (installed locally): B Nazanin for text, B Titr for headings, B Zar for form headers */
@@ -506,7 +506,13 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .actions>.umenu:last-of-type{order:6;flex:1 1 0;min-width:0}
   .actions>#btnBackup{order:7;flex:1 1 100%}
   .bar-top:after{content:'';order:3;flex:0 0 100%;height:0}
-  .actions .btn,.actions .umenu:last-of-type>button{width:100%;min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 4px;font-size:12.5px;white-space:normal;line-height:1.25}
+  .actions .btn,.actions .umenu:last-of-type>button{width:100%;min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 3px;font-size:16px;white-space:normal;line-height:1.2;letter-spacing:-.3px;overflow-wrap:anywhere}
+  .lmusig{overflow:visible !important}
+  .lmusig>.mgrid{grid-template-columns:42px minmax(0,1fr) 116px !important;min-width:0 !important;zoom:1 !important;gap:8px !important;width:100%}
+  .lmusig>.mgrid>*{grid-area:auto !important;font-size:16px !important;min-width:0 !important;width:auto;zoom:1 !important}
+  .lmusig>.mgrid>.mlbl,.lmusig>.mgrid>.mchip{justify-self:stretch !important;text-align:center !important;white-space:normal;line-height:1.35;padding:8px 6px;letter-spacing:0}
+  .lmusig>.mgrid>.mlbl .mt,.lmusig>.mgrid>.mchip .mt{font-size:16px !important}
+  .lmusig>.mgrid>input.mi{height:46px;font-size:16px !important}
   .mscroll.lmubig .mt,.mscroll.lmubig .mlbl,.mscroll.lmubig .mchip{font-size:15px !important;letter-spacing:0;line-height:1.35}
   .mscroll.lmubig .mitem{min-height:40px}
   .mscroll .mlbl{font-size:12px;letter-spacing:-.2px}
@@ -689,7 +695,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.5.5</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.0</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -715,7 +721,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.5.5</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.0</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
@@ -1292,7 +1298,7 @@ function renderModern(){
   state.modern = true;
   if (DEV_FORM[sh.key] && !(state.noSync && state.noSync[sh.key])) syncDevice(true);
   if (sh.key === 'plc' && !vals['_init']) vals.E27 = '\u2713';
-  if (sh.key === 'lmu'){ var pv = state.vals.plc || {}; Object.keys(SYNC).forEach(function(s){ if (!(state.noSync && state.noSync.lmu) && vals[SYNC[s]] === undefined && pv[s] !== undefined && pv[s] !== '') vals[SYNC[s]] = pv[s]; });
+  if (sh.key === 'lmu'){ var pv = state.vals.plc || {}; if (pv.K10 !== undefined && String(pv.K10).trim() !== '' && String(vals.K11 === undefined ? '' : vals.K11).trim() === '') vals.K11 = pv.K10; Object.keys(SYNC).forEach(function(s){ if (!(state.noSync && state.noSync.lmu) && vals[SYNC[s]] === undefined && pv[s] !== undefined && pv[s] !== '') vals[SYNC[s]] = pv[s]; });
     if (!vals['_init']){ sh.drawings.forEach(function(d){ if (d.type === 'cb' && !d.mate) vals['cb:'+d.id] = 1; }); vals.M27 = '\u2713'; vals.M28 = '\u2713'; }
     if (vals.R22 !== undefined && vals.R22 !== '' && vals.M29 === undefined) vals.M29 = vals.R22; }
   var X = cum(sh.cols), Y = cum(sh.rows);
@@ -1599,6 +1605,20 @@ function renderModern(){
     var phIn = stage.querySelector('[data-ref="R27"]');
     if (phIn && phIn.previousElementSibling){ var phLb = phIn.previousElementSibling; phLb.style.gridColumn = '5 / 9'; phIn.style.gridColumn = '9 / 15'; phLb.classList.add('phlbl'); phIn.classList.add('phin'); Array.prototype.forEach.call(phLb.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); var scs = phIn.closest('.mscroll'); if (scs){ scs.classList.add('svcrow','nofit'); var brk = document.createElement('div'); brk.className = 'svcbrk'; phIn.parentNode.insertBefore(brk, phIn.nextSibling); } var sk = stage.querySelector('[data-ref="E27"]'); if (sk){ sk = sk.closest('.mcbf') || sk; sk.classList.add('svck'); if (sk.previousElementSibling){ sk.previousElementSibling.classList.add('svcl'); Array.prototype.forEach.call(sk.previousElementSibling.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); } } }
   }
+  if (sh.key === 'lmu') stage.querySelectorAll('.mscroll').forEach(function(sc){
+    var g = sc.firstElementChild; if (!g || !/سطح سیگنال\s*\(db\)/i.test(g.textContent) || !/ردیف/.test(g.textContent)) return;
+    sc.classList.add('nofit','lmusig');
+    Array.prototype.forEach.call(g.children, function(e, i){
+      if (i === 2) e.classList.add('mchip');
+      var leaves = e.querySelectorAll('*'); var tgt = leaves.length ? Array.prototype.filter.call(leaves, function(x){ return !x.children.length; }) : [e];
+      if (!tgt.length) tgt = [e];
+      tgt.forEach(function(t){ var x = t.textContent;
+        if (/^\s*سطح سیگنال\s*\(db\)\s*$/i.test(x)) t.textContent = 'سطح سیگنال (dB)';
+        else if (/اندازه\s*گیری سطح سیگنال فرستنده بر روی\s*PLC/i.test(x)) t.textContent = 'سطح سیگنال فرستنده بر روی PLC';
+        else if (/اندازه\s*گیری سطح سیگنال گیرنده بر روی\s*PLC/i.test(x)) t.textContent = 'سطح سیگنال گیرنده بر روی PLC';
+      });
+    });
+  });
   window.__devForm = (sh.key === 'selta' || sh.key === 'abb');
   if (window.__devForm){   // phones: Tx / Rx boxes use two columns (Khz moves into the box); SELTA receiver rows are re-laid so the bigger boxes fit
     ['D5','G5'].forEach(function(r){ var f = stage.querySelector('[data-ref="'+r+'"]'); if (!f) return; var a = parseInt(f.style.gridColumn, 10); if (!a) return; f.dataset.wide = '1'; f.placeholder = 'Khz'; var u = f.nextElementSibling; if (u && /munit/.test(u.className)) u.classList.add('hidmob'); });
@@ -1783,6 +1803,11 @@ function setCell(xml, ref, text){
 }
 
 var FILE_PREFIX = {plc:'PLC_CheckList', lmu:'LMU_CheckList', selta:'SELTA_TestSheet', dimat:'DIMAT_TestSheet', abb:'ABB_TestSheet'};
+var NUMREF = {plc:'K10', lmu:'K11', selta:'I3', abb:'I3', dimat:'K5'}, NAMEPFX = {plc:'PLC', lmu:'LMU', selta:'SELTA', abb:'ABB', dimat:'DIMAT'};
+function safeName(t){ return String(t === undefined || t === null ? '' : t).replace(/[\\\/:*?"<>|\r\n\t]+/g,'_').trim().replace(/[. ]+$/,''); }
+function lineNumOf(key, vals){ return safeName(faDigits(String((vals || {})[NUMREF[key]] === undefined ? '' : vals[NUMREF[key]]).trim())); }
+function dayStamp(d){ return faDigits(d || jalaliToday() || (info && info.date) || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-'); }
+function nameAll(sh, vals, date){ var n = lineNumOf(sh.key, vals), d = dayStamp(date); return NAMEPFX[sh.key] + (n ? '_' + n : '') + (d ? '_' + d : ''); }
 function buildName(sh){
   var d = faDigits(jalaliToday() || (info && info.date) || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
   return (FILE_PREFIX[sh.key] || sh.file) + (d ? '_' + d : '') + '.xlsx';
@@ -1995,14 +2020,28 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
 // ---- save all completed forms at once: names first, then one folder (or sequential downloads)
 function askSaveAll(){
   var done = SHEETS.filter(function(s){ return String(state.vals[s.key][s.nameRef] || '').trim() !== ''; });   // a form counts as completed once its post / station name is filled in
-  if (!done.length){ toast('هنوز هیچ فرمی تکمیل نشده است (نام پست یا ایستگاه را وارد کنید)'); return; }
   var h = '<h2>ذخیرهٔ تمام فرم‌ها</h2><div style="font-size:15px;color:#6b7a8c">نام فایل هر فرم تکمیل‌شده را بنویسید (پسوند .xlsx خودکار اضافه می‌شود)؛ بعد از تأیید محل ذخیره پرسیده می‌شود.</div>';
   done.forEach(function(s,i){
     h += '<label class="fl" for="sa'+i+'">'+s.tab+'</label><div style="display:flex;align-items:center;gap:8px;direction:ltr"><input class="in" id="sa'+i+'" dir="auto" autocomplete="off" spellcheck="false" style="flex:1"><span style="font-weight:700;color:#33465c">.xlsx</span></div>';
   });
   h += '<div class="msg" id="saMsg"></div><button class="btn pri" id="saZip" style="width:100%;margin:6px 0 10px;justify-content:center">🗜 ذخیره به صورت فایل فشرده</button><div class="row2"><button class="btn sec" id="saCancel">انصراف</button><button class="btn pri" id="saOk">ادامه و انتخاب محل ذخیره</button></div>';
-  openModal(h);
-  done.forEach(function(s,i){ $('sa'+i).value = buildName(s).replace(/\.xlsx$/i,''); });
+  var body = done.length ? h.replace(/^<h2>[\s\S]*?<\/h2>/,'') : '<div style="font-size:15px;color:#6b7a8c;margin:8px 0 12px">هنوز هیچ فرمی تکمیل نشده است (نام پست یا ایستگاه را وارد کنید).</div><div class="row2"><button class="btn sec" id="saCancel">انصراف</button></div>';
+  var td = faDigits(jalaliToday() || '');
+  var t2 = '<div style="font-size:15px;color:#6b7a8c">بازهٔ تاریخ ثبت فرم‌ها در بایگانی را مشخص کنید؛ همهٔ فرم‌های آن بازه در یک فایل فشرده و پوشه‌بندی‌شده (هر ایستگاه یک پوشه) ذخیره می‌شود.</div>'+
+    '<div style="display:flex;gap:10px;margin-top:8px"><div style="flex:1"><label class="fl" for="rgFrom">از تاریخ</label><input class="in" id="rgFrom" dir="ltr" inputmode="numeric" autocomplete="off" placeholder="1405/01/01" style="text-align:center"></div><div style="flex:1"><label class="fl" for="rgTo">تا تاریخ</label><input class="in" id="rgTo" dir="ltr" inputmode="numeric" autocomplete="off" placeholder="1405/12/29" style="text-align:center"></div></div>'+
+    '<div class="msg" id="rgMsg"></div><button class="btn pri" id="rgGo" style="width:100%;margin:6px 0 10px;justify-content:center">🗜 ذخیرهٔ کلی این بازه به صورت فایل فشرده</button><div class="row2"><button class="btn sec" id="saCancel2">انصراف</button></div>';
+  openModal('<h2>ذخیرهٔ فرم‌های تکمیل‌شده</h2><div class="savetabs" style="display:flex;gap:6px;margin:6px 0 10px"><button class="btn pri" id="stab1" style="flex:1;justify-content:center">ذخیره تمام فرم‌ها</button><button class="btn sec" id="stab2" style="flex:1;justify-content:center">ذخیره بر اساس تاریخ</button></div><div id="saT1">'+body+'</div><div id="saT2" style="display:none">'+t2+'</div>');
+  function showTab(n){ $('saT1').style.display = n === 1 ? '' : 'none'; $('saT2').style.display = n === 2 ? '' : 'none'; $('stab1').className = 'btn ' + (n === 1 ? 'pri' : 'sec'); $('stab2').className = 'btn ' + (n === 2 ? 'pri' : 'sec'); }
+  $('stab1').onclick = function(){ showTab(1); }; $('stab2').onclick = function(){ showTab(2); var f = $('rgFrom'); if (f) f.focus(); };
+  $('rgFrom').value = td; $('rgTo').value = td; $('saCancel2').onclick = closeModal;
+  $('rgGo').onclick = function(){
+    var f = dkey($('rgFrom').value), t = dkey($('rgTo').value);
+    if (!f || !t){ msg($('rgMsg'), 'تاریخ‌ها را به صورت 1405/08/06 وارد کنید', false); return; }
+    if (f > t){ msg($('rgMsg'), 'تاریخ شروع نباید بعد از تاریخ پایان باشد', false); return; }
+    var cnt = saveRangeZip(f, t, faDigits($('rgFrom').value).replace(/\//g,'-').trim(), faDigits($('rgTo').value).replace(/\//g,'-').trim());
+    if (cnt === 0) msg($('rgMsg'), 'در این بازه فرمی در بایگانی ثبت نشده است', false); else closeModal();
+  };
+  if (done.length) done.forEach(function(s,i){ $('sa'+i).value = nameAll(s, state.vals[s.key]); });
   function clean(v){ return v.replace(/[\\\/:*?"<>|\r\n\t]+/g,'_').replace(/\.xlsx$/i,'').trim().replace(/[. ]+$/,''); }
   $('saCancel').onclick = closeModal;
   function collect(){
@@ -2015,9 +2054,45 @@ function askSaveAll(){
     }
     return names;
   }
-  $('saOk').onclick = function(){ var names = collect(); if (!names) return; closeModal(); done.forEach(function(s){ addRecord(s); }); saveAllForms(done, names); };
-  $('saZip').onclick = function(){ var names = collect(); if (!names) return; closeModal(); done.forEach(function(s){ addRecord(s); }); saveZipForms(done, names); };
+  if (done.length) $('saOk').onclick = function(){ var names = collect(); if (!names) return; closeModal(); done.forEach(function(s){ addRecord(s); }); saveAllForms(done, names); };
+  if (done.length) $('saZip').onclick = function(){ var names = collect(); if (!names) return; closeModal(); done.forEach(function(s){ addRecord(s); }); saveZipForms(done, names); };
   setTimeout(function(){ var f = $('sa0'); if (f){ f.focus(); f.select(); } }, 60);
+}
+function saveRangeZip(f, t, fs, ts){
+  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return -1; }
+  var recs = RECS.filter(function(r){ return (!session || session.admin || r.uid === session.u) && r.dk >= f && r.dk <= t && shByKey(r.form); });
+  var groups = {}, order = [];
+  recs.forEach(function(r){
+    var R = REFS[r.form] || {}, V = r.vals || {};
+    var post = safeName(V[R.post]), line = safeName(V[R.line]), num = lineNumOf(r.form, V), d = dayStamp(r.date);
+    var gk = [post, line, num, d].join('|');
+    var g = groups[gk]; if (!g){ g = groups[gk] = {post: post, line: line, num: num, d: d, f: {}}; order.push(gk); }
+    var cur = g.f[r.form]; if (!cur || r.ts >= cur.ts) g.f[r.form] = r;
+  });
+  if (!order.length) return 0;
+  var zname = 'PLC Services(' + fs + ')_(' + ts + ').zip', zip = new JSZip(), used = {}, chain = Promise.resolve();
+  order.forEach(function(gk){
+    var g = groups[gk], fn = [g.post, g.line].filter(Boolean).join('_'); fn = [fn ? '(' + fn + ')' : '', g.num, g.d ? '(' + g.d.split('-').reverse().join('-') + ')' : ''].filter(Boolean).join('_') || 'Station';
+    var base = fn, c = 2; while (used[fn.toLowerCase()]) fn = base + '_' + (c++); used[fn.toLowerCase()] = 1;
+    ['plc','lmu','selta','abb','dimat'].forEach(function(k){
+      var r = g.f[k]; if (!r) return; var sh = shByKey(k);
+      chain = chain.then(function(){ return buildBlob(sh, JSON.parse(JSON.stringify(r.vals))).then(function(b){ zip.file(fn + '/' + nameAll(sh, r.vals, r.date) + '.xlsx', b); }); });
+    });
+  });
+  function fail(e){ console.error(e); toast('خطا در ساخت فایل فشرده: ' + (e && e.message || e)); }
+  function finish(nm){ toast('فایل فشرده ذخیره شد: ' + nm); }
+  chain.then(function(){ return zip.generateAsync({type:'blob', compression:'DEFLATE'}); }).then(function(blob){
+    function viaDownload(){ downloadBlob(blob, zname); finish(zname); }
+    if (typeof window.showSaveFilePicker !== 'function'){ viaDownload(); return; }
+    var pick; try { pick = window.showSaveFilePicker({suggestedName: zname, types: [{description: 'ZIP Archive (*.zip)', accept: {'application/zip': ['.zip']}}]}); } catch(e){ viaDownload(); return; }
+    pick.then(function(h){ return h.createWritable().then(function(w){ return w.write(blob).then(function(){ return w.close(); }); }).then(function(){ finish(h.name || zname); }); })
+    .catch(function(err){
+      if (err && err.name === 'AbortError'){ toast('ذخیره لغو شد'); return; }
+      if (err && (err.name === 'SecurityError' || err.name === 'NotAllowedError' || err.name === 'TypeError')){ viaDownload(); return; }
+      fail(err);
+    });
+  }).catch(fail);
+  return order.length;
 }
 function saveZipForms(list, names){
   if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
@@ -2172,7 +2247,7 @@ function exportRecordXlsx(r){
   var sh = shByKey(r.form); if (!sh) return;
   if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
   var d = faDigits(r.date || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
-  askFileName(sh, JSON.parse(JSON.stringify(r.vals)), (FILE_PREFIX[sh.key] || sh.file) + (d ? '_' + d : ''));
+  askFileName(sh, JSON.parse(JSON.stringify(r.vals)), nameAll(sh, r.vals, r.date));
 }
 function openRecord(r){
   var sh = shByKey(r.form); if (!sh) return;
@@ -2308,7 +2383,7 @@ function renderSearch(){
 }
 
 function askBackup(){
-  var base = 'BackUP_' + (jalaliToday() || '').replace(/\//g,'-');
+  var base = 'BackUP_' + ((session && session.u) || 'user') + '_' + faDigits(jalaliToday() || '').replace(/\//g,'-');
   openModal('<h2>پشتیبان‌گیری</h2><div style="font-size:15px;color:#6b7a8c">نام فایل پشتیبان را وارد کنید (پسوند .json خودکار اضافه می‌شود)؛ بعد از تأیید محل ذخیره پرسیده می‌شود.</div>'+
     '<label class="fl" for="bkIn">نام فایل</label><div style="display:flex;align-items:center;gap:8px;direction:ltr"><input class="in" id="bkIn" dir="auto" autocomplete="off" spellcheck="false" style="flex:1"><span style="font-weight:700;color:#33465c">.json</span></div>'+
     '<div class="msg" id="bkMsg"></div><div class="row2"><button class="btn sec" id="bkCancel">انصراف</button><button class="btn pri" id="bkOk">ادامه و انتخاب محل ذخیره</button></div>');
@@ -2346,17 +2421,15 @@ function restoreRecs(){
 $('btnBackup').addEventListener('click', askBackup);
 $('btnArchive').addEventListener('click', function(){ var sh = SHEETS[state.active]; if (!hasUserData(sh.key)){ toast('خطا: هیچ اطلاعاتی به‌صورت دستی وارد نشده است؛ رکورد ثبت نشد'); return; } if (addRecord(sh)) toast('در بایگانی ثبت شد'); });
 
-function clearForm(sh){   // wipes everything in the form, including values that were copied in automatically from the PLC form
-  var key = sh.key, old = state.vals[key] || {}, pv = state.vals.plc || {};
+function clearForm(sh){   // removes only what was typed / picked by hand; defaults (names, date, supervisor, fixed values) stay
+  var key = sh.key, old = state.vals[key] || {}, base = state.base[key];
   if (key === 'plc'){   // also take the values it pushed into the other forms back out
-    var lm = state.vals.lmu; if (lm) Object.keys(SYNC).forEach(function(q){ if (lm[SYNC[q]] !== undefined && lm[SYNC[q]] === old[q]) delete lm[SYNC[q]]; });
-    Object.keys(devLast).forEach(function(k){ var o = state.vals[k], l = devLast[k]; if (o) Object.keys(l).forEach(function(r){ if (o[r] === l[r]) delete o[r]; }); });
+    var lm = state.vals.lmu; if (lm) Object.keys(SYNC).forEach(function(q){ if (lm[SYNC[q]] !== undefined && lm[SYNC[q]] === old[q]){ delete lm[SYNC[q]]; if (state.base.lmu) delete state.base.lmu[SYNC[q]]; } });
+    Object.keys(devLast).forEach(function(k){ var o = state.vals[k], l = devLast[k]; Object.keys(l).forEach(function(r){ if (o && o[r] === l[r]) delete o[r]; if (state.base[k] && state.base[k][r] === l[r]) delete state.base[k][r]; }); });
     devLast = {};
   }
-  state.vals[key] = {};
-  sh.cells.forEach(function(c){ if (c.labelInput) state.vals[key][c.ref] = ''; });   // name / date / supervisor boxes start empty too
-  (state.noSync = state.noSync || {})[key] = true;
-  delete state.base[key]; delete devLast[key]; if (state.edit) delete state.edit[key];
+  state.vals[key] = base ? JSON.parse(JSON.stringify(base)) : {};
+  delete devLast[key]; if (state.edit) delete state.edit[key];
 }
 $('btnClear').addEventListener('click', function(){
   var sh = SHEETS[state.active];
@@ -2456,7 +2529,7 @@ function enterInfo(){
   $('inDate').value = info.date || jalaliToday();
   $('inArea').value = (state.vals.plc && state.vals.plc.E10) || ''; showInSup();
   setView('info');
-  setTimeout(function(){ if (document.body.getAttribute('data-view') === 'info'){ var f = $('inArea'); try { f.blur(); } catch(e){} f.focus(); } }, 550);   // open the area list right away (after the card's entrance animation)
+  setTimeout(function(){ if (document.body.getAttribute('data-view') === 'info'){ var f = $('inArea'); try { f.blur(); } catch(e){} f.focus(); if (!document.querySelector('.cbx')) f.click(); } }, 550);   // open the area list right away (after the card's entrance animation)
 }
 function enterApp(){ refreshHeader(); setView('app'); render(); window.scrollTo(0,0); }
 
