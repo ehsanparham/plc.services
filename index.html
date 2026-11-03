@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.6.3">
+<meta name="app-version" content="1.6.4">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -258,6 +258,15 @@ body::after{width:460px;height:460px;background:#2f62c9;opacity:.35;bottom:-190p
   backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
   box-shadow:0 0 0 1px rgba(120,205,255,.55),0 0 30px rgba(60,160,255,.35),0 14px 40px rgba(15,50,110,.18),inset 0 1px 0 #fff}
 .mscroll{overflow-x:auto;padding:2px}
+.mpage.f-dimat{gap:12px}
+.mpage.f-dimat .mcard{padding:14px 18px;gap:8px}
+.mpage.f-dimat .mgrid{gap:5px 8px}
+.mpage.f-dimat .mchip,.mpage.f-dimat .mlbl{padding:2px 6px;font-size:14px;line-height:1.25;min-height:0;border-radius:10px}
+.mpage.f-dimat .mi{min-height:32px;padding:1px 6px;font-size:15px;border-radius:10px}
+.mpage.f-dimat .mtitle{font-size:16px;line-height:1.2;padding:0 2px}
+.mpage.f-dimat .mlf>span{font-size:14px}
+.mpage.f-dimat .mchip{min-width:0;letter-spacing:-.2px}
+
 .mgrid{display:grid;gap:10px 12px;align-items:stretch}
 .mgrid>*{min-width:0}
 .mi{box-sizing:border-box;width:100%;min-height:42px;border-radius:12px;border:1px solid rgba(18,50,110,.18);background:var(--input);color:#0d2551;font:600 16px "FaNazanin",Tahoma,sans-serif;padding:6px 10px;text-align:center;outline:0;margin:0;align-self:stretch;transition:box-shadow .15s,border-color .15s,background .15s}
@@ -513,6 +522,20 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .lmusig>.mgrid>.mlbl,.lmusig>.mgrid>.mchip{justify-self:stretch !important;text-align:center !important;white-space:normal;line-height:1.35;padding:8px 6px;letter-spacing:0}
   .lmusig>.mgrid>.mlbl .mt,.lmusig>.mgrid>.mchip .mt{font-size:16px !important}
   .lmusig>.mgrid>input.mi{height:46px;font-size:16px !important}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid{grid-template-columns:78px minmax(0,1fr) 76px minmax(0,1fr) !important;min-width:0 !important;zoom:1 !important;gap:8px 6px !important}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>*{grid-area:auto !important;zoom:1 !important;font-size:14px !important}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>.mlbl{white-space:normal;line-height:1.15;padding:0 2px;justify-content:flex-end;text-align:right;font-size:13px !important}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>.mi{min-height:38px;font-size:15px !important;width:100% !important;min-width:0 !important;max-width:none !important;justify-self:stretch !important}
+  .mpage.f-dimat .mscroll:not(.dimhdr) .mchip{font-size:12px;padding:2px 1px}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(1),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(2){order:1}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(5),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(6){order:2}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(7),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(8){order:3}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(11),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(12){order:4}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(13),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(14){order:5}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(17),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(18){order:6}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(3),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(4){order:7}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(9),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(10){order:8}
+  .mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(15),.mpage.f-dimat .mscroll.dimhdr>.mgrid>:nth-child(16){order:9}
   .mscroll.lmubig .mt,.mscroll.lmubig .mlbl,.mscroll.lmubig .mchip{font-size:15px !important;letter-spacing:0;line-height:1.35}
   .mscroll.lmubig .mitem{min-height:40px}
   .mscroll .mlbl{font-size:12px;letter-spacing:-.2px}
@@ -695,7 +718,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.3</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.4</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -721,7 +744,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.3</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.4</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
@@ -1619,6 +1642,7 @@ function renderModern(){
       });
     });
   });
+  if (sh.key === 'dimat'){ var c3 = stage.querySelector('[data-ref="C3"]'); var sc3 = c3 && c3.closest('.mscroll'); if (sc3) sc3.classList.add('dimhdr','nofit'); }
   window.__devForm = (sh.key === 'selta' || sh.key === 'abb');
   if (window.__devForm){   // phones: Tx / Rx boxes use two columns (Khz moves into the box); SELTA receiver rows are re-laid so the bigger boxes fit
     ['D5','G5'].forEach(function(r){ var f = stage.querySelector('[data-ref="'+r+'"]'); if (!f) return; var a = parseInt(f.style.gridColumn, 10); if (!a) return; f.dataset.wide = '1'; f.placeholder = 'Khz'; var u = f.nextElementSibling; if (u && /munit/.test(u.className)) u.classList.add('hidmob'); });
