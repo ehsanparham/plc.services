@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.6.8">
+<meta name="app-version" content="1.7.0">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -547,15 +547,24 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .mscroll.dimt .dimadd{background:transparent !important;border:0 !important;box-shadow:none !important;justify-content:flex-start;font-weight:800;color:#1d3e78;margin-top:4px}
   .mscroll.dimt .mlf>span{font-size:15px}
   .mscroll.dimt .mlf.sigf>.mi{min-height:42px}
-  .mscroll.devhdr>.mgrid{grid-template-columns:78px minmax(0,1fr) 78px minmax(0,1fr) !important;min-width:0 !important;zoom:1 !important;width:100%;gap:8px 6px !important;align-items:center}
+  .mscroll.devhdr>.mgrid{grid-template-columns:repeat(8,minmax(0,1fr)) !important;min-width:0 !important;zoom:1 !important;width:100%;gap:8px 6px !important;align-items:center}
   .mscroll.devhdr>.mgrid>*{zoom:1 !important;min-width:0 !important}
   .mscroll.devhdr>.mgrid>.mlbl{font-size:14px !important;justify-content:flex-end;text-align:right;white-space:normal;line-height:1.15;padding:0 2px !important}
   .mscroll.devhdr>.mgrid>.mlbl .mt{font-size:14px !important}
   .mscroll.devhdr>.mgrid>.mi{width:100% !important;max-width:none !important;min-height:38px;font-size:15px !important;justify-self:stretch !important}
   .mscroll.devhdr>.mgrid>.devttl{background:transparent !important;border:0 !important;box-shadow:none !important;justify-content:flex-start;text-align:left;font-size:15px !important;font-weight:800;color:#1d3e78;margin-top:6px;border-bottom:1px solid rgba(29,62,120,.25) !important;border-radius:0 !important;padding:0 0 3px !important}
   .mscroll.devhdr>.mgrid>.devttl .mt{font-size:15px !important}
-  #stage .mscroll.devhdr>.mgrid>.mi[data-wide="1"]{grid-column-end:auto !important}
-  .mscroll.devhdr>.mgrid>.mcbf{transform:scale(1.15);transform-origin:left center}
+  .mscroll.devhdr>.mgrid>.mcbf{min-height:30px}
+  .mscroll.devhdr .mcb.big{width:26px;height:26px;border-radius:8px}
+  .mscroll.devhdr .mcb.big.on::after{font-size:17px}
+  .mscroll.devhdr>.mgrid>.devst.mlbl{justify-content:center;text-align:center;align-self:end !important;min-height:0 !important;height:auto !important}
+  .mscroll.devhdr>.mgrid>.devst.mcbf,.mscroll.devhdr>.mgrid>.devst.mi{align-self:start !important}
+  .mscroll.rcvbox>.mgrid{grid-template-columns:max-content minmax(0,1fr) minmax(0,1fr) !important;min-width:0 !important;zoom:1 !important;width:100%;gap:12px !important}
+  .mscroll.rcvbox>.mgrid>*{zoom:1 !important;min-width:0 !important}
+  .mscroll.rcvbox>.mgrid>.mlbl{font-size:14px !important;padding:7px 14px !important;justify-self:start !important;width:auto;white-space:nowrap}
+  .mscroll.rcvbox .mtitle{font-size:12px !important}
+  .mgrid.cmpS>.mi,.mgrid.cmpA>.mi{width:100% !important;max-width:none !important;min-width:0 !important;justify-self:stretch !important}
+  .mscroll.rcvbox>.mgrid>.mi{width:100% !important;max-width:none !important;justify-self:stretch !important}
   .mscroll.lmubig .mt,.mscroll.lmubig .mlbl,.mscroll.lmubig .mchip{font-size:15px !important;letter-spacing:0;line-height:1.35}
   .mscroll.lmubig .mitem{min-height:40px}
   .mscroll .mlbl{font-size:12px;letter-spacing:-.2px}
@@ -684,14 +693,14 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   .mgrid.mhdr>.wfreq{justify-self:center;width:min(100%,300px)}
   .mgrid.mhdr>.hf-M11{order:7;grid-column:1 / -1 !important;justify-self:center;width:52%}
   .mgrid.mhdr>.hf-O11{order:5}.mgrid.mhdr>.hf-R11{order:6}
-  .mgrid.cmpS{grid-template-columns:minmax(0,1fr) 108px 108px !important;column-gap:10px}
-  .mgrid.cmpA{grid-template-columns:minmax(0,1fr) 140px 108px 108px !important;column-gap:10px}
+  .mgrid.cmpS{grid-template-columns:max-content minmax(0,1fr) minmax(0,1fr) !important;column-gap:12px;row-gap:12px}
+  .mgrid.cmpA{grid-template-columns:max-content max-content minmax(0,1fr) minmax(0,1fr) !important;column-gap:12px;row-gap:12px}
   .mgrid.cmpA>.mtitle{grid-column:1 / -1 !important}
   .mgrid.cmpA>.mchip{grid-column:1 !important}
   .mgrid.cmpA>.mchip.coaxc{grid-column:2 !important}
   .mgrid.cmpA>.mi:not(.mro){grid-column:3 !important}
   .mgrid.cmpA>.mi.mro{grid-column:4 !important}
-  .mgrid.cmpS>.mchip,.mgrid.cmpA>.mchip{padding:6px 4px}
+  .mgrid.cmpS>.mchip,.mgrid.cmpA>.mchip{padding:7px 14px;justify-self:start;width:auto}
   .mscroll.pull{margin-bottom:-30px}
 }
 
@@ -738,7 +747,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.8</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.0</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -764,7 +773,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.6.8</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.0</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
@@ -1678,6 +1687,14 @@ function renderModern(){
         else if (e.dataset.ref && /^J(18|19|20)$/.test(e.dataset.ref)){ e.classList.add('rcvi'); }
         else if (/mro/.test(e.className) && gc === '10 / 11'){ e.classList.add('rcvc'); }
       });
+      Array.prototype.forEach.call(sc.firstElementChild.children, function(e){
+        var m = /(\d+)\s*\/\s*(\d+)\s*\/\s*span/.exec(e.style.gridArea || ''); if (!m) return; var r = +m[1];
+        if (/rcvl/.test(e.className)) e.style.setProperty('grid-area', r + ' / 1 / span 1 / 2', 'important');
+        else if (/rcvi/.test(e.className)) e.style.setProperty('grid-area', r + ' / 2 / span 1 / 3', 'important');
+        else if (/rcvc/.test(e.className)) e.style.setProperty('grid-area', r + ' / 3 / span 1 / 4', 'important');
+        else if (/mtitle/.test(e.className) && !/rcvt/.test(e.className)) e.style.setProperty('grid-area', '1 / 1 / span 1 / 4', 'important');
+      });
+      sc.classList.add('nofit','rcvbox');
     });
   }
   applyTps();
@@ -1751,22 +1768,24 @@ function relayoutDimat(stage){
 function relayoutDevHead(stage){
   var c3 = stage.querySelector('[data-ref="C3"]'), sc = c3 && c3.closest('.mscroll'); if (!sc) return;
   var g = sc.firstElementChild, kids = Array.prototype.slice.call(g.children), M = {}, last = null, ok = true;
-  function place(e, r, c, ce, extra){ e.style.gridArea = r + ' / ' + c + ' / span 1 / ' + ce; if (extra) e.classList.add(extra); }
+  function place(e, r, c, ce, extra){ e.style.setProperty('grid-row', r + ' / span 1', 'important'); e.style.setProperty('grid-column', c + ' / ' + ce, 'important'); if (extra) e.classList.add(extra); }
   kids.forEach(function(e, i){
     var t = e.textContent.trim().replace(/:$/, '');
     if (/mlbl/.test(e.className) || /mchip/.test(e.className)){ M[t] = {L: e, C: null}; last = M[t]; }
     else if (/munit/.test(e.className)){ if (/^(Vdc|Wat)$/i.test(t) && last){ last.L.textContent = last.L.textContent.replace(/:?\s*$/, '') + ' (' + t + '):'; } e.style.display = 'none'; }
     else if (last && !last.C) last.C = e;
   });
-  function pair(name, r, c){ var m = M[name]; if (!m || !m.C){ return; } place(m.L, r, c, c + 1); place(m.C, r, c + 1, c + 2); if (/mcbf/.test(m.C.className)) m.C.style.justifySelf = 'start'; m.L.style.justifySelf = 'stretch'; }
-  function title(name, r){ var m = M[name]; if (!m) return; place(m.L, r, 1, 5, 'devttl'); }
-  pair('Station', 1, 1); pair('Linkno', 1, 3);
-  pair('Direction', 2, 1); pair('NSD', 2, 3);
-  pair('Ch1', 3, 1); pair('Ch2', 3, 3);
-  pair('SingleCh', 4, 1); pair('DoubleCh', 4, 3);
-  title('Frequency', 5); pair('Tx', 6, 1); pair('Rx', 6, 3);
-  title('Usage', 7); pair('Pro', 8, 1); pair('Pax', 8, 3); pair('2w', 9, 1); pair('4w', 9, 3); pair('Data', 10, 1); pair('DTS', 10, 3); pair('R.D', 11, 1);
-  title('Supply', 12); pair('Voltage', 13, 1); pair('Power', 13, 3);
+  function pair(name, r, c){ var m = M[name]; if (!m || !m.C){ return; } place(m.L, r, c, c + 2); place(m.C, r, c + 2, c + 4); if (/mcbf/.test(m.C.className)) m.C.style.justifySelf = 'start'; m.L.style.justifySelf = 'stretch'; }
+  function stack(name, r, c, w){ var m = M[name]; if (!m || !m.C) return; place(m.L, r, c, c + w, 'devst'); place(m.C, r + 1, c, c + w, 'devst'); m.L.style.justifySelf = 'center'; m.C.style.justifySelf = 'center'; if (!/mcbf/.test(m.C.className)) m.C.style.width = '88%'; }
+  function title(name, r){ var m = M[name]; if (!m) return; place(m.L, r, 1, 9, 'devttl'); }
+  pair('Station', 1, 1); pair('Linkno', 1, 5);
+  pair('Direction', 2, 1); pair('NSD', 2, 5);
+  pair('Ch1', 3, 1); pair('Ch2', 3, 5);
+  stack('SingleCh', 4, 1, 4); stack('DoubleCh', 4, 5, 4);
+  title('Frequency', 6); stack('Tx', 7, 1, 4); stack('Rx', 7, 5, 4);
+  title('Usage', 9); stack('Pro', 10, 1, 2); stack('Pax', 10, 3, 2); stack('DTS', 10, 5, 2); stack('Data', 10, 7, 2);
+  stack('2w', 12, 1, 2); stack('4w', 12, 3, 2); stack('R.D', 12, 5, 2);
+  title('Supply', 14); pair('Voltage', 15, 1); pair('Power', 15, 5);
   sc.classList.add('devhdr', 'nofit');
 }
 function vcenter(ta){
