@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.7.4">
+<meta name="app-version" content="1.7.5">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -751,7 +751,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.4</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.5</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -777,7 +777,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.4</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.5</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
@@ -813,7 +813,9 @@ var TAB_NAMES = {plc:'PLC CheckList', lmu:'LMU CheckList', selta:'SELTA TestShee
 SHEETS.forEach(function(s){ if (TAB_NAMES[s.key]) s.tab = TAB_NAMES[s.key]; });
 SHEETS.forEach(function(s){ if (s.key === 'lmu') s.cells.forEach(function(c){ if (c.ref === 'D35'){ c.input = false; c.labelInput = true; c.text = 'تاریخ:'; } }); });   // LMU: a date box under the group-leader name (like the one under the supervisor)
 var AREAS = ['شیراز','مرودشت','فسا','کازرون','قائمیه','نورآباد','فیروزآباد','داراب','جهرم','پاسارگاد','بوشهر','سورمق','نیریز','لار','لامرد'];
-var DEVICES = ['SELTA','ABB','DIMAT'];
+var DEVICES = ['SELTA','ABB','DIMAT','DIMAT Optical Fiber'];
+var OPT_DEV = 'dimat optical fiber', OPT_TXT = 'تله پروتکشن نوری فرکانس ندارد.';
+function isOpt(v){ return String(v || '').trim().toLowerCase() === OPT_DEV; }
 var TPS_TYPES = ['DTT','Dis-SUB 1','DeF','Dis-SUB 2'];
 // Posts (substations) of each area: fill in as  'ناحیه': ['پست ۱','پست ۲', ...]
 var POSTS = {
@@ -1465,7 +1467,7 @@ function renderModern(){
     if (sh.key === 'plc' && /^(K10|R27|E13|H13|K13|N13|[CGJMP](33|35|37|39))$/.test(c.ref)){ f.setAttribute('dir','ltr'); f.style.textAlign = 'center'; }
     if (sh.key === 'plc' && (c.ref === 'E13' || c.ref === 'H13')){ f.readOnly = true; f.tabIndex = -1; f.classList.add('mro'); f.title = 'مقدار ثابت'; }
     var cfgc = COMBOS[sh.key] && COMBOS[sh.key][c.ref];
-    if (cfgc) makeCombo(f, cfgc, function(v){ vals[c.ref] = v; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, v); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10') paintDev(); if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); });
+    if (cfgc) makeCombo(f, cfgc, function(v){ vals[c.ref] = v; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, v); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10'){ paintDev(); applyFreqMode(); } if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); });
     if (sh.key === 'plc' && c.ref === 'R27'){   // phone: 4 digits only
       f.maxLength = 4; f.setAttribute('inputmode','numeric'); f.placeholder = '----';
       f.addEventListener('input', function(){ var n = faDigits(f.value).replace(/\D/g,'').slice(0,4); if (n !== f.value) f.value = n; });
@@ -1704,7 +1706,7 @@ function renderModern(){
   applyTps();
   stage.querySelectorAll('.mscroll').forEach(function(sc){ var g = sc.firstElementChild; if (!g) return; var n = 0; Array.prototype.forEach.call(g.children, function(e){ if (/mlf/.test(e.className) && /^(Test Inspector|Date|Signature|نام و نام خانوادگی|تاریخ|امضا)/i.test(e.textContent.trim())){ e.classList.add('sigf'); n++; } }); });
   sigFont();
-  tagCmp(sh, stage); paintDev();
+  tagCmp(sh, stage); paintDev(); if (sh.key === 'plc') applyFreqMode();
   if (!state.base[sh.key] || ((sh.key === 'plc' || sh.key === 'lmu') && !vals['_init'])){ var bs = {}; Object.keys(vals).forEach(function(k){ bs[k] = vals[k]; }); state.base[sh.key] = bs; }
   if ((sh.key === 'plc' || sh.key === 'lmu') && !vals['_init']){ vals['_init'] = 1; saveSoon(); }
   updateCalc();
@@ -1821,7 +1823,7 @@ var SYNC = {E10:'D11', G10:'G11', I10:'I11', K10:'K11', C43:'D33', K43:'L33', C4
 // PLC post / line -> the form of the selected device (Station: / Direction:)
 function chSuf(v){ var c = (v || {})['O10:ch']; return c === 's' ? '(+4)' : c === 'd' ? '(\u00b14)' : ''; }
 function fq(v, k){ var n = String((v || {})[k] || '').trim(); var sf = chSuf(v); return n ? (sf ? n + ' ' + sf : n) : ''; }
-var DEV_FORM = {selta:'selta', abb:'abb', dimat:'dimat'}, devLast = {};
+var DEV_FORM = {selta:'selta', abb:'abb', dimat:'dimat', 'dimat optical fiber':'dimat'}, devLast = {};
 var DEV_CHECKS = [['R28','D6'], ['I28','F6'], ['I28','H6'], ['M28','F7'], ['E28','D7']];   // PLC TPS / PAX / DTS / data  ->  Pro / Pax / DTS / Data (SELTA, ABB)
 function dimatApp(pv){   // Dimat has one "Application" box instead of check boxes
   var tps = !!pv.R28, pax = !!pv.I28, data = !!pv.E28;
@@ -1851,9 +1853,25 @@ function sigOneFit(){
   });
 }
 setInterval(function(){ try { sigFont(); sigOneFit(); } catch(e){} }, 500);
+
+function applyFreqMode(){
+  var stage = document.getElementById('stage'), w = stage && stage.querySelector('.mfreq'); if (!w) return;
+  var cell = w.parentElement, lab = cell.firstElementChild, vals = state.vals.plc || {}, opt = isOpt(vals.M10), box = cell.querySelector('.optfreq');
+  if (!cell.dataset.lab) cell.dataset.lab = lab.textContent;
+  if (opt){
+    if (vals['O10:opt'] === undefined){ vals['O10:opt'] = OPT_TXT; if (state.base.plc) state.base.plc['O10:opt'] = OPT_TXT; saveSoon(); }
+    if (!box){ box = document.createElement('input'); box.type = 'text'; box.className = 'mi optfreq'; box.setAttribute('autocomplete','off'); box.spellcheck = false; box.setAttribute('dir','auto');
+      box.addEventListener('input', function(){ state.vals.plc['O10:opt'] = box.value; saveSoon(); markTab(); }); cell.appendChild(box); }
+    box.value = vals['O10:opt']; box.style.display = ''; w.style.display = 'none'; lab.textContent = 'فرکانس';
+    cell.style.gridColumn = '1 / -1'; cell.style.justifySelf = 'center'; cell.style.width = 'min(100%, 440px)';
+  } else {
+    if (box) box.style.display = 'none'; w.style.display = ''; lab.textContent = cell.dataset.lab;
+    cell.style.gridColumn = ''; cell.style.justifySelf = ''; cell.style.width = '';
+  }
+}
 function paintDev(){
   var f = document.querySelector('#stage [data-ref="M10"]'); if (!f || !f.parentElement) return;
-  var w = f.parentElement, img = w.querySelector('.devimg'), v = String(f.value || '').trim().toLowerCase(), src = BRAND[v];
+  var w = f.parentElement, img = w.querySelector('.devimg'), v = String(f.value || '').trim().toLowerCase(), src = BRAND[isOpt(v) ? 'dimat' : v];
   if (!src){ if (img) img.remove(); f.classList.remove('hasdev'); return; }
   if (!img){ img = document.createElement('img'); img.className = 'devimg'; img.alt = ''; img.setAttribute('draggable','false'); w.appendChild(img); }
   img.src = src; f.classList.add('hasdev');
@@ -2003,8 +2021,9 @@ function buildBlob(sh, vals){
     return zip.file(path).async('string').then(function(xml){
       sh.cells.forEach(function(c){
         if (sh.key === 'plc' && c.ref === 'O10'){
+          if (isOpt(vals.M10)){ var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot); if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2]; if (ot){ xml = setCell(xml, 'O10', ot); wrapO10 = true; } } else {
           var tx = fq(vals, 'O10:tx'), rx = fq(vals, 'O10:rx'), ltr = function(t){ return t ? '\u202A' + t + '\u202C' : t; };   // number first, then the +/\u00b1 sign (left to right), even in a right-to-left cell
-          if (tx || rx){ xml = setCell(xml, 'O10', ltr(tx) + '\n' + ltr(rx)); wrapO10 = true; }
+          if (tx || rx){ xml = setCell(xml, 'O10', ltr(tx) + '\n' + ltr(rx)); wrapO10 = true; } }
         } else if (c.input){
           var def = (c.text === undefined ? '' : String(c.text));
           var v = (vals[c.ref] !== undefined) ? vals[c.ref] : (DEFAULTS[sh.key] && DEFAULTS[sh.key][c.ref] !== undefined ? DEFAULTS[sh.key][c.ref] : def);
