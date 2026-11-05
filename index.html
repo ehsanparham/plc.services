@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.7.8">
+<meta name="app-version" content="1.7.9">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -751,7 +751,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.8</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.9</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -777,7 +777,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.8</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.9</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
@@ -1044,14 +1044,17 @@ function numCombo(form){
   return {strict:false, opts: function(){ return numOpts(form); },
           emptyMsg: function(){ var v = state.vals[form] || {}; return String(v[form === 'lmu' ? 'I11' : 'I10'] || '').trim() ? 'برای این خط شماره‌ای ثبت نشده است (شماره را تایپ کنید)' : 'ابتدا نام خط را انتخاب کنید'; }};
 }
-function refreshNum(form){   // a number that belonged to the previous line is cleared when the line / post changes
-  var v = state.vals[form], ref = form === 'lmu' ? 'K11' : 'K10', cur = String(v[ref] || '').trim(); if (!cur) return;
-  if (numOpts(form).indexOf(cur) >= 0) return;
+function refreshNum(form){   // after a line / post is picked, the line number from the Excel list is filled in (the user can still change it)
+  var v = state.vals[form], ref = form === 'lmu' ? 'K11' : 'K10', cur = String(v[ref] || '').trim(), opts = numOpts(form);
   var area = String(v[form === 'lmu' ? 'D11' : 'E10'] || '').trim(), known = false;
   (NUMS[area] || []).forEach(function(r){ if (r[2].indexOf(cur) >= 0) known = true; });
-  if (!known) return;
-  v[ref] = ''; var fld = document.querySelector('#stage [data-ref="'+ref+'"]'); if (fld) fld.value = '';
-  if (form === 'plc'){ syncLmu('K10', ''); syncDevice(); }
+  var want = null;
+  if (opts.length){ if (!cur || (opts.indexOf(cur) < 0 && known)) want = opts[0]; }
+  else if (cur && known) want = '';
+  if (want === null) return;
+  v[ref] = want; var fld = document.querySelector('#stage [data-ref="'+ref+'"]'); if (fld) fld.value = want;
+  if (form === 'plc'){ syncLmu('K10', want); syncDevice(); }
+  saveSoon(); markTab();
 }
 function postCombo(form, areaRef){
   function area(){ return String((state.vals[form] || {})[areaRef] || '').trim(); }
