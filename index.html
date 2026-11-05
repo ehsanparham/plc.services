@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.7.9">
+<meta name="app-version" content="1.8.0">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -751,7 +751,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.9</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.0</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -777,7 +777,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.7.9</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.0</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
@@ -1038,6 +1038,10 @@ function numOpts(form){
   if (!line) return [];
   var rows = (NUMS[area] || []).filter(function(r){ return r[1] === line; }), byPost = rows.filter(function(r){ return r[0] === post; });
   if (byPost.length) rows = byPost;
+  if (post){   // the pair works both ways: post A + line B has the same number as post B + line A (in any area)
+    var pair = []; Object.keys(NUMS).forEach(function(k){ NUMS[k].forEach(function(r){ if ((r[0] === post && r[1] === line) || (r[0] === line && r[1] === post)) pair.push(r); }); });
+    if (pair.length) rows = pair;
+  }
   var out = []; rows.forEach(function(r){ r[2].forEach(function(n){ if (out.indexOf(n) < 0) out.push(n); }); }); return out;
 }
 function numCombo(form){
