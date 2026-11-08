@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.9">
+<meta name="app-version" content="1.8.10">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -725,14 +725,14 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   .svcrow .phin{flex:1 1 110px;font-size:16px !important;min-height:42px;text-align:center}
 }
 
-#updBar{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(8,24,44,.62);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);font-family:FaNazanin,Tahoma,sans-serif;direction:rtl;color:#1b2b44}
-#updBar .ubox{background:#fff;border-radius:20px;width:min(460px,100%);padding:22px;box-shadow:0 0 0 1px rgba(110,200,255,.6),0 24px 70px rgba(5,20,60,.5)}
+#updBar{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(8,24,44,.62);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);font-family:FaNazanin,Tahoma,sans-serif;direction:rtl;color:#fff}
+#updBar .ubox{background:linear-gradient(135deg,#2ea043,#1f8a38);border-radius:20px;width:min(460px,100%);padding:22px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
 #updBar.show{display:flex}
 #updBar.show .ubox{animation:updIn .4s ease both}
-#updBar b{font-size:19px;color:#0c2454;display:block}#updBar p{margin:8px 0 16px;font-size:16px;line-height:1.7}
+#updBar b{font-size:19px;color:#fff;display:block}#updBar p{margin:8px 0 16px;font-size:16px;line-height:1.7}
 #updBar .ub{display:flex;gap:8px}
 #updBar button{flex:1;border:0;border-radius:12px;padding:10px;font:700 16px FaNazanin,Tahoma,sans-serif;cursor:pointer}
-#updBar .go{background:linear-gradient(135deg,#16408c,#0c2454);color:#fff}#updBar .lt{background:#e6edf8;color:#1d3e78}
+#updBar .go{background:#fff;color:#1f6f2f}#updBar .lt{background:rgba(255,255,255,.22);color:#fff}
 @keyframes updIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
 
 @media (max-width:760px){
@@ -756,7 +756,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.9</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.10</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -782,7 +782,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.9</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.10</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2979,6 +2979,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
     }).catch(function(){});
   }
   setTimeout(check, 3000); setInterval(check, 30 * 60 * 1000);
+  if (/^https?:$/.test(location.protocol) && 'serviceWorker' in navigator) window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) setTimeout(check, 1500); });
   window.addEventListener('online', function(){ setTimeout(check, 1500); });
 })();
@@ -2987,6 +2988,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.10', items:['پنجره ی بروزرسانی (سبز رنگ) قبل از اعمال نسخه ی جدید نمایش داده می‌شود و فقط بعد از تایید شما، برنامه بروزرسانی می‌شود.']},
     {v:'1.8.9', items:['پنجره ی بروزرسانی در وسط صفحه نمایش داده می‌شود و بعد از تایید شما، برنامه بروزرسانی می‌شود و تغییرات نسخه ی جدید نشان داده می‌شود.']},
     {v:'1.8.8', items:['پنجره ی تغییرات پس از بروزرسانی، فقط تغییرات آخرین نسخه را نشان می‌دهد.']},
     {v:'1.8.7', items:['پس از هر بروزرسانی، فهرست تغییرات اعمال‌شده در یک پنجره به شما نمایش داده می‌شود.']},
