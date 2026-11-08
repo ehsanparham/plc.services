@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.5">
+<meta name="app-version" content="1.8.8">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -610,11 +610,9 @@ body[data-theme="dark"] .brandlogo{filter:drop-shadow(0 0 3px #fff) drop-shadow(
 
 .toast{background:#1f8a38 !important;color:#fff !important;font-size:17px !important;font-weight:700;padding:12px 24px !important;border-radius:16px !important;box-shadow:0 12px 34px rgba(30,120,50,.5) !important;backdrop-filter:none !important}
 body .welcome{background:linear-gradient(135deg,#2ea043,#1f8a38) !important;font-size:18px !important;padding:11px 22px !important;box-shadow:0 12px 34px rgba(30,120,50,.5) !important}
-/* welcome message: shown above the area/date card (in flow, not fixed to the bottom) */
-#vInfo{flex-direction:column}
-#vInfo .welcome{position:relative !important;top:auto !important;bottom:auto !important;left:auto !important;transform:none !important;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;width:min(420px,100%);margin:0 auto 0 !important;max-height:0;padding-top:0 !important;padding-bottom:0 !important;overflow:hidden;opacity:0;transition:max-height .5s ease,margin .5s ease,padding .5s ease,opacity .4s ease;text-align:center;white-space:normal !important;z-index:2}
-#vInfo .welcome.show{max-height:90px;margin:0 auto 16px !important;padding-top:11px !important;padding-bottom:11px !important;opacity:1;animation:welIn .5s ease both}
-@keyframes welIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+/* welcome message: floats just above the area/date card; the card itself never moves or animates when it fades */
+#vInfo .welcome{position:absolute !important;left:50% !important;right:auto !important;top:auto !important;bottom:calc(100% + 14px) !important;transform:translateX(-50%) !important;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;width:100%;max-width:100%;text-align:center;white-space:normal !important;opacity:0;pointer-events:none;transition:opacity .4s ease;z-index:2}
+#vInfo .welcome.show{opacity:1}
 .card h1.login-titr{font-family:"FaNazanin",Tahoma,sans-serif;font-size:20px;font-weight:600}
 .card h1.login-nz{font-family:"FaTitr","FaNazanin",Tahoma,sans-serif;font-size:17px;font-weight:600;margin-top:4px}
 body[data-view="app"]:not([data-bg="off"]){background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),var(--bgimg,none) center/cover no-repeat fixed,#cfe6ff !important}
@@ -757,9 +755,9 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.5</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.8</i></span></div></section>
 
-<section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
+<section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
   <input type="hidden" id="inSup">
   <div class="irow"><label class="fl" for="inArea">ناحیه</label><input class="in" id="inArea" autocomplete="off"><label class="fl" for="inDate">تاریخ</label><input class="in" id="inDate" placeholder="مثال: 1405/07/20" inputmode="text" dir="ltr"></div>
@@ -783,7 +781,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.5</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.8</i></div></main>
 <div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2982,6 +2980,46 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
   setTimeout(check, 6000); setInterval(check, 30 * 60 * 1000);
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) setTimeout(check, 1500); });
   window.addEventListener('online', function(){ setTimeout(check, 1500); });
+})();
+
+// ---- "what's new" window: after an update, shows the list of changes made since the version the user last saw
+(function(){
+  // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
+  var CHANGELOG = [
+    {v:'1.8.8', items:['پنجرهٔ تغییرات پس از بروزرسانی، فقط تغییرات آخرین نسخه را نشان می‌دهد.']},
+    {v:'1.8.7', items:['پس از هر بروزرسانی، فهرست تغییرات اعمال‌شده در یک پنجره به شما نمایش داده می‌شود.']},
+    {v:'1.8.6', items:['هنگام محو شدن پیام خوش‌آمدگویی، کادر «ناحیه و تاریخ» ثابت می‌ماند و جابه‌جا نمی‌شود.']},
+    {v:'1.8.5', items:['پیام خوش‌آمدگویی در صفحهٔ انتخاب ناحیه، از پایین صفحه به بالای کادر «ناحیه و تاریخ» منتقل شد.']}
+  ];
+  var BASE = '1.8.4';   // version assumed already seen when nothing is recorded
+  var SEEN_KEY = 'plc_seen_version';
+  var CUR = (document.querySelector('meta[name="app-version"]') || {}).content || '';
+  if (!CUR) return;
+  function vnum(v){ return String(v).split('.').map(function(x){ return parseInt(x, 10) || 0; }); }
+  function newer(a, b){ var x = vnum(a), y = vnum(b); for (var i = 0; i < 3; i++){ if ((x[i]||0) !== (y[i]||0)) return (x[i]||0) > (y[i]||0); } return false; }
+  function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function lsSet(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+  var seen = lsGet(SEEN_KEY);
+  if (!seen) seen = BASE;   // no version recorded yet (first run of this feature): announce everything since BASE
+  if (!newer(CUR, seen)) return;   // already seen this version
+  var list = CHANGELOG.filter(function(c){ return !newer(c.v, CUR); }).slice(0, 1);   // only the latest version's changes
+  if (!list.length){ lsSet(SEEN_KEY, CUR); return; }
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function show(){
+    if (document.getElementById('wnOv')) return;
+    var h = '<h2>🆕 تغییرات نسخهٔ جدید</h2><div style="font-size:15px;color:#6b7a8c;margin-bottom:8px">برنامه به نسخهٔ ' + esc(CUR) + ' بروزرسانی شد. تغییرات اعمال‌شده:</div>';
+    list.forEach(function(c){
+      h += '<div style="margin:12px 0 4px;font-weight:800;color:#1d3e78;direction:ltr;text-align:right">نسخه ' + esc(c.v) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
+      c.items.forEach(function(t){ h += '<li>' + esc(t) + '</li>'; });
+      h += '</ul>';
+    });
+    h += '<button class="btn pri" id="wnOk" style="width:100%;justify-content:center;margin-top:18px;padding:12px;font-size:15px">متوجه شدم</button>';
+    var ov = document.createElement('div'); ov.className = 'ov open'; ov.id = 'wnOv'; ov.style.zIndex = '100001';
+    var m = document.createElement('div'); m.className = 'modal'; m.innerHTML = h; ov.appendChild(m); document.body.appendChild(ov);
+    function close(){ lsSet(SEEN_KEY, CUR); if (ov.parentNode) ov.parentNode.removeChild(ov); }
+    document.getElementById('wnOk').onclick = close;
+  }
+  setTimeout(show, 4200);   // after the opening splash
 })();
 </script>
 </body>
