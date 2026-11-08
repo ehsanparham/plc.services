@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.8">
+<meta name="app-version" content="1.8.9">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -725,14 +725,15 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   .svcrow .phin{flex:1 1 110px;font-size:16px !important;min-height:42px;text-align:center}
 }
 
-#updBar{position:fixed;left:10px;right:10px;top:10px;z-index:100000;display:none;background:linear-gradient(135deg,#2ea043,#1f8a38);color:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 12px 34px rgba(0,0,0,.35);font-family:FaNazanin,Tahoma,sans-serif;direction:rtl}
-#updBar.show{display:block;animation:updIn .4s ease both}
-#updBar b{font-size:18px}#updBar p{margin:4px 0 10px;font-size:15px;line-height:1.5}
+#updBar{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(8,24,44,.62);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);font-family:FaNazanin,Tahoma,sans-serif;direction:rtl;color:#1b2b44}
+#updBar .ubox{background:#fff;border-radius:20px;width:min(460px,100%);padding:22px;box-shadow:0 0 0 1px rgba(110,200,255,.6),0 24px 70px rgba(5,20,60,.5)}
+#updBar.show{display:flex}
+#updBar.show .ubox{animation:updIn .4s ease both}
+#updBar b{font-size:19px;color:#0c2454;display:block}#updBar p{margin:8px 0 16px;font-size:16px;line-height:1.7}
 #updBar .ub{display:flex;gap:8px}
 #updBar button{flex:1;border:0;border-radius:12px;padding:10px;font:700 16px FaNazanin,Tahoma,sans-serif;cursor:pointer}
-#updBar .go{background:#fff;color:#1f6f2f}#updBar .lt{background:rgba(255,255,255,.2);color:#fff}
-@media(min-width:760px){#updBar{left:50%;right:auto;width:460px;transform:translateX(-50%)}}
-@keyframes updIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+#updBar .go{background:linear-gradient(135deg,#16408c,#0c2454);color:#fff}#updBar .lt{background:#e6edf8;color:#1d3e78}
+@keyframes updIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
 
 @media (max-width:760px){
   .credit,.copy span{font-size:12px !important;line-height:1.5;padding:4px 14px !important}
@@ -755,7 +756,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.8</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.9</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -781,8 +782,8 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.8</i></div></main>
-<div id="updBar"><b>🔔 نسخه‌ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.9</i></div></main>
+<div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
 
@@ -2158,7 +2159,7 @@ function downloadBlob(blob, name){
 function saveXlsx(fileName, o){
   o = o || {};
   var sh = o.sh || SHEETS[state.active], vals = o.vals || state.vals[sh.key];
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   function done(name){ if (o.noArchive){ toast('فایل Excel ذخیره شد: ' + name); return; } saveStore(); addRecord(sh); toast('فایل Excel ذخیره شد و در بایگانی ثبت شد: ' + name); }
   function fail(err){ console.error(err); toast('خطا در ساخت فایل: ' + (err && err.message || err)); }
   function viaDownload(){ buildBlob(sh, vals).then(function(blob){ downloadBlob(blob, fileName); done(fileName); }).catch(fail); }
@@ -2187,7 +2188,7 @@ function askFileName(sh0, vals0, base0){
   var o = sh0 && sh0.key ? {sh: sh0, vals: vals0, noArchive: true} : null;
   var sh = o ? sh0 : SHEETS[state.active];
   var base = o ? base0 : buildName(sh).replace(/\.xlsx$/i, '');
-  openModal('<h2>ذخیره به صورت Excel</h2><div style="font-size:15px;color:#6b7a8c">نام فایل را وارد کنید (پسوند .xlsx به‌صورت خودکار اضافه می‌شود)؛ بعد از تأیید، محل ذخیرهٔ فایل را انتخاب می‌کنید</div>'+
+  openModal('<h2>ذخیره به صورت Excel</h2><div style="font-size:15px;color:#6b7a8c">نام فایل را وارد کنید (پسوند .xlsx به‌صورت خودکار اضافه می‌شود)؛ بعد از تأیید، محل ذخیره ی فایل را انتخاب می‌کنید</div>'+
     '<label class="fl" for="fnIn">نام فایل</label>'+
     '<div style="display:flex;align-items:center;gap:8px;direction:ltr"><input class="in" id="fnIn" dir="auto" autocomplete="off" spellcheck="false" style="flex:1"><span style="font-weight:700;color:#33465c">.xlsx</span></div>'+
     '<div class="msg" id="fnMsg"></div>'+
@@ -2261,17 +2262,17 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
 // ---- save all completed forms at once: names first, then one folder (or sequential downloads)
 function askSaveAll(){
   var done = SHEETS.filter(function(s){ return String(state.vals[s.key][s.nameRef] || '').trim() !== ''; });   // a form counts as completed once its post / station name is filled in
-  var h = '<h2>ذخیرهٔ تمام فرم‌ها</h2><div style="font-size:15px;color:#6b7a8c">نام فایل هر فرم تکمیل‌شده را بنویسید (پسوند .xlsx خودکار اضافه می‌شود)؛ بعد از تأیید محل ذخیره پرسیده می‌شود.</div>';
+  var h = '<h2>ذخیره ی تمام فرم‌ها</h2><div style="font-size:15px;color:#6b7a8c">نام فایل هر فرم تکمیل‌شده را بنویسید (پسوند .xlsx خودکار اضافه می‌شود)؛ بعد از تأیید محل ذخیره پرسیده می‌شود.</div>';
   done.forEach(function(s,i){
     h += '<label class="fl" for="sa'+i+'">'+s.tab+'</label><div style="display:flex;align-items:center;gap:8px;direction:ltr"><input class="in" id="sa'+i+'" dir="auto" autocomplete="off" spellcheck="false" style="flex:1"><span style="font-weight:700;color:#33465c">.xlsx</span></div>';
   });
   h += '<div class="msg" id="saMsg"></div><button class="btn pri" id="saZip" style="width:100%;margin:6px 0 10px;justify-content:center">🗜 ذخیره به صورت فایل فشرده</button><div class="row2"><button class="btn sec" id="saCancel">انصراف</button><button class="btn pri" id="saOk">ادامه و انتخاب محل ذخیره</button></div>';
   var body = done.length ? h.replace(/^<h2>[\s\S]*?<\/h2>/,'') : '<div style="font-size:15px;color:#6b7a8c;margin:8px 0 12px">هنوز هیچ فرمی تکمیل نشده است (نام پست یا ایستگاه را وارد کنید).</div><div class="row2"><button class="btn sec" id="saCancel">انصراف</button></div>';
   var td = faDigits(jalaliToday() || '');
-  var t2 = '<div style="font-size:15px;color:#6b7a8c">بازهٔ تاریخ ثبت فرم‌ها در بایگانی را مشخص کنید؛ همهٔ فرم‌های آن بازه در یک فایل فشرده و پوشه‌بندی‌شده (هر ایستگاه یک پوشه) ذخیره می‌شود.</div>'+
+  var t2 = '<div style="font-size:15px;color:#6b7a8c">بازه ی تاریخ ثبت فرم‌ها در بایگانی را مشخص کنید؛ همه ی فرم‌های آن بازه در یک فایل فشرده و پوشه‌بندی‌شده (هر ایستگاه یک پوشه) ذخیره می‌شود.</div>'+
     '<div style="display:flex;gap:10px;margin-top:8px"><div style="flex:1"><label class="fl" for="rgFrom">از تاریخ</label><input class="in" id="rgFrom" dir="ltr" inputmode="numeric" autocomplete="off" placeholder="1405/01/01" style="text-align:center"></div><div style="flex:1"><label class="fl" for="rgTo">تا تاریخ</label><input class="in" id="rgTo" dir="ltr" inputmode="numeric" autocomplete="off" placeholder="1405/12/29" style="text-align:center"></div></div>'+
-    '<div class="msg" id="rgMsg"></div><button class="btn pri" id="rgGo" style="width:100%;margin:6px 0 10px;justify-content:center">🗜 ذخیرهٔ کلی این بازه به صورت فایل فشرده</button><div class="row2"><button class="btn sec" id="saCancel2">انصراف</button></div>';
-  openModal('<h2>ذخیرهٔ فرم‌های تکمیل‌شده</h2><div class="savetabs" style="display:flex;gap:6px;margin:6px 0 10px"><button class="btn pri" id="stab1" style="flex:1;justify-content:center">ذخیره تمام فرم‌ها</button><button class="btn sec" id="stab2" style="flex:1;justify-content:center">ذخیره بر اساس تاریخ</button></div><div id="saT1">'+body+'</div><div id="saT2" style="display:none">'+t2+'</div>');
+    '<div class="msg" id="rgMsg"></div><button class="btn pri" id="rgGo" style="width:100%;margin:6px 0 10px;justify-content:center">🗜 ذخیره ی کلی این بازه به صورت فایل فشرده</button><div class="row2"><button class="btn sec" id="saCancel2">انصراف</button></div>';
+  openModal('<h2>ذخیره ی فرم‌های تکمیل‌شده</h2><div class="savetabs" style="display:flex;gap:6px;margin:6px 0 10px"><button class="btn pri" id="stab1" style="flex:1;justify-content:center">ذخیره تمام فرم‌ها</button><button class="btn sec" id="stab2" style="flex:1;justify-content:center">ذخیره بر اساس تاریخ</button></div><div id="saT1">'+body+'</div><div id="saT2" style="display:none">'+t2+'</div>');
   function showTab(n){ $('saT1').style.display = n === 1 ? '' : 'none'; $('saT2').style.display = n === 2 ? '' : 'none'; $('stab1').className = 'btn ' + (n === 1 ? 'pri' : 'sec'); $('stab2').className = 'btn ' + (n === 2 ? 'pri' : 'sec'); }
   $('stab1').onclick = function(){ showTab(1); }; $('stab2').onclick = function(){ showTab(2); var f = $('rgFrom'); if (f) f.focus(); };
   $('rgFrom').value = td; $('rgTo').value = td; $('saCancel2').onclick = closeModal;
@@ -2300,7 +2301,7 @@ function askSaveAll(){
   setTimeout(function(){ var f = $('sa0'); if (f){ f.focus(); f.select(); } }, 60);
 }
 function saveRangeZip(f, t, fs, ts){
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return -1; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return -1; }
   var recs = RECS.filter(function(r){ return (!session || session.admin || r.uid === session.u) && r.dk >= f && r.dk <= t && shByKey(r.form); });
   var groups = {}, order = [];
   recs.forEach(function(r){
@@ -2336,7 +2337,7 @@ function saveRangeZip(f, t, fs, ts){
   return order.length;
 }
 function saveZipForms(list, names){
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   var d = faDigits(jalaliToday() || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
   var zname = 'PLC_Forms' + (d ? '_' + d : '') + '.zip';
   function fail(e){ console.error(e); toast('خطا در ساخت فایل فشرده: ' + (e && e.message || e)); }
@@ -2357,7 +2358,7 @@ function saveZipForms(list, names){
   }).catch(fail);
 }
 function saveAllForms(list, names){
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   function finish(n){ saveStore(); toast(n + ' فایل Excel ذخیره شد و در بایگانی ثبت شد'); }
   function fail(e){ console.error(e); toast('خطا در ذخیره: ' + (e && e.message || e)); }
   function viaDownloads(){
@@ -2486,7 +2487,7 @@ function renderReport(){
 }
 function exportRecordXlsx(r){
   var sh = shByKey(r.form); if (!sh) return;
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   var d = faDigits(r.date || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
   askFileName(sh, JSON.parse(JSON.stringify(r.vals)), nameAll(sh, r.vals, r.date));
 }
@@ -2511,7 +2512,7 @@ function sheetXml(rows, widths, titles){
   return x + '</mergeCells><printOptions horizontalCentered="1"/><pageMargins left="0.4" right="0.4" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="portrait" fitToWidth="1" fitToHeight="0"/><headerFooter><oddFooter>&amp;C&amp;P / &amp;N</oddFooter></headerFooter></worksheet>';
 }
 function exportReport(){
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   var list = filtered(); if (!list.length){ toast('رکوردی برای خروجی وجود ندارد'); return; }
   var ds = list.map(function(r){ return r.dk; }).filter(Boolean), mn = ds.length ? Math.min.apply(null, ds) : 0, mx = ds.length ? Math.max.apply(null, ds) : 0;
   function dstr(k){ var s = String(k); return s.length === 8 ? s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6) : '—'; }
@@ -2545,7 +2546,7 @@ function freqRows(list){
 function askFreq(){
   var fr = freqRows(filtered());
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  var h = '<h2>گزارش فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحهٔ Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
+  var h = '<h2>گزارش فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
   if (!fr.length) h += '<div class="msg" style="display:block">رکوردی که فرکانس TX یا RX داشته باشد پیدا نشد.</div>';
   else {
     h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:700px"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>فرم</th><th>تاریخ</th></tr></thead><tbody>';
@@ -2558,7 +2559,7 @@ function askFreq(){
   if (fr.length) $('frXls').onclick = function(){ exportFreqXlsx(); };
 }
 function exportFreqXlsx(){
-  if (!window.JSZip){ toast('کتابخانهٔ ساخت فایل بارگذاری نشده است'); return; }
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   var list = filtered(), fr = freqRows(list); if (!fr.length){ toast('رکوردی با فرکانس TX/RX برای خروجی وجود ندارد'); return; }
   var ds = list.map(function(r){ return r.dk; }).filter(Boolean), mn = ds.length ? Math.min.apply(null, ds) : 0, mx = ds.length ? Math.max.apply(null, ds) : 0;
   function dstr(k){ var s = String(k); return s.length === 8 ? s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6) : '—'; }
@@ -2675,7 +2676,7 @@ function clearForm(sh){   // removes only what was typed / picked by hand; defau
 $('btnClear').addEventListener('click', function(){
   var sh = SHEETS[state.active];
   if (!hasData(sh.key) && Object.keys(state.vals[sh.key]).length === 0){ toast('فرم خالی است'); return; }
-  if (confirm('همهٔ اطلاعات واردشده در فرم ' + sh.tab + ' پاک شود؟')){ clearForm(sh); saveStore(); render(); toast('فرم پاک شد'); }
+  if (confirm('همه ی اطلاعات واردشده در فرم ' + sh.tab + ' پاک شود؟')){ clearForm(sh); saveStore(); render(); toast('فرم پاک شد'); }
 });
 function zoomBy(f){ var s = (state.scale == null ? fitScale() : state.scale) * f; state.scale = Math.max(0.3, Math.min(2.5, s)); applyScale(); }
 $('zIn').addEventListener('click', function(){ zoomBy(1.1); });
@@ -2959,7 +2960,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
   function show(v){
     if (dismissed === v) return;
     var bar = document.getElementById('updBar'); if (!bar) return;
-    document.getElementById('updTxt').textContent = 'نسخه‌ی اصلاح‌شده ' + v + ' منتشر شده است (نسخه‌ی فعلی شما ' + CUR + '). اگر فرمی را تکمیل کرده‌اید، قبل از بروزرسانی «ثبت در بایگانی» را بزنید.';
+    document.getElementById('updTxt').textContent = 'نسخه ی ' + v + ' منتشر شده است (نسخه ی فعلی شما ' + CUR + '). با زدن «بروزرسانی»، برنامه به نسخه ی جدید می‌رود و بعد از آن تغییرات نسخه ی جدید به شما نشان داده می‌شود. اگر فرمی را تکمیل کرده‌اید، قبل از بروزرسانی «ثبت در بایگانی» را بزنید.';
     bar.classList.add('show');
     document.getElementById('updLater').onclick = function(){ dismissed = v; bar.classList.remove('show'); };
     document.getElementById('updGo').onclick = function(){
@@ -2977,7 +2978,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
       if (m && newer(m[1], CUR)) show(m[1]);
     }).catch(function(){});
   }
-  setTimeout(check, 6000); setInterval(check, 30 * 60 * 1000);
+  setTimeout(check, 3000); setInterval(check, 30 * 60 * 1000);
   document.addEventListener('visibilitychange', function(){ if (!document.hidden) setTimeout(check, 1500); });
   window.addEventListener('online', function(){ setTimeout(check, 1500); });
 })();
@@ -2986,10 +2987,11 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
-    {v:'1.8.8', items:['پنجرهٔ تغییرات پس از بروزرسانی، فقط تغییرات آخرین نسخه را نشان می‌دهد.']},
+    {v:'1.8.9', items:['پنجره ی بروزرسانی در وسط صفحه نمایش داده می‌شود و بعد از تایید شما، برنامه بروزرسانی می‌شود و تغییرات نسخه ی جدید نشان داده می‌شود.']},
+    {v:'1.8.8', items:['پنجره ی تغییرات پس از بروزرسانی، فقط تغییرات آخرین نسخه را نشان می‌دهد.']},
     {v:'1.8.7', items:['پس از هر بروزرسانی، فهرست تغییرات اعمال‌شده در یک پنجره به شما نمایش داده می‌شود.']},
     {v:'1.8.6', items:['هنگام محو شدن پیام خوش‌آمدگویی، کادر «ناحیه و تاریخ» ثابت می‌ماند و جابه‌جا نمی‌شود.']},
-    {v:'1.8.5', items:['پیام خوش‌آمدگویی در صفحهٔ انتخاب ناحیه، از پایین صفحه به بالای کادر «ناحیه و تاریخ» منتقل شد.']}
+    {v:'1.8.5', items:['پیام خوش‌آمدگویی در صفحه ی انتخاب ناحیه، از پایین صفحه به بالای کادر «ناحیه و تاریخ» منتقل شد.']}
   ];
   var BASE = '1.8.4';   // version assumed already seen when nothing is recorded
   var SEEN_KEY = 'plc_seen_version';
@@ -3007,7 +3009,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
   function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function show(){
     if (document.getElementById('wnOv')) return;
-    var h = '<h2>🆕 تغییرات نسخهٔ جدید</h2><div style="font-size:15px;color:#6b7a8c;margin-bottom:8px">برنامه به نسخهٔ ' + esc(CUR) + ' بروزرسانی شد. تغییرات اعمال‌شده:</div>';
+    var ub = document.getElementById('updBar'); if (ub && ub.classList.contains('show')){ setTimeout(show, 1500); return; }   // never on top of the update window
+    var h = '<h2>🆕 تغییرات نسخه ی جدید</h2><div style="font-size:15px;color:#6b7a8c;margin-bottom:8px">برنامه به نسخه ی ' + esc(CUR) + ' بروزرسانی شد. تغییرات اعمال‌شده:</div>';
     list.forEach(function(c){
       h += '<div style="margin:12px 0 4px;font-weight:800;color:#1d3e78;direction:ltr;text-align:right">نسخه ' + esc(c.v) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
       c.items.forEach(function(t){ h += '<li>' + esc(t) + '</li>'; });
