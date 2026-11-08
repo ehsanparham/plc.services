@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.10">
+<meta name="app-version" content="1.8.12">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -613,6 +613,20 @@ body .welcome{background:linear-gradient(135deg,#2ea043,#1f8a38) !important;font
 /* welcome message: floats just above the area/date card; the card itself never moves or animates when it fades */
 #vInfo .welcome{position:absolute !important;left:50% !important;right:auto !important;top:auto !important;bottom:calc(100% + 14px) !important;transform:translateX(-50%) !important;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;width:100%;max-width:100%;text-align:center;white-space:normal !important;opacity:0;pointer-events:none;transition:opacity .4s ease;z-index:2}
 #vInfo .welcome.show{opacity:1}
+/* mobile login window: smaller card; user name / password fields and the login button are half as wide */
+@media (max-width:640px){
+  #vLogin .card{width:min(300px,100%) !important;padding:16px 18px 14px !important}
+  #vLogin .card .logo{height:58px !important;padding:6px 12px !important;margin-bottom:8px !important}
+  #vLogin .card .login-co{font-size:17px !important}
+  #vLogin .card h1.login-titr{font-size:17px !important}
+  #vLogin .card h1.login-nz{font-size:15px !important}
+  #loginForm{display:grid;grid-template-columns:auto 160px;justify-content:center;align-items:center;column-gap:10px;row-gap:0}
+  #loginForm>.logo,#loginForm>.login-co,#loginForm>h1{grid-column:1/-1}
+  #loginForm .fl{width:auto;margin:16px 0 0;white-space:nowrap}
+  #loginForm #lgU,#loginForm .pw{display:block;width:160px !important;margin:16px 0 0 !important}
+  #loginForm .err{grid-column:1/-1;margin:8px 0 0}#loginForm .err:empty{display:none}
+  #loginForm .btn.go{grid-column:2;width:160px !important;margin:16px 0 0 !important;display:flex}
+}
 .card h1.login-titr{font-family:"FaNazanin",Tahoma,sans-serif;font-size:20px;font-weight:600}
 .card h1.login-nz{font-family:"FaTitr","FaNazanin",Tahoma,sans-serif;font-size:17px;font-weight:600;margin-top:4px}
 body[data-view="app"]:not([data-bg="off"]){background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),var(--bgimg,none) center/cover no-repeat fixed,#cfe6ff !important}
@@ -755,8 +769,8 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <label class="fl" for="lgP">رمز عبور</label>
   <div class="pw"><input class="in" id="lgP" type="password" dir="ltr" autocomplete="current-password"><button type="button" id="lgEye" tabindex="-1" title="نمایش رمز">👁</button></div>
   <div class="err" id="lgErr"></div>
-  <button class="btn go" type="submit">ورود به سامانه</button>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.10</i></span></div></section>
+  <button class="btn go" type="submit">ورود</button>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.12</i></span></div></section>
 
 <section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -782,7 +796,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.10</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.12</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2988,6 +3002,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.12', items:['در صفحه ی ورود، عنوان نام کاربری و رمز عبور هم‌سطر با باکس‌های خودشان قرار گرفتند، دکمه ی «ورود به سامانه» به «ورود» تغییر کرد و فاصله ی سه باکس با هم برابر شد.']},
+    {v:'1.8.11', items:['در نسخه ی موبایل، پنجره ی صفحه ی ورود کوچک‌تر شد و اندازه ی فیلدهای نام کاربری و رمز عبور و دکمه ی «ورود به سامانه» نصف شد.']},
     {v:'1.8.10', items:['پنجره ی بروزرسانی (سبز رنگ) قبل از اعمال نسخه ی جدید نمایش داده می‌شود و فقط بعد از تایید شما، برنامه بروزرسانی می‌شود.']},
     {v:'1.8.9', items:['پنجره ی بروزرسانی در وسط صفحه نمایش داده می‌شود و بعد از تایید شما، برنامه بروزرسانی می‌شود و تغییرات نسخه ی جدید نشان داده می‌شود.']},
     {v:'1.8.8', items:['پنجره ی تغییرات پس از بروزرسانی، فقط تغییرات آخرین نسخه را نشان می‌دهد.']},
