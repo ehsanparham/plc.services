@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.16">
+<meta name="app-version" content="1.8.17">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -610,9 +610,14 @@ body[data-theme="dark"] .brandlogo{filter:drop-shadow(0 0 3px #fff) drop-shadow(
 
 .toast{background:#1f8a38 !important;color:#fff !important;font-size:17px !important;font-weight:700;padding:12px 24px !important;border-radius:16px !important;box-shadow:0 12px 34px rgba(30,120,50,.5) !important;backdrop-filter:none !important}
 body .welcome{background:linear-gradient(135deg,#2ea043,#1f8a38) !important;font-size:18px !important;padding:11px 22px !important;box-shadow:0 12px 34px rgba(30,120,50,.5) !important}
-/* welcome message: floats just above the area/date card; the card itself never moves or animates when it fades */
-#vInfo .welcome{position:absolute !important;left:50% !important;right:auto !important;top:auto !important;bottom:calc(100% + 14px) !important;transform:translateX(-50%) !important;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;width:100%;max-width:100%;text-align:center;white-space:normal !important;opacity:0;pointer-events:none;transition:opacity .4s ease;z-index:2}
-#vInfo .welcome.show{opacity:1}
+/* welcome message: shown alone in the middle of the screen for 3 seconds (fade in / out), then the area/date card fades in */
+#vInfo .welcome{position:fixed !important;left:50% !important;top:50% !important;right:auto !important;bottom:auto !important;transform:translate(-50%,-50%) !important;display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;width:min(86vw,420px);text-align:center;white-space:normal !important;font-size:22px !important;padding:16px 26px !important;opacity:0;pointer-events:none;transition:opacity .5s ease;z-index:70}
+#vInfo .welcome.show{opacity:1;animation:welFade .5s ease both}
+#vInfo .welcome.show.out{animation:welFadeOut .5s ease both}
+@keyframes welFade{from{opacity:0}to{opacity:1}}
+@keyframes welFadeOut{from{opacity:1}to{opacity:0}}
+#vInfo #infoForm{animation:none !important;transition:opacity .6s ease}
+body.welcoming #vInfo #infoForm{opacity:0 !important;pointer-events:none}
 /* login (portrait phones): photo background + logo in place of the map + glass frame for the fields */
 .lgGlass{display:contents}
 @media (max-width:640px){
@@ -787,9 +792,9 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.16</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.17</i></span></div></section>
 
-<section class="screen" id="vInfo"><form class="card" id="infoForm" autocomplete="off"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div>
+<section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
   <input type="hidden" id="inSup">
   <div class="irow"><label class="fl" for="inArea">ناحیه</label><input class="in" id="inArea" autocomplete="off"><label class="fl" for="inDate">تاریخ</label><input class="in" id="inDate" placeholder="مثال: 1405/07/20" inputmode="text" dir="ltr"></div>
@@ -813,7 +818,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.16</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.17</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2788,8 +2793,10 @@ function sessSet(o){ try { if (o) sessionStorage.setItem(SESS_KEY, JSON.stringif
 
 function showWelcome(name){
   var w = $('welcome'); $('welcomeTxt').textContent = name + ' خوش آمدید';
-  w.classList.add('show'); clearTimeout(showWelcome._t);
-  showWelcome._t = setTimeout(function(){ w.classList.remove('show'); }, 4000);
+  clearTimeout(showWelcome._t); clearTimeout(showWelcome._t2);
+  document.body.classList.add('welcoming'); w.classList.remove('out'); w.classList.add('show');          // welcome message alone in the middle of the screen
+  showWelcome._t = setTimeout(function(){ w.classList.add('out'); }, 2500);                              // fades out
+  showWelcome._t2 = setTimeout(function(){ w.classList.remove('show'); w.classList.remove('out'); document.body.classList.remove('welcoming'); }, 3000);   // after 3 s the area/date card fades in
 }
 function refreshHeader(){
   $('umName').textContent = session ? session.name : '';
@@ -3019,6 +3026,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.17', items:['بعد از ورود، ابتدا پیام خوش‌آمدگویی به مدت ۳ ثانیه با افکت محو شدن در وسط صفحه نمایش داده می‌شود و سپس کادر «ناحیه و تاریخ» ظاهر می‌شود.']},
     {v:'1.8.16', items:['قاب نام کاربری و رمز عبور در صفحه ی ورود (موبایل) کم‌رنگ‌تر و شفاف‌تر شد تا تصویر زیر آن دیده شود.']},
     {v:'1.8.15', items:['در صفحه ی ورود، نام «شرکت تعمیرات نیروی برق فارس» زیر لوگو نوشته شد.','پس‌زمینه ی جدید (ایستگاه برق) در نسخه ی موبایل برای همه ی صفحات برنامه جایگزین شد.']},
     {v:'1.8.14', items:['صفحه ی ورود (موبایل) با پس‌زمینه ی جدید ایستگاه برق و لوگوی شرکت بازطراحی شد: عنوان‌ها زیر لوگو و نام کاربری و رمز عبور داخل یک قاب شیشه‌ای قرار گرفتند.']},
