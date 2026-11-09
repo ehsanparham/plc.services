@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.25">
-<meta name="app-display-version" content="1.2.10">
+<meta name="app-version" content="1.8.26">
+<meta name="app-display-version" content="1.2.11">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -643,6 +643,10 @@ body[data-view="app"] .bar,body[data-view="app"] .desk,body[data-view="app"] .sa
   html body[data-view="app"][data-theme="dark"]:not([data-bg="off"]):not([data-theme="minimal"]):not([data-theme="gradient"]):not([data-theme="emerald"]){background:#030b22 !important}
   html body[data-view="app"]:not([data-bg="off"]):not([data-theme="minimal"]):not([data-theme="gradient"]):not([data-theme="emerald"])::before{content:"";position:fixed;left:0;right:0;top:0;bottom:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),var(--lgbg) center/cover no-repeat}
   html body[data-view="app"][data-theme="dark"]:not([data-bg="off"]):not([data-theme="minimal"]):not([data-theme="gradient"]):not([data-theme="emerald"])::before{background:linear-gradient(rgba(3,11,34,.62),rgba(3,11,34,.62)),var(--lgbg) center/cover no-repeat}
+  html body[data-view="app"][data-theme="bluebg"]:not([data-bg="off"]):not([data-theme="minimal"]):not([data-theme="gradient"]):not([data-theme="emerald"]){background:#0b2a6e !important}
+  html body[data-view="app"][data-theme="bluebg"]:not([data-bg="off"]):not([data-theme="minimal"]):not([data-theme="gradient"]):not([data-theme="emerald"])::before{background:linear-gradient(rgba(14,52,135,.34),rgba(6,26,84,.58)),var(--lgbg) center/cover no-repeat}
+  body[data-theme="bluebg"] .mhead h2{color:#fff !important;text-shadow:0 1px 8px rgba(0,20,70,.65)}
+  body[data-theme="bluebg"] .mhead small,body[data-theme="bluebg"] .credit{color:#d3e6ff !important}
 }
 /* login (portrait phones): photo background + logo in place of the map + glass frame for the fields */
 .lgGlass{display:contents}
@@ -840,7 +844,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.10</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.11</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -866,7 +870,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.10</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.11</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2905,7 +2909,8 @@ $('inArea').addEventListener('input', showInSup);
 // user menu
 $('umBtn').addEventListener('click', function(e){ e.stopPropagation(); var th=$('thDrop'); if(th) th.classList.remove('open'); $('umDrop').classList.toggle('open'); });
 /* ---- theme switcher ---- */
-var THEMES=[['glass','شیشه‌ای نئونی (پیش‌فرض)','#16408c','#7cc8ff'],['dark','سرمه‌ای عمیق (تیره)','#071a45','#27c6ff'],['minimal','آبی روشن مینیمال','#ffffff','#2f62c9'],['gradient','هدر گرادیان سرمه‌ای-آبی','#123c96','#4aa8ff'],['emerald','سبز زمردی و کرم','#0f4c45','#f2a93b']];
+var THEMES=[].concat((window.matchMedia && window.matchMedia('(max-width:640px)').matches) ? [['bluebg','آبی هماهنگ با تصویر زمینه (پیش‌فرض موبایل)','#12337f','#5fa8ff']] : [], [['glass','شیشه‌ای نئونی (پیش‌فرض)','#16408c','#7cc8ff'],['dark','سرمه‌ای عمیق (تیره)','#071a45','#27c6ff'],['minimal','آبی روشن مینیمال','#ffffff','#2f62c9'],['gradient','هدر گرادیان سرمه‌ای-آبی','#123c96','#4aa8ff'],['emerald','سبز زمردی و کرم','#0f4c45','#f2a93b']]);
+if (THEMES[0][0] === 'bluebg') THEMES[1][1] = 'شیشه‌ای نئونی';
 function applyTheme(k){ if(!THEMES.some(function(x){return x[0]===k;})) k='glass'; document.body.setAttribute('data-theme',k); try{ if (session) localStorage.setItem('plc_theme_' + session.u, k); }catch(e){}
   var d=$('thDrop'); if(!d) return; d.innerHTML=''; THEMES.forEach(function(x){ var b=document.createElement('button'); b.style.display='flex'; b.style.alignItems='center'; b.style.gap='10px';
     var sw=document.createElement('span'); sw.style.cssText='width:34px;height:18px;border-radius:9px;flex:none;border:1px solid rgba(0,0,0,.2);background:linear-gradient(90deg,'+x[2]+' 50%,'+x[3]+' 50%)';
@@ -2914,8 +2919,9 @@ function applyTheme(k){ if(!THEMES.some(function(x){return x[0]===k;})) k='glass
 applyTheme('glass');
 function applyBg(on){ if (on) document.body.removeAttribute('data-bg'); else document.body.setAttribute('data-bg','off'); try{ if (session) localStorage.setItem('plc_bg_' + session.u, on ? '1' : '0'); }catch(e){} }
 function loadUserLook(){   // every user has a personal theme / background choice; nobody's choice affects another user
-  var k = 'glass', v = '1';
-  try { if (session){ k = localStorage.getItem('plc_theme_' + session.u) || 'glass'; v = localStorage.getItem('plc_bg_' + session.u) || '1'; } } catch(e){}
+  var mob = !!(window.matchMedia && window.matchMedia('(max-width:640px)').matches), k = mob ? 'bluebg' : 'glass', v = '1';   // mobile default = blue theme matching the background picture
+  try { if (session){ k = localStorage.getItem('plc_theme_' + session.u) || k; v = localStorage.getItem('plc_bg_' + session.u) || '1';
+    if (mob && !localStorage.getItem('plc_bluemig_' + session.u)){ localStorage.setItem('plc_bluemig_' + session.u, '1'); if (k === 'glass') k = 'bluebg'; } } } catch(e){}
   applyBg(v !== '0'); applyTheme(k);
 }
 applyBg(true);
@@ -3088,6 +3094,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.26', d:'1.2.11', items:['تم جدید «آبی هماهنگ با تصویر زمینه» به نسخه ی موبایل اضافه شد و پیش فرض است تا رنگ محیط برنامه با صفحه ی لاگین یکدست شود.']},
     {v:'1.8.25', d:'1.2.10', items:['پیام بروزرسانی کوتاه شد: فقط نسخه ی قبلی و جدید و یادآوری ثبت در بایگانی.','پنجره ی تغییرات نسخه ی جدید هم مثل پنجره ی بروزرسانی سبز شد.']},
     {v:'1.8.24', d:'1.2.9', items:['رفتن از صفحه ی ناحیه و تاریخ به برنامه با همان افکت صفحه ی لاگین انجام می شود.','خروج از حساب با افکت برعکس انجام می شود و صفحه ی لاگین از بالا و پایین برمی گردد.','اندازه ی فونت پیام خوش آمد: موبایل 16 و بقیه ی نسخه ها 18.','در نسخه ی موبایل تصویر پس زمینه در محیط برنامه ثابت است و فقط صفحات برنامه بالا و پایین می روند.']},
     {v:'1.8.23', d:'1.2.8', items:['صفحه ی ناحیه و تاریخ و همچنین صفحه ی اصلی برنامه حالا با افکت fade باز می شوند.','تصویر پس زمینه ی نسخه ی موبایل با تصویر جدید جایگزین شد.']},
