@@ -2,7 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.17">
+<meta name="app-version" content="1.8.18">
+<meta name="app-display-version" content="1.2.3">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -631,7 +632,7 @@ body.welcoming #vInfo #infoForm{opacity:0 !important;pointer-events:none}
   #vLogin #loginForm .login-co{display:block !important;position:relative;font-size:19px !important;margin:0 0 4px !important;text-shadow:0 2px 10px rgba(0,20,70,.8)}
   #vLogin #loginForm h1.login-titr{position:relative;font-size:21px !important;margin:0 !important;text-shadow:0 2px 10px rgba(0,20,70,.8)}
   #vLogin #loginForm h1.login-nz{position:relative;font-size:18px !important;margin:2px 0 0 !important;text-shadow:0 2px 10px rgba(0,20,70,.8)}
-  .lgGlass{display:block;position:relative;width:min(72vw,280px);margin-top:3vh;padding:2px 16px 18px;background:linear-gradient(135deg,rgba(14,38,96,.26),rgba(6,20,62,.16));border:1px solid rgba(190,225,255,.5);-webkit-backdrop-filter:blur(5px) saturate(130%);backdrop-filter:blur(5px) saturate(130%);border-radius:24px;box-shadow:0 14px 44px rgba(0,12,50,.55),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(120,180,255,.25)}
+  .lgGlass{display:block;position:relative;width:min(72vw,280px);margin-top:3vh;padding:2px 16px 18px;background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;border-radius:0;box-shadow:none}
   #vLogin #loginForm .fl{color:#fff !important;text-shadow:0 1px 6px rgba(0,20,70,.7)}
   #vLogin #loginForm .in{background:rgba(255,255,255,.12) !important;border:1px solid rgba(255,255,255,.5) !important}
 }
@@ -792,7 +793,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.17</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.3</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -818,7 +819,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.8.17</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.3</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2993,12 +2994,13 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 // ---- automatic update notice: compares the version of the copy on the server with this copy
 (function(){
   var CUR = (document.querySelector('meta[name="app-version"]') || {}).content || '', dismissed = '';
+  var CURD = (document.querySelector('meta[name="app-display-version"]') || {}).content || CUR;   // CUR = internal build number used to compare versions, CURD = version number shown to people
   function vnum(v){ return String(v).split('.').map(function(x){ return parseInt(x, 10) || 0; }); }
   function newer(a, b){ var x = vnum(a), y = vnum(b); for (var i = 0; i < 3; i++){ if ((x[i]||0) !== (y[i]||0)) return (x[i]||0) > (y[i]||0); } return false; }
-  function show(v){
+  function show(v, dv){
     if (dismissed === v) return;
     var bar = document.getElementById('updBar'); if (!bar) return;
-    document.getElementById('updTxt').textContent = 'نسخه ی ' + v + ' منتشر شده است (نسخه ی فعلی شما ' + CUR + '). با زدن «بروزرسانی»، برنامه به نسخه ی جدید می‌رود و بعد از آن تغییرات نسخه ی جدید به شما نشان داده می‌شود. اگر فرمی را تکمیل کرده‌اید، قبل از بروزرسانی «ثبت در بایگانی» را بزنید.';
+    document.getElementById('updTxt').textContent = 'نسخه ی ' + (dv || v) + ' منتشر شده است (نسخه ی فعلی شما ' + CURD + '). با زدن «بروزرسانی»، برنامه به نسخه ی جدید می‌رود و بعد از آن تغییرات نسخه ی جدید به شما نشان داده می‌شود. اگر فرمی را تکمیل کرده‌اید، قبل از بروزرسانی «ثبت در بایگانی» را بزنید.';
     bar.classList.add('show');
     document.getElementById('updLater').onclick = function(){ dismissed = v; bar.classList.remove('show'); };
     document.getElementById('updGo').onclick = function(){
@@ -3013,7 +3015,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
     if (!/^https?:$/.test(location.protocol) || !navigator.onLine || !CUR) return;
     fetch(location.pathname + '?chk=' + Date.now(), {cache:'no-store', headers:{Range:'bytes=0-3000'}}).then(function(r){ return r.text(); }).then(function(t){
       var m = /<meta name="app-version" content="([0-9.]+)"/.exec(t.slice(0, 4000));
-      if (m && newer(m[1], CUR)) show(m[1]);
+      var d = /<meta name="app-display-version" content="([0-9.]+)"/.exec(t.slice(0, 4000));
+      if (m && newer(m[1], CUR)) show(m[1], d ? d[1] : m[1]);
     }).catch(function(){});
   }
   setTimeout(check, 3000); setInterval(check, 30 * 60 * 1000);
@@ -3026,6 +3029,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.18', d:'1.2.3', items:['در صفحه ی ورود (موبایل)، قاب دور نام کاربری و رمز عبور حذف شد و فقط عنوان‌ها و باکس‌ها و دکمه ی «ورود» روی تصویر باقی ماندند.','شماره نسخه ی برنامه از ۱.۲.۳ شروع شد.']},
     {v:'1.8.17', items:['بعد از ورود، ابتدا پیام خوش‌آمدگویی به مدت ۳ ثانیه با افکت محو شدن در وسط صفحه نمایش داده می‌شود و سپس کادر «ناحیه و تاریخ» ظاهر می‌شود.']},
     {v:'1.8.16', items:['قاب نام کاربری و رمز عبور در صفحه ی ورود (موبایل) کم‌رنگ‌تر و شفاف‌تر شد تا تصویر زیر آن دیده شود.']},
     {v:'1.8.15', items:['در صفحه ی ورود، نام «شرکت تعمیرات نیروی برق فارس» زیر لوگو نوشته شد.','پس‌زمینه ی جدید (ایستگاه برق) در نسخه ی موبایل برای همه ی صفحات برنامه جایگزین شد.']},
@@ -3043,6 +3047,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
   var BASE = '1.8.4';   // version assumed already seen when nothing is recorded
   var SEEN_KEY = 'plc_seen_version';
   var CUR = (document.querySelector('meta[name="app-version"]') || {}).content || '';
+  var CURD = (document.querySelector('meta[name="app-display-version"]') || {}).content || CUR;
   if (!CUR) return;
   function vnum(v){ return String(v).split('.').map(function(x){ return parseInt(x, 10) || 0; }); }
   function newer(a, b){ var x = vnum(a), y = vnum(b); for (var i = 0; i < 3; i++){ if ((x[i]||0) !== (y[i]||0)) return (x[i]||0) > (y[i]||0); } return false; }
@@ -3057,9 +3062,9 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
   function show(){
     if (document.getElementById('wnOv')) return;
     var ub = document.getElementById('updBar'); if (ub && ub.classList.contains('show')){ setTimeout(show, 1500); return; }   // never on top of the update window
-    var h = '<h2>🆕 تغییرات نسخه ی جدید</h2><div style="font-size:15px;color:#6b7a8c;margin-bottom:8px">برنامه به نسخه ی ' + esc(CUR) + ' بروزرسانی شد. تغییرات اعمال‌شده:</div>';
+    var h = '<h2>🆕 تغییرات نسخه ی جدید</h2><div style="font-size:15px;color:#6b7a8c;margin-bottom:8px">برنامه به نسخه ی ' + esc(CURD) + ' بروزرسانی شد. تغییرات اعمال‌شده:</div>';
     list.forEach(function(c){
-      h += '<div style="margin:12px 0 4px;font-weight:800;color:#1d3e78;direction:ltr;text-align:right">نسخه ' + esc(c.v) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
+      h += '<div style="margin:12px 0 4px;font-weight:800;color:#1d3e78;direction:ltr;text-align:right">نسخه ' + esc(c.d || c.v) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
       c.items.forEach(function(t){ h += '<li>' + esc(t) + '</li>'; });
       h += '</ul>';
     });
