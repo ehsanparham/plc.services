@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.27">
-<meta name="app-display-version" content="1.2.12">
+<meta name="app-version" content="1.8.28">
+<meta name="app-display-version" content="1.2.13">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -750,6 +750,7 @@ body[data-theme="dark"] .mrt .rf{background:rgba(39,198,255,.2);color:#bfe3ff}
 .mlbl.phlbl{white-space:nowrap;justify-content:flex-start !important;text-align:right}
 @media (min-width:761px){.mlbl.phlbl{justify-content:flex-end !important;text-align:left;padding-inline:0 4px}}
 .mlbl.phlbl .mt,.mlbl.phlbl{white-space:nowrap}
+.svcbrk2{display:none}
 
 .mfreq{gap:8px}
 .mfrow{display:flex;align-items:center;gap:8px}
@@ -806,6 +807,10 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   #stage .svcrow .svcl,#stage .svcrow .svcl *{white-space:nowrap !important}
   .svcrow .phin{flex:1 1 110px;font-size:16px !important;min-height:42px;text-align:center}
   .svcrow .dql,.svcrow .dql *{white-space:nowrap !important}
+  .svcrow>.mgrid>.svcbrk2{display:block;flex:0 0 100%;height:0;margin:-4px 0 0}
+  #stage .svcrow .mgrid .phlbl,#stage .svcrow .mgrid .phlbl *{white-space:nowrap !important}
+  #stage .svcrow .mgrid .phlbl{max-width:none;flex:0 0 auto}
+  #stage .svcrow .mgrid .dql,#stage .svcrow .mgrid .svcl{font-size:15px}
 }
 
 #updBar{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(8,24,44,.62);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);font-family:FaNazanin,Tahoma,sans-serif;direction:rtl;color:#fff}
@@ -845,7 +850,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.12</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.13</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -871,7 +876,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.12</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.13</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1792,7 +1797,7 @@ function renderModern(){
     if (phIn && phIn.previousElementSibling){ var phLb = phIn.previousElementSibling; phLb.style.gridColumn = '5 / 9'; phIn.style.gridColumn = '9 / 15'; phLb.classList.add('phlbl'); phIn.classList.add('phin'); Array.prototype.forEach.call(phLb.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); var scs = phIn.closest('.mscroll'); if (scs){ scs.classList.add('svcrow','nofit'); var brk = document.createElement('div'); brk.className = 'svcbrk'; phIn.parentNode.insertBefore(brk, phIn.nextSibling); } var sk = stage.querySelector('[data-ref="E27"]'); if (sk){ sk = sk.closest('.mcbf') || sk; sk.classList.add('svck'); if (sk.previousElementSibling){ sk.previousElementSibling.classList.add('svcl'); Array.prototype.forEach.call(sk.previousElementSibling.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); } }
     var dql = el('div','mlbl side dql'), dqs = el('span','mt fsm2'); dqs.textContent = 'برداشت اطلاعات'; dql.appendChild(dqs);   // app only: "data collection" check box opposite "device service" (not written to Excel)
     var dqk = mkCbField({ref:'DAQ:1'}); dqk.classList.add('mone','dqk');
-    phLb.parentNode.insertBefore(dql, phLb); phLb.parentNode.insertBefore(dqk, phLb);
+    phLb.parentNode.insertBefore(dql, phLb); phLb.parentNode.insertBefore(dqk, phLb); var br2 = el('div','svcbrk2'); phLb.parentNode.insertBefore(br2, phLb);   // mobile: phone goes to its own row
     dql.style.gridArea = '1 / 5 / span 1 / 9'; dqk.style.gridArea = '1 / 9 / span 1 / 11'; phLb.style.gridColumn = '11 / 15'; phIn.style.gridColumn = '15 / 18';
     }
   }
@@ -3154,6 +3159,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.28', d:'1.2.13', items:['در نسخه ی موبایل فرم PLC: «سرویس دستگاه» و «برداشت اطلاعات» با چک باکس هایشان در یک سطر، و «تلفن PLC ایستگاه» با باکسش در سطر بعد قرار گرفتند.']},
     {v:'1.8.27', d:'1.2.12', items:['در فرم PLC کنار «سرویس دستگاه» تیک «برداشت اطلاعات» اضافه شد (فقط در برنامه).','در Report مخصوص ادمین دکمه ی «گزارش برداشت اطلاعات» برای ایستگاه هایی که برداشت اطلاعات انجام شده اضافه شد.','در گزارش فرکانس TX/RX مقادیر Transmitter و Receiver فرم های SELTA و ABB و Dimat هم اضافه شد.','مدت نمایش پیام خوش آمد ۲ ثانیه شد.']},
     {v:'1.8.26', d:'1.2.11', items:['تم جدید «آبی هماهنگ با تصویر زمینه» به نسخه ی موبایل اضافه شد و پیش فرض است تا رنگ محیط برنامه با صفحه ی لاگین یکدست شود.']},
     {v:'1.8.25', d:'1.2.10', items:['پیام بروزرسانی کوتاه شد: فقط نسخه ی قبلی و جدید و یادآوری ثبت در بایگانی.','پنجره ی تغییرات نسخه ی جدید هم مثل پنجره ی بروزرسانی سبز شد.']},
