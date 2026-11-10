@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.26">
-<meta name="app-display-version" content="1.2.11">
+<meta name="app-version" content="1.8.27">
+<meta name="app-display-version" content="1.2.12">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -657,7 +657,7 @@ body[data-view="app"] .bar,body[data-view="app"] .desk,body[data-view="app"] .sa
 #vLogin.op #loginForm .lgGlass{animation:opDn 1s ease-in both !important}
 @keyframes opUp{to{transform:translateY(-70px) scale(.94);opacity:0;filter:blur(14px)}}
 @keyframes opDn{to{transform:translateY(70px) scale(.94);opacity:0;filter:blur(14px)}}
-.opW{animation:opW 2.6s .6s ease both}
+.opW{animation:opW 2s .6s ease both}
 @keyframes opW{0%{opacity:0;transform:translate(-50%,-50%) scale(.7);filter:blur(10px)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.04);filter:blur(0)}28%{transform:translate(-50%,-50%) scale(1)}85%{opacity:1;filter:blur(0)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.08);filter:blur(8px)}}
 @media (min-width:641px){
   .opW{width:380px;font-size:18px;padding:14px 24px}
@@ -805,6 +805,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   #stage .svcrow .phlbl,#stage .svcrow .phlbl *{white-space:normal !important}
   #stage .svcrow .svcl,#stage .svcrow .svcl *{white-space:nowrap !important}
   .svcrow .phin{flex:1 1 110px;font-size:16px !important;min-height:42px;text-align:center}
+  .svcrow .dql,.svcrow .dql *{white-space:nowrap !important}
 }
 
 #updBar{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(8,24,44,.62);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);font-family:FaNazanin,Tahoma,sans-serif;direction:rtl;color:#fff}
@@ -844,7 +845,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.11</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.12</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -870,7 +871,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.11</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.12</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1788,7 +1789,12 @@ function renderModern(){
   }
   if (sh.key === 'plc'){   // phone label + box sit right after the "device service" check box, on the same row
     var phIn = stage.querySelector('[data-ref="R27"]');
-    if (phIn && phIn.previousElementSibling){ var phLb = phIn.previousElementSibling; phLb.style.gridColumn = '5 / 9'; phIn.style.gridColumn = '9 / 15'; phLb.classList.add('phlbl'); phIn.classList.add('phin'); Array.prototype.forEach.call(phLb.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); var scs = phIn.closest('.mscroll'); if (scs){ scs.classList.add('svcrow','nofit'); var brk = document.createElement('div'); brk.className = 'svcbrk'; phIn.parentNode.insertBefore(brk, phIn.nextSibling); } var sk = stage.querySelector('[data-ref="E27"]'); if (sk){ sk = sk.closest('.mcbf') || sk; sk.classList.add('svck'); if (sk.previousElementSibling){ sk.previousElementSibling.classList.add('svcl'); Array.prototype.forEach.call(sk.previousElementSibling.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); } } }
+    if (phIn && phIn.previousElementSibling){ var phLb = phIn.previousElementSibling; phLb.style.gridColumn = '5 / 9'; phIn.style.gridColumn = '9 / 15'; phLb.classList.add('phlbl'); phIn.classList.add('phin'); Array.prototype.forEach.call(phLb.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); var scs = phIn.closest('.mscroll'); if (scs){ scs.classList.add('svcrow','nofit'); var brk = document.createElement('div'); brk.className = 'svcbrk'; phIn.parentNode.insertBefore(brk, phIn.nextSibling); } var sk = stage.querySelector('[data-ref="E27"]'); if (sk){ sk = sk.closest('.mcbf') || sk; sk.classList.add('svck'); if (sk.previousElementSibling){ sk.previousElementSibling.classList.add('svcl'); Array.prototype.forEach.call(sk.previousElementSibling.querySelectorAll('.mt'), function(t){ t.classList.add('fsm2'); }); } }
+    var dql = el('div','mlbl side dql'), dqs = el('span','mt fsm2'); dqs.textContent = 'برداشت اطلاعات'; dql.appendChild(dqs);   // app only: "data collection" check box opposite "device service" (not written to Excel)
+    var dqk = mkCbField({ref:'DAQ:1'}); dqk.classList.add('mone','dqk');
+    phLb.parentNode.insertBefore(dql, phLb); phLb.parentNode.insertBefore(dqk, phLb);
+    dql.style.gridArea = '1 / 5 / span 1 / 9'; dqk.style.gridArea = '1 / 9 / span 1 / 11'; phLb.style.gridColumn = '11 / 15'; phIn.style.gridColumn = '15 / 18';
+    }
   }
   if (sh.key === 'lmu') stage.querySelectorAll('.mscroll').forEach(function(sc){
     var g = sc.firstElementChild; if (!g || !/سطح سیگنال\s*\(db\)/i.test(g.textContent) || !/ردیف/.test(g.textContent)) return;
@@ -2538,6 +2544,7 @@ function renderReport(){
   function btn(t, cls, fn){ var b = el('button','btn '+cls); b.textContent = t; b.addEventListener('click', fn); bar.appendChild(b); return b; }
   if (can('rep_export')) btn('⬇ خروجی Excel گزارش','pri', function(){ exportReport(); });
   btn('📡 گزارش فرکانس TX/RX','sec', askFreq);
+  if (session && session.admin) btn('📥 گزارش برداشت اطلاعات','sec', askDaq);
   btn('پاک‌کردن فیلترها','sec', function(){ FILT = {from:'',to:'',form:'',user:'',q:''}; renderReport(); });
   if (can('rep_backup')) btn('پشتیبان‌گیری (JSON)','sec', askBackup);
   if (can('rep_restore')) btn('بازیابی از پشتیبان','sec', restoreRecs);
@@ -2619,6 +2626,59 @@ function exportReport(){
   var nm = 'Report_' + dFrom.replace(/\D+/g,'') + '_' + dTo.replace(/\D+/g,'') + '.xlsx';
   z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
 }
+function daqList(){ return filtered().filter(function(r){ return r.form === 'plc' && r.vals && r.vals['DAQ:1']; }); }
+function askDaq(){
+  if (!(session && session.admin)) return;
+  var dl = daqList(), posts = {}; dl.forEach(function(r){ posts[rv(r,'post') || '—'] = 1; });
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var h = '<h2>گزارش برداشت اطلاعات ایستگاه ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نام پست). تعداد: ' + dl.length + ' رکورد در ' + Object.keys(posts).length + ' ایستگاه</div>';
+  if (!dl.length) h += '<div class="msg" style="display:block">رکوردی که «برداشت اطلاعات» آن تیک خورده باشد پیدا نشد.</div>';
+  else {
+    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:560px"><thead><tr><th>#</th><th>ناحیه</th><th>نام پست</th><th>نام خط</th><th>شماره خط</th><th>تاریخ</th><th>ثبت‌کننده</th></tr></thead><tbody>';
+    dl.forEach(function(r,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(rv(r,'area') || '—') + '</td><td>' + esc(rv(r,'post') || '—') + '</td><td>' + esc(rv(r,'line') || '—') + '</td><td>' + esc(rv(r,'num') || '—') + '</td><td>' + esc(r.date) + '</td><td>' + esc(r.user) + '</td></tr>'; });
+    h += '</tbody></table></div>';
+  }
+  h += '<div class="row2"><button class="btn sec" id="dqClose">بستن</button>' + (dl.length ? '<button class="btn pri" id="dqXls">⬇ خروجی Excel</button>' : '') + '</div>';
+  openModal(h);
+  $('dqClose').onclick = closeModal;
+  if (dl.length) $('dqXls').onclick = function(){ exportDaqXlsx(); };
+}
+function exportDaqXlsx(){
+  if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
+  var list = daqList(); if (!list.length){ toast('رکوردی با برداشت اطلاعات وجود ندارد'); return; }
+  var ds = list.map(function(r){ return r.dk; }).filter(Boolean), mn = ds.length ? Math.min.apply(null, ds) : 0, mx = ds.length ? Math.max.apply(null, ds) : 0;
+  function dstr(k){ var s = String(k); return s.length === 8 ? s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6) : '—'; }
+  var dFrom = FILT.from.trim() ? faDigits(FILT.from.trim()) : dstr(mn), dTo = FILT.to.trim() ? faDigits(FILT.to.trim()) : dstr(mx);
+  var titles = ['شرکت تعمیرات نیروی برق فارس', 'گزارش ایستگاه های دارای برداشت اطلاعات (از تاریخ ' + dFrom + ' تا تاریخ ' + dTo + ')'];
+  var r1 = [['ردیف','نام فرم','ناحیه','نام پست','نام خط','شماره خط','تاریخ','ثبت‌کننده']].concat(list.map(function(r,i){ return [String(i+1), tabName(r.form), rv(r,'area'), rv(r,'post'), rv(r,'line'), rv(r,'num'), r.date, r.user]; }));
+  var r2 = [['نام پست','نام فرم','تعداد','آخرین تاریخ']].concat(summaryOf(list).map(function(o){ return [o.post, tabName(o.form), String(o.n), o.last]; }));
+  var z = new JSZip();
+  z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
+  z.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
+  z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="گزارش" sheetId="1" r:id="rId1"/><sheet name="خلاصه پست‌ها" sheetId="2" r:id="rId2"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\'گزارش\'!$4:$4</definedName><definedName name="_xlnm.Print_Titles" localSheetId="1">\'خلاصه پست‌ها\'!$4:$4</definedName></definedNames></workbook>');
+  z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+  z.file('xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD9E8F5"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FF999999"/></left><right style="thin"><color rgb="FF999999"/></right><top style="thin"><color rgb="FF999999"/></top><bottom style="thin"><color rgb="FF999999"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf></cellXfs></styleSheet>');
+  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,12,12,24,18,10,12,18], titles));
+  z.file('xl/worksheets/sheet2.xml', sheetXml(r2,[32,14,9,14], titles));
+  var nm = 'DAQ_Report_' + dFrom.replace(/\D+/g,'') + '_' + dTo.replace(/\D+/g,'') + '.xlsx';
+  z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش برداشت اطلاعات ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
+}
+var SEC_VALS = {   // every input typed in the Transmitter / Receiver sections: [row label, [[cell, column label], ...]]
+  selta: {tx:[['Carrier',[['I13','Load'],['J13','Line'],['K13','Coax']]],['Signalling',[['I14','Load'],['J14','Line'],['K14','Coax']]],['Speech',[['I15','Load'],['J15','Line'],['K15','Coax']]],['Telegraphy',[['I16','Load'],['J16','Line'],['K16','Coax']]]],
+          rx:[['F(carr)',[['J18','']]],['F(Sig+)',[['J19','']]],['F(Sig-)',[['J20','']]]]},
+  abb: {tx:[['Signalling',[['E11','VF'],['F11','VF'],['J11','Coax']]],['Speech',[['E12','VF'],['F12','VF'],['J12','Coax']]],['Telegraphy',[['E13','VF'],['F13','VF'],['J13','Coax']]]],
+        rx:[['Signalling',[['E16','VF'],['F16','VF'],['J16','Coax']]],['Speech',[['E17','VF'],['F17','VF'],['J17','Coax']]],['Telegraphy',[['E18','VF'],['F18','VF'],['J18','Coax']]]]},
+  dimat: {tx:[13,15,17,19,21,23].map(function(r,i){ return [['Pilot','Signaling','VFT','Speech 2W','Speech 4W','Teleprotection'][i], [['H','Single 20W'],['I','Single 40W'],['J','Double 20W'],['K','Double 40W'],['L','L'],['M','M']].map(function(c){ return [c[0] + r, c[1]]; })]; }),
+          rx:[['VFT',[['L33','']]],['Speech 2W',[['L35','']]],['Speech 4W',[['L37','']]],['Teleprotection',[['L39','']]],['Teleprotection 2',[['L40','']]]]}
+};
+function secVals(form, v, part){   // values typed in the Transmitter / Receiver sections of the SELTA / ABB / Dimat forms
+  var d = SEC_VALS[form]; if (!d) return ''; var out = [];
+  d[part].forEach(function(g){
+    var ps = []; g[1].forEach(function(q){ var x = String((v || {})[q[0]] == null ? '' : v[q[0]]).trim(); if (x) ps.push(q[1] ? q[1] + '=' + x : x); });
+    if (ps.length) out.push(g[0] + ': ' + ps.join(' / '));
+  });
+  return out.join(' ، ');
+}
 function freqRows(list){
   var out = [];
   list.forEach(function(r){
@@ -2627,7 +2687,7 @@ function freqRows(list){
     else if (r.form === 'dimat'){ tx = String(v.K3 || '').trim(); rx = String(v.K4 || '').trim(); ch = /single/i.test(v.G4 || '') ? 'Single' : /double/i.test(v.G4 || '') ? 'Double' : ''; }
     else { tx = String(v.D5 || '').trim(); rx = String(v.G5 || '').trim(); ch = v.G3 ? 'Single' : v.G4 ? 'Double' : ''; }
     if (!tx && !rx) return;
-    out.push({form: tabName(r.form), area: rv(r,'area'), post: rv(r,'post'), line: rv(r,'line'), num: rv(r,'num'), dev: rv(r,'device'), tx: tx, rx: rx, ch: ch, date: r.date, user: r.user});
+    out.push({form: tabName(r.form), area: rv(r,'area'), post: rv(r,'post'), line: rv(r,'line'), num: rv(r,'num'), dev: rv(r,'device'), tx: tx, rx: rx, ch: ch, date: r.date, user: r.user, txv: secVals(r.form, v, 'tx'), rxv: secVals(r.form, v, 'rx')});
   });
   return out;
 }
@@ -2637,8 +2697,8 @@ function askFreq(){
   var h = '<h2>گزارش فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
   if (!fr.length) h += '<div class="msg" style="display:block">رکوردی که فرکانس TX یا RX داشته باشد پیدا نشد.</div>';
   else {
-    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:700px"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>فرم</th><th>تاریخ</th></tr></thead><tbody>';
-    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td>' + esc(o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
+    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:1000px"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>فرم</th><th>تاریخ</th></tr></thead><tbody>';
+    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td dir="ltr" style="font-size:12px;min-width:150px">' + esc(o.txv || '—') + '</td><td dir="ltr" style="font-size:12px;min-width:150px">' + esc(o.rxv || '—') + '</td><td>' + esc(o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
     h += '</tbody></table></div>';
   }
   h += '<div class="row2"><button class="btn sec" id="frClose">بستن</button>' + (fr.length ? '<button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
@@ -2653,7 +2713,7 @@ function exportFreqXlsx(){
   function dstr(k){ var s = String(k); return s.length === 8 ? s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6) : '—'; }
   var dFrom = FILT.from.trim() ? faDigits(FILT.from.trim()) : dstr(mn), dTo = FILT.to.trim() ? faDigits(FILT.to.trim()) : dstr(mx);
   var titles = ['شرکت تعمیرات نیروی برق فارس', 'گزارش فرکانس TX/RX ایستگاه‌ها (از تاریخ ' + dFrom + ' تا تاریخ ' + dTo + ')'];
-  var r1 = [['ردیف','نام فرم','ناحیه','نام پست','نام خط','شماره خط','نام دستگاه','TX','RX','نوع کانال','تاریخ','ثبت‌کننده']].concat(fr.map(function(o,i){ return [String(i+1), o.form, o.area, o.post, o.line, o.num, o.dev, o.tx, o.rx, o.ch, o.date, o.user]; }));
+  var r1 = [['ردیف','نام فرم','ناحیه','نام پست','نام خط','شماره خط','نام دستگاه','TX','RX','نوع کانال','مقادیر Transmitter','مقادیر Receiver','تاریخ','ثبت‌کننده']].concat(fr.map(function(o,i){ return [String(i+1), o.form, o.area, o.post, o.line, o.num, o.dev, o.tx, o.rx, o.ch, o.txv, o.rxv, o.date, o.user]; }));
   var cnt = {}; fr.forEach(function(o){ [o.tx, o.rx].forEach(function(v){ var k = String(v || '').replace(/\s*\(.*\)\s*$/, '').trim(); if (!k) return; (cnt[k] = cnt[k] || {n:0, p:{}}).n++; cnt[k].p[o.post || '—'] = 1; }); });
   var r2 = [['فرکانس','دفعات استفاده','ایستگاه‌ها']].concat(Object.keys(cnt).sort(function(x,y){ return parseFloat(x) - parseFloat(y) || (x < y ? -1 : 1); }).map(function(k){ return [k, String(cnt[k].n), Object.keys(cnt[k].p).join('، ')]; }));
   var z = new JSZip();
@@ -2662,7 +2722,7 @@ function exportFreqXlsx(){
   z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="فرکانس TX-RX" sheetId="1" r:id="rId1"/><sheet name="خلاصه فرکانس‌ها" sheetId="2" r:id="rId2"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\'گزارش\'!$4:$4</definedName><definedName name="_xlnm.Print_Titles" localSheetId="1">\'خلاصه پست‌ها\'!$4:$4</definedName></definedNames></workbook>');
   z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
   z.file('xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD9E8F5"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FF999999"/></left><right style="thin"><color rgb="FF999999"/></right><top style="thin"><color rgb="FF999999"/></top><bottom style="thin"><color rgb="FF999999"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf></cellXfs></styleSheet>');
-  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,14,12,22,16,10,12,16,16,12,12,18], titles));
+  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,14,12,22,16,10,12,16,16,12,40,40,12,18], titles));
   z.file('xl/worksheets/sheet2.xml', sheetXml(r2,[16,14,60], titles));
   var nm = 'Freq_Report_' + dFrom.replace(/\D+/g,'') + '_' + dTo.replace(/\D+/g,'') + '.xlsx';
   z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش فرکانس ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
@@ -2852,7 +2912,7 @@ function loginOpen(name){
   var vl = $('vLogin'); if (vl.classList.contains('op')) return;
   var d = document.createElement('div'); d.className = 'opW'; d.innerHTML = '<i>\u2713</i><span></span>'; d.lastChild.textContent = name + ' خوش آمدید';
   vl.appendChild(d); vl.classList.add('op');                       // login content opens up/down with blur, welcome appears in the middle
-  setTimeout(function(){ enterInfo(); vl.classList.remove('op'); if (d.parentNode) d.parentNode.removeChild(d); }, 3300);   // then the area/date card
+  setTimeout(function(){ enterInfo(); vl.classList.remove('op'); if (d.parentNode) d.parentNode.removeChild(d); }, 2750);   // then the area/date card
 }
 function showWelcome(name){
   var w = $('welcome'); $('welcomeTxt').textContent = name + ' خوش آمدید';
@@ -3094,6 +3154,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.27', d:'1.2.12', items:['در فرم PLC کنار «سرویس دستگاه» تیک «برداشت اطلاعات» اضافه شد (فقط در برنامه).','در Report مخصوص ادمین دکمه ی «گزارش برداشت اطلاعات» برای ایستگاه هایی که برداشت اطلاعات انجام شده اضافه شد.','در گزارش فرکانس TX/RX مقادیر Transmitter و Receiver فرم های SELTA و ABB و Dimat هم اضافه شد.','مدت نمایش پیام خوش آمد ۲ ثانیه شد.']},
     {v:'1.8.26', d:'1.2.11', items:['تم جدید «آبی هماهنگ با تصویر زمینه» به نسخه ی موبایل اضافه شد و پیش فرض است تا رنگ محیط برنامه با صفحه ی لاگین یکدست شود.']},
     {v:'1.8.25', d:'1.2.10', items:['پیام بروزرسانی کوتاه شد: فقط نسخه ی قبلی و جدید و یادآوری ثبت در بایگانی.','پنجره ی تغییرات نسخه ی جدید هم مثل پنجره ی بروزرسانی سبز شد.']},
     {v:'1.8.24', d:'1.2.9', items:['رفتن از صفحه ی ناحیه و تاریخ به برنامه با همان افکت صفحه ی لاگین انجام می شود.','خروج از حساب با افکت برعکس انجام می شود و صفحه ی لاگین از بالا و پایین برمی گردد.','اندازه ی فونت پیام خوش آمد: موبایل 16 و بقیه ی نسخه ها 18.','در نسخه ی موبایل تصویر پس زمینه در محیط برنامه ثابت است و فقط صفحات برنامه بالا و پایین می روند.']},
