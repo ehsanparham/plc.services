@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.34">
-<meta name="app-display-version" content="1.2.19">
+<meta name="app-version" content="1.8.35">
+<meta name="app-display-version" content="1.2.20">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -850,7 +850,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.19</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.20</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -876,7 +876,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.19</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.20</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -936,10 +936,10 @@ function numCombo(form){
 }
 function refreshNum(form){   // after a line / post is picked, the line number from the Excel list is filled in (the user can still change it)
   var v = state.vals[form], ref = form === 'lmu' ? 'K11' : 'K10', cur = String(v[ref] || '').trim(), opts = numOpts(form);
-  var area = String(v[form === 'lmu' ? 'D11' : 'E10'] || '').trim(), known = false;
-  (NUMS[area] || []).forEach(function(r){ if (r[2].indexOf(cur) >= 0) known = true; });
+  var known = false;   // is the current number one of the listed numbers (in any area)?
+  Object.keys(NUMS).forEach(function(k){ NUMS[k].forEach(function(r){ if (r[2].indexOf(cur) >= 0) known = true; }); });
   var want = null;
-  if (opts.length){ if (!cur || (opts.indexOf(cur) < 0 && known)) want = opts[0]; }
+  if (opts.length){ if (opts.indexOf(cur) < 0) want = opts[0]; }   // post / line changed: always show the number of the new pair
   else if (cur && known) want = '';
   if (want === null) return;
   v[ref] = want; var fld = document.querySelector('#stage [data-ref="'+ref+'"]'); if (fld) fld.value = want;
@@ -2946,6 +2946,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.35', d:'1.2.20', items:['با تغییر نام پست یا نام خط در فرم PLC، شماره خط هم هر بار متناسب با انتخاب جدید بروز می‌شود.']},
     {v:'1.8.34', d:'1.2.19', items:['بروزرسانی اطلاعات ورود کاربران.']},
     {v:'1.8.33', d:'1.2.18', items:['ترتیب ناحیه ها در منوی کشویی تغییر کرد (شیراز، کازرون، قائمیه، جهرم، ...).']},
     {v:'1.8.32', d:'1.2.17', items:['نام ناحیه در منوی کشویی دوباره فقط «قائمیه» شد.']},
