@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.35">
-<meta name="app-display-version" content="1.2.20">
+<meta name="app-version" content="1.8.37">
+<meta name="app-display-version" content="1.2.22">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -850,7 +850,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.20</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.22</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -876,7 +876,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.20</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.22</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1392,7 +1392,7 @@ function renderModern(){
       f.maxLength = 4; f.setAttribute('inputmode','numeric'); f.placeholder = '----';
       f.addEventListener('input', function(){ var n = faDigits(f.value).replace(/\D/g,'').slice(0,4); if (n !== f.value) f.value = n; });
     }
-    f.addEventListener('input', function(){ vals[c.ref] = f.value; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, f.value); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10') paintDev(); if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); if (sh.key === 'lmu' && c.ref === 'R22'){ vals.M29 = f.value; var t29 = document.querySelector('[data-ref="M29"]'); if (t29) t29.value = f.value; } if ((sh.key === 'selta' || sh.key === 'abb') && (c.ref === 'G5' || c.ref === 'D5')) updateCalc(); });
+    f.addEventListener('input', function(){ vals[c.ref] = f.value; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, f.value); if (sh.key === 'selta' || sh.key === 'abb') syncLevels(sh.key); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10') paintDev(); if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); if (sh.key === 'lmu' && c.ref === 'R22'){ vals.M29 = f.value; var t29 = document.querySelector('[data-ref="M29"]'); if (t29) t29.value = f.value; } if ((sh.key === 'selta' || sh.key === 'abb') && (c.ref === 'G5' || c.ref === 'D5')) updateCalc(); });
     f.addEventListener('keydown', function(e){ if (e.key === 'Enter' && !tall){ e.preventDefault(); var nx = (sh.key === 'plc' && c.ref === 'R27') ? document.querySelector('#stage .mcb[data-ref="E28"]') : null; if (nx) nx.focus(); else focusNext(f); } });
     return f;
   }
@@ -1860,6 +1860,23 @@ function syncDevice(onlyBlank){
     else if (r === 'C3' || r === 'C4' || r === 'I3' || r === 'K5' || r === 'D5' || r === 'G5' || r === 'K3' || r === 'K4' || r === 'G3' || r === 'G4'){ f[r] = ''; last[r] = ''; }
     else if (last[r] !== undefined && f[r] === last[r]){ delete f[r]; delete last[r]; }
   });
+  syncLevels();
+  saveSoon();
+}
+var LV_SRC = {selta:{tx:'K13', rx:'J18'}, abb:{tx:'J11', rx:'J16'}}, lvLast = {};   // Carrier / first-row Coax values of the device form -> LMU levels
+function lvNum(x){ x = String(x == null ? '' : x).trim().replace(/[۰-۹]/g, function(d){ return String(d.charCodeAt(0) - 0x06F0); }).replace(/[٠-٩]/g, function(d){ return String(d.charCodeAt(0) - 0x0660); }).replace(/[−–]/g, '-').replace(/٫|,/g, '.'); return /^[-+]?\d+(\.\d+)?$/.test(x) ? parseFloat(x) : NaN; }
+function lvPut(ref, v){
+  var L = state.vals.lmu; if (!L) return; var cur = String(L[ref] == null ? '' : L[ref]), last = L._lv || (L._lv = {});
+  if (cur !== '' && cur !== (last[ref] == null ? '' : last[ref])) return;   // typed by the user: manual entry wins, never overwritten
+  L[ref] = v; last[ref] = v; var f = document.querySelector('#stage [data-ref="'+ref+'"]'); if (f && SHEETS[state.active] && SHEETS[state.active].key === 'lmu') f.value = v;
+}
+function syncLevels(editedKey){
+  var pv = state.vals.plc || {}, key = DEV_FORM[String(pv.M10 || '').trim().toLowerCase()];
+  if (!key || !LV_SRC[key]) key = editedKey; if (!LV_SRC[key]) return;
+  if (editedKey && editedKey !== key) return;
+  var d = state.vals[key] || {}, s = LV_SRC[key], tx = String(d[s.tx] == null ? '' : d[s.tx]).trim(), rx = String(d[s.rx] == null ? '' : d[s.rx]).trim(), n = lvNum(tx);
+  lvPut('R22', tx); lvPut('M29', tx); lvPut('M30', rx);
+  lvPut('R23', isNaN(n) ? '' : String(Math.round((n - 0.6) * 10) / 10));
   saveSoon();
 }
 function syncLmu(ref, v){ var m = SYNC[ref]; if (m && state.vals.lmu){ state.vals.lmu[m] = v; saveSoon(); } }
@@ -2946,6 +2963,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.37', d:'1.2.22', items:['در فرم LMU مقادیر لول قبل و بعد از LMU و سطح سیگنال فرستنده و گیرنده بر روی PLC علاوه بر پر شدن خودکار، قابل ورود دستی هم هستند؛ مقداری که کاربر دستی وارد کند دیگر به صورت خودکار تغییر نمی‌کند.']},
+    {v:'1.8.36', d:'1.2.21', items:['فرم LMU: اندازه ی لول قبل و بعد از LMU (بعد = قبل منهای ۰٫۶) و سطح سیگنال فرستنده و گیرنده بر روی PLC به صورت خودکار از مقادیر Coax فرم SELTA یا ABB پر می‌شود.']},
     {v:'1.8.35', d:'1.2.20', items:['با تغییر نام پست یا نام خط در فرم PLC، شماره خط هم هر بار متناسب با انتخاب جدید بروز می‌شود.']},
     {v:'1.8.34', d:'1.2.19', items:['بروزرسانی اطلاعات ورود کاربران.']},
     {v:'1.8.33', d:'1.2.18', items:['ترتیب ناحیه ها در منوی کشویی تغییر کرد (شیراز، کازرون، قائمیه، جهرم، ...).']},
