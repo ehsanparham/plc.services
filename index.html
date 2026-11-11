@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.37">
-<meta name="app-display-version" content="1.2.22">
+<meta name="app-version" content="1.8.38">
+<meta name="app-display-version" content="1.2.23">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -822,6 +822,11 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 #wnOv h2,#wnOv li,#wnOv div,#wnOv ul{color:#fff !important}
 #wnOv{background:rgba(8,24,44,.62) !important;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
 #wnOv #wnOk{background:#fff !important;color:#1f6f2f !important;border:0 !important;font-weight:700}
+#hsOv .modal{background:linear-gradient(135deg,#2ea043,#1f8a38) !important;color:#fff !important;border:0 !important;border-radius:20px !important;box-shadow:0 24px 70px rgba(0,0,0,.5) !important;max-height:82vh;overflow:auto}
+#hsOv h2,#hsOv li,#hsOv div,#hsOv ul{color:#fff !important}
+#hsOv{background:rgba(8,24,44,.62) !important;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+#hsOv #hsOk{background:#fff !important;color:#1f6f2f !important;border:0 !important;font-weight:700}
+#hsOv .hsv{margin:14px 0 4px;font-weight:800;direction:ltr;text-align:right;border-top:1px solid rgba(255,255,255,.25);padding-top:10px}
 #updBar .ub{display:flex;gap:8px}
 #updBar button{flex:1;border:0;border-radius:12px;padding:10px;font:700 16px FaNazanin,Tahoma,sans-serif;cursor:pointer}
 #updBar .go{background:#fff;color:#1f6f2f}#updBar .lt{background:rgba(255,255,255,.22);color:#fff}
@@ -850,7 +855,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.22</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.23</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -869,14 +874,14 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
       <div class="umenu"><button id="thBtn" title="تغییر تم و رنگ" aria-label="تم">🎨</button><div class="drop" id="thDrop"></div></div>
       <button class="btn ghost" id="btnBackup" style="display:none">🗄 پشتیبان‌گیری</button><button class="btn ghost" id="btnSaveAll">💾 ذخیره فرم‌های تکمیل‌شده</button><button class="btn ghost" id="btnClear">پاک‌کردن فرم</button>
       <div class="umenu"><button id="umBtn">👤 <span id="umName"></span> ▾</button>
-        <div class="drop" id="umDrop"><button id="miPw">تغییر رمز عبور من</button><button id="miSup">تغییر نام مهندس ناظر</button><button id="miPerms" style="display:none">مدیریت دسترسی‌ها</button><button id="miAdmin" style="display:none">مدیریت کاربران</button><hr><button id="miOut">خروج از حساب</button></div></div>
+        <div class="drop" id="umDrop"><button id="miPw">تغییر رمز عبور من</button><button id="miSup">تغییر نام مهندس ناظر</button><button id="miPerms" style="display:none">مدیریت دسترسی‌ها</button><button id="miAdmin" style="display:none">مدیریت کاربران</button><button id="miHist">سابقه ی بروزرسانی ها</button><hr><button id="miOut">خروج از حساب</button></div></div>
     </div>
   </div>
   <nav class="tabs" id="tabs"></nav>
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.22</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.23</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2798,6 +2803,7 @@ applyBg(true);
 $('thBtn').addEventListener('click',function(e){ e.stopPropagation(); $('umDrop').classList.remove('open'); $('thDrop').classList.toggle('open'); });
 
 document.addEventListener('click', function(){ $('umDrop').classList.remove('open'); var th=$('thDrop'); if(th) th.classList.remove('open'); });
+$('miHist').addEventListener('click', function(){ if (window.__showHistory) window.__showHistory(); });
 $('miOut').addEventListener('click', function(){
   session = null; sessSet(null); info = {sup:'', date:''}; $('lgU').value=''; $('lgP').value=''; loadUserLook();
   setView('login'); focusSoon('lgU');
@@ -2963,6 +2969,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.38', d:'1.2.23', items:['منوی «سابقه ی بروزرسانی ها» بعد از «مدیریت کاربران» در منوی نام کاربری اضافه شد؛ تغییرات همه ی نسخه ها از 1.2.3 به بعد، از جدیدترین به قدیمی ترین.']},
     {v:'1.8.37', d:'1.2.22', items:['در فرم LMU مقادیر لول قبل و بعد از LMU و سطح سیگنال فرستنده و گیرنده بر روی PLC علاوه بر پر شدن خودکار، قابل ورود دستی هم هستند؛ مقداری که کاربر دستی وارد کند دیگر به صورت خودکار تغییر نمی‌کند.']},
     {v:'1.8.36', d:'1.2.21', items:['فرم LMU: اندازه ی لول قبل و بعد از LMU (بعد = قبل منهای ۰٫۶) و سطح سیگنال فرستنده و گیرنده بر روی PLC به صورت خودکار از مقادیر Coax فرم SELTA یا ABB پر می‌شود.']},
     {v:'1.8.35', d:'1.2.20', items:['با تغییر نام پست یا نام خط در فرم PLC، شماره خط هم هر بار متناسب با انتخاب جدید بروز می‌شود.']},
@@ -2997,6 +3004,22 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
     {v:'1.8.6', items:['هنگام محو شدن پیام خوش‌آمدگویی، کادر «ناحیه و تاریخ» ثابت می‌ماند و جابه‌جا نمی‌شود.']},
     {v:'1.8.5', items:['پیام خوش‌آمدگویی در صفحه ی انتخاب ناحیه، از پایین صفحه به بالای کادر «ناحیه و تاریخ» منتقل شد.']}
   ];
+  window.__showHistory = function(){   // user menu: full history of updates from version 1.2.3 on, newest first
+    if (document.getElementById('hsOv')) return;
+    function e(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    var h = '<h2>🕘 سابقه ی بروزرسانی ها</h2><div style="font-size:15px;margin-bottom:4px">تغییرات هر نسخه، از جدیدترین نسخه به قدیمی ترین:</div>';
+    CHANGELOG.forEach(function(c){
+      if (!c.d) return;
+      h += '<div class="hsv">نسخه ' + e(c.d) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
+      c.items.forEach(function(t){ h += '<li>' + e(t) + '</li>'; });
+      h += '</ul>';
+    });
+    h += '<button class="btn pri" id="hsOk" style="width:100%;justify-content:center;margin-top:18px;padding:12px;font-size:15px">بستن</button>';
+    var ov = document.createElement('div'); ov.className = 'ov open'; ov.id = 'hsOv'; ov.style.zIndex = '100001';
+    var m = document.createElement('div'); m.className = 'modal'; m.innerHTML = h; ov.appendChild(m); document.body.appendChild(ov);
+    function close(){ if (ov.parentNode) ov.parentNode.removeChild(ov); }
+    document.getElementById('hsOk').onclick = close; ov.addEventListener('click', function(ev){ if (ev.target === ov) close(); });
+  };
   var BASE = '1.8.4';   // version assumed already seen when nothing is recorded
   var SEEN_KEY = 'plc_seen_version';
   var CUR = (document.querySelector('meta[name="app-version"]') || {}).content || '';
