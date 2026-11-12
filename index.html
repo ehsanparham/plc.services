@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.38">
-<meta name="app-display-version" content="1.2.23">
+<meta name="app-version" content="1.8.39">
+<meta name="app-display-version" content="1.2.24">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -855,7 +855,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.23</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.24</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -874,14 +874,14 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
       <div class="umenu"><button id="thBtn" title="تغییر تم و رنگ" aria-label="تم">🎨</button><div class="drop" id="thDrop"></div></div>
       <button class="btn ghost" id="btnBackup" style="display:none">🗄 پشتیبان‌گیری</button><button class="btn ghost" id="btnSaveAll">💾 ذخیره فرم‌های تکمیل‌شده</button><button class="btn ghost" id="btnClear">پاک‌کردن فرم</button>
       <div class="umenu"><button id="umBtn">👤 <span id="umName"></span> ▾</button>
-        <div class="drop" id="umDrop"><button id="miPw">تغییر رمز عبور من</button><button id="miSup">تغییر نام مهندس ناظر</button><button id="miPerms" style="display:none">مدیریت دسترسی‌ها</button><button id="miAdmin" style="display:none">مدیریت کاربران</button><button id="miHist">سابقه ی بروزرسانی ها</button><hr><button id="miOut">خروج از حساب</button></div></div>
+        <div class="drop" id="umDrop"><button id="miPw">تغییر رمز عبور من</button><button id="miSup">تغییر نام مهندس ناظر</button><button id="miPerms" style="display:none">مدیریت دسترسی‌ها</button><button id="miAdmin" style="display:none">مدیریت کاربران</button><button id="miLog" style="display:none">ثبت ورود و خروج کاربران</button><button id="miHist">سابقه ی بروزرسانی ها</button><hr><button id="miOut">خروج از حساب</button></div></div>
     </div>
   </div>
   <nav class="tabs" id="tabs"></nav>
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.23</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.24</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2501,9 +2501,10 @@ function freqRows(list){
     else if (r.form === 'dimat'){ tx = String(v.K3 || '').trim(); rx = String(v.K4 || '').trim(); ch = /single/i.test(v.G4 || '') ? 'Single' : /double/i.test(v.G4 || '') ? 'Double' : ''; }
     else { tx = String(v.D5 || '').trim(); rx = String(v.G5 || '').trim(); ch = v.G3 ? 'Single' : v.G4 ? 'Double' : ''; }
     if (!tx && !rx) return;
-    out.push({form: tabName(r.form), area: rv(r,'area'), post: rv(r,'post'), line: rv(r,'line'), num: rv(r,'num'), dev: rv(r,'device'), tx: tx, rx: rx, ch: ch, date: r.date, user: r.user, txv: secVals(r.form, v, 'tx'), rxv: secVals(r.form, v, 'rx')});
+    out.push({key: rv(r,'post') + '|' + rv(r,'line') + '|' + r.date, isDev: r.form !== 'plc', form: tabName(r.form), area: rv(r,'area'), post: rv(r,'post'), line: rv(r,'line'), num: rv(r,'num'), dev: rv(r,'device'), tx: tx, rx: rx, ch: ch, date: r.date, user: r.user, txv: secVals(r.form, v, 'tx'), rxv: secVals(r.form, v, 'rx')});
   });
-  return out;
+  var devKeys = {}; out.forEach(function(o){ if (o.isDev) devKeys[o.key] = 1; });
+  return out.filter(function(o){ return o.isDev || !devKeys[o.key]; });   // the SELTA / ABB / Dimat form of the same station and date has priority; PLC frequencies are used only when no device form was completed
 }
 function askFreq(){
   var fr = freqRows(filtered());
@@ -2602,7 +2603,7 @@ function askBackup(){
   setTimeout(function(){ inp.focus(); inp.select(); }, 60);
 }
 function saveBackupFile(name){
-  var blob = new Blob([JSON.stringify({app:'plc-records',v:1,recs:RECS})], {type:'application/json'});
+  var blob = new Blob([JSON.stringify({app:'plc-records',v:1,recs:RECS,logins:LOGS})], {type:'application/json'});
   function viaDownload(){ downloadBlob(blob, name); toast('فایل پشتیبان ساخته شد: ' + name); }
   if (typeof window.showSaveFilePicker === 'function'){
     var pick; try { pick = window.showSaveFilePicker({suggestedName: name, types: [{description: 'JSON (*.json)', accept: {'application/json': ['.json']}}]}); } catch(e){ viaDownload(); return; }
@@ -2617,7 +2618,10 @@ function restoreRecs(){
       var o = JSON.parse(fr.result), arr = o && o.recs; if (!Array.isArray(arr)) throw 0;
       var have = {}; RECS.forEach(function(r){ have[r.id] = 1; }); var add = 0;
       arr.forEach(function(r){ if (r && r.id && r.form && r.vals && !have[r.id]){ r.dk = dkey(r.date); RECS.push(r); have[r.id] = 1; add++; } });
-      saveRecs(); renderReport(); toast(add + ' رکورد جدید بازیابی شد');
+      var haveL = {}, addL = 0; LOGS.forEach(function(l){ haveL[l.id] = 1; });
+      (Array.isArray(o.logins) ? o.logins : []).forEach(function(l){ if (l && l.id && l.uid && l.tin && !haveL[l.id]){ LOGS.push({id:l.id, uid:l.uid, name:l.name || l.uid, tin:+l.tin, tout:+l.tout || 0, seen:+l.seen || +l.tin}); haveL[l.id] = 1; addL++; } });
+      if (addL){ LOGS.sort(function(a,b){ return a.tin - b.tin; }); saveLogs(); }
+      saveRecs(); renderReport(); toast(add + ' رکورد جدید' + (addL ? ' و ' + addL + ' ورود و خروج' : '') + ' بازیابی شد');
     } catch(e){ toast('فایل پشتیبان معتبر نیست'); } };
     fr.readAsText(file); };
   f.click();
@@ -2633,12 +2637,17 @@ function clearForm(sh){   // removes only what was typed / picked by hand; defau
     devLast = {};
   }
   state.vals[key] = base ? JSON.parse(JSON.stringify(base)) : {};
+  if (key === 'lmu'){ ['R22','R23','M29','M30'].forEach(function(r){ delete state.vals.lmu[r]; if (state.base.lmu) delete state.base.lmu[r]; }); }   // auto-filled levels go too
   delete devLast[key]; if (state.edit) delete state.edit[key];
 }
 $('btnClear').addEventListener('click', function(){
   var sh = SHEETS[state.active];
-  if (!hasData(sh.key) && Object.keys(state.vals[sh.key]).length === 0){ toast('فرم خالی است'); return; }
-  if (confirm('همه ی اطلاعات واردشده در فرم ' + sh.tab + ' پاک شود؟')){ clearForm(sh); saveStore(); render(); toast('فرم پاک شد'); }
+  var mother = sh.key === 'plc';   // PLC is the mother form: clearing it clears all the other forms too
+  if (!mother && !hasData(sh.key) && Object.keys(state.vals[sh.key]).length === 0){ toast('فرم خالی است'); return; }
+  if (mother && !SHEETS.some(function(s){ return hasData(s.key) || Object.keys(state.vals[s.key] || {}).length; })){ toast('فرم خالی است'); return; }
+  if (confirm(mother ? 'همه ی اطلاعات واردشده در فرم ' + sh.tab + ' و بقیه ی فرم ها (LMU، SELTA، ABB، Dimat) پاک شود؟' : 'همه ی اطلاعات واردشده در فرم ' + sh.tab + ' پاک شود؟')){
+    if (mother){ clearForm(sh); SHEETS.forEach(function(s){ if (s.key !== 'plc') clearForm(s); }); lvLast = {}; } else clearForm(sh);
+    saveStore(); render(); toast(mother ? 'همه ی فرم ها پاک شد' : 'فرم پاک شد'); }
 });
 function zoomBy(f){ var s = (state.scale == null ? fitScale() : state.scale) * f; state.scale = Math.max(0.3, Math.min(2.5, s)); applyScale(); }
 $('zIn').addEventListener('click', function(){ zoomBy(1.1); });
@@ -2689,6 +2698,22 @@ function savePw(){ try { localStorage.setItem(USER_KEY, JSON.stringify(pwOver));
 function userHash(u){ return pwOver[u.u] || u.h; }
 function findUser(name){ name = (name||'').trim().toLowerCase(); for (var i=0;i<USERS.length;i++) if (String(USERS[i].login).toLowerCase() === name) return USERS[i]; return null; }
 
+var LOG_KEY = 'plc_logins_v1', LOGS = [];
+try { LOGS = JSON.parse(localStorage.getItem(LOG_KEY) || '[]') || []; } catch(e){ LOGS = []; }
+function saveLogs(){ try { if (LOGS.length > 1500) LOGS = LOGS.slice(-1500); localStorage.setItem(LOG_KEY, JSON.stringify(LOGS)); } catch(e){} }
+function curLogId(){ try { return sessionStorage.getItem('plc_log_cur') || ''; } catch(e){ return ''; } }
+function setCurLog(id){ try { if (id) sessionStorage.setItem('plc_log_cur', id); else sessionStorage.removeItem('plc_log_cur'); } catch(e){} }
+function logEnter(u){
+  var n = Date.now(), id = n.toString(36) + Math.random().toString(36).slice(2,6);
+  LOGS.push({id:id, uid:u.u, name:u.name, tin:n, tout:0, seen:n}); setCurLog(id); saveLogs();
+}
+function logTouch(out){
+  var id = curLogId(); if (!id) return;
+  for (var i = LOGS.length - 1; i >= 0; i--) if (LOGS[i].id === id){ LOGS[i].seen = Date.now(); if (out) LOGS[i].tout = LOGS[i].seen; saveLogs(); break; }
+  if (out) setCurLog('');
+}
+setInterval(function(){ logTouch(false); }, 30000);
+window.addEventListener('pagehide', function(){ logTouch(false); });
 var session = null;           // logged-in user object
 var info = {sup:'', date:''}; // supervisor engineer + date (asked after login)
 var DEFAULT_SUP = 'مهندس مهدی تراب فر';
@@ -2737,7 +2762,7 @@ function showWelcome(name){
 }
 function refreshHeader(){
   $('umName').textContent = session ? session.name : '';
-  $('miAdmin').style.display = (session && session.admin) ? 'block' : 'none';
+  $('miAdmin').style.display = (session && session.admin) ? 'block' : 'none'; $('miLog').style.display = (session && session.admin) ? 'block' : 'none';
   $('miPerms').style.display = (session && session.admin) ? 'block' : 'none';
   $('hdrMeta').textContent = '\u200F - تاریخ: ' + (info.date || '—');
 }
@@ -2753,7 +2778,7 @@ $('loginForm').addEventListener('submit', function(e){
   e.preventDefault();
   var u = findUser($('lgU').value), pw = $('lgP').value;
   if (u && pwHash(u.u, pw) === userHash(u)){
-    session = u; sessSet({u:u.u, info:null}); $('lgErr').textContent = ''; $('lgP').value = ''; loadUserLook();
+    session = u; logEnter(u); sessSet({u:u.u, info:null}); $('lgErr').textContent = ''; $('lgP').value = ''; loadUserLook();
     SHEETS.forEach(function(s){ state.vals[s.key] = {}; }); devLast = {}; state.base = {}; state.edit = {}; state.noSync = {}; state.active = 0; state.report = false; state.search = false; saveStore();   // every login starts with empty forms
     clearLabelOverrides(/inspector|^date|مسئول گروه|ناظر|^تاریخ/i);
     info = {sup:'', date:''};
@@ -2803,9 +2828,37 @@ applyBg(true);
 $('thBtn').addEventListener('click',function(e){ e.stopPropagation(); $('umDrop').classList.remove('open'); $('thDrop').classList.toggle('open'); });
 
 document.addEventListener('click', function(){ $('umDrop').classList.remove('open'); var th=$('thDrop'); if(th) th.classList.remove('open'); });
+function logFmt(ts){
+  try { var p = {}; new Intl.DateTimeFormat('fa-IR-u-ca-persian-nu-latn', {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hourCycle:'h23'}).formatToParts(new Date(ts)).forEach(function(x){ p[x.type] = x.value; });
+    return [p.year + '/' + p.month + '/' + p.day, p.hour + ':' + p.minute]; } catch(e){ return ['—','—']; }
+}
+function showLogins(selUser){
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var users = {}; LOGS.forEach(function(l){ users[l.uid] = l.name; });
+  var rows = LOGS.filter(function(l){ return !selUser || l.uid === selUser; }).slice().sort(function(a,b){ return b.tin - a.tin; });
+  var h = '<h2>ثبت ورود و خروج کاربران</h2><div style="font-size:15px;color:#6b7a8c">ورود و خروج هایی که روی همین دستگاه انجام شده است (با پشتیبان‌گیری، همین اطلاعات هم ذخیره می‌شود). تعداد: ' + rows.length + '</div>';
+  h += '<label class="fl" for="lgFilt">کاربر</label><select class="in" id="lgFilt"><option value="">همه ی کاربران</option>' + Object.keys(users).map(function(k){ return '<option value="' + esc(k) + '"' + (k === selUser ? ' selected' : '') + '>' + esc(users[k]) + '</option>'; }).join('') + '</select>';
+  if (!rows.length) h += '<div class="msg" style="display:block">هنوز ورودی ثبت نشده است.</div>';
+  else {
+    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:640px"><thead><tr><th>#</th><th>کاربر</th><th>تاریخ ورود</th><th>ساعت ورود</th><th>تاریخ خروج</th><th>ساعت خروج</th><th>مدت</th></tr></thead><tbody>';
+    var now = curLogId();
+    rows.forEach(function(l, i){
+      var a = logFmt(l.tin), end = l.tout || 0, cell;
+      if (end){ var b = logFmt(end); cell = '<td dir="ltr">' + b[0] + '</td><td dir="ltr">' + b[1] + '</td>'; }
+      else if (l.id === now) cell = '<td colspan="2">اکنون آنلاین</td>';
+      else { var c = logFmt(l.seen || l.tin); cell = '<td colspan="2" style="font-size:12px">بدون خروج (آخرین فعالیت ' + c[1] + ')</td>'; }
+      var dur = Math.max(0, Math.round(((end || l.seen || l.tin) - l.tin) / 60000)), ds = dur >= 60 ? Math.floor(dur/60) + ' ساعت و ' + (dur % 60) + ' دقیقه' : dur + ' دقیقه';
+      h += '<tr><td>' + (i+1) + '</td><td>' + esc(l.name) + '</td><td dir="ltr">' + a[0] + '</td><td dir="ltr">' + a[1] + '</td>' + cell + '<td>' + ds + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+  }
+  h += '<div class="row2"><button class="btn sec" id="lgClose">بستن</button></div>';
+  openModal(h); $('lgClose').onclick = closeModal; $('lgFilt').onchange = function(){ showLogins(this.value); };
+}
+$('miLog').addEventListener('click', function(){ showLogins(''); });
 $('miHist').addEventListener('click', function(){ if (window.__showHistory) window.__showHistory(); });
 $('miOut').addEventListener('click', function(){
-  session = null; sessSet(null); info = {sup:'', date:''}; $('lgU').value=''; $('lgP').value=''; loadUserLook();
+  logTouch(true); session = null; sessSet(null); info = {sup:'', date:''}; $('lgU').value=''; $('lgP').value=''; loadUserLook();
   setView('login'); focusSoon('lgU');
   var vl = $('vLogin'); vl.classList.remove('opIn'); void vl.offsetWidth; vl.classList.add('opIn');   // reverse effect: content comes back from top/bottom
   setTimeout(function(){ vl.classList.remove('opIn'); }, 1050);
@@ -2919,7 +2972,7 @@ function boot(){
   var ss = sessGet();
   var u = ss && findUser(ss.u);
   if (u){
-    session = u; loadUserLook();
+    session = u; loadUserLook(); if (!curLogId()) logEnter(u);
     if (ss.info){ info = ss.info; enterApp(); } else { enterInfo(); }
   } else { setView('login'); focusSoon('lgU'); }
 }
@@ -2969,6 +3022,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.39', d:'1.2.24', items:['با پاک کردن فرم PLC (فرم مادر)، بقیه ی فرم ها هم پاک می‌شوند.','در گزارش فرکانس، اگر فرم SELTA یا ABB یا Dimat همان ایستگاه تکمیل شده باشد اولویت با آن است و فرکانس ها از فرم PLC فقط وقتی برداشته می‌شود که این فرم ها تکمیل نشده باشند.','منوی «ثبت ورود و خروج کاربران» (مخصوص ادمین) اضافه شد؛ ورود و خروج کاربران روی دستگاه ثبت می‌شود و در پشتیبان‌گیری هم ذخیره و با بازیابی به همین منو اضافه می‌شود.']},
     {v:'1.8.38', d:'1.2.23', items:['منوی «سابقه ی بروزرسانی ها» بعد از «مدیریت کاربران» در منوی نام کاربری اضافه شد؛ تغییرات همه ی نسخه ها از 1.2.3 به بعد، از جدیدترین به قدیمی ترین.']},
     {v:'1.8.37', d:'1.2.22', items:['در فرم LMU مقادیر لول قبل و بعد از LMU و سطح سیگنال فرستنده و گیرنده بر روی PLC علاوه بر پر شدن خودکار، قابل ورود دستی هم هستند؛ مقداری که کاربر دستی وارد کند دیگر به صورت خودکار تغییر نمی‌کند.']},
     {v:'1.8.36', d:'1.2.21', items:['فرم LMU: اندازه ی لول قبل و بعد از LMU (بعد = قبل منهای ۰٫۶) و سطح سیگنال فرستنده و گیرنده بر روی PLC به صورت خودکار از مقادیر Coax فرم SELTA یا ABB پر می‌شود.']},
