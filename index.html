@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.39">
-<meta name="app-display-version" content="1.2.24">
+<meta name="app-version" content="1.8.40">
+<meta name="app-display-version" content="1.2.25">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -855,7 +855,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.24</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.25</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -880,8 +880,8 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <nav class="tabs" id="tabs"></nav>
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
-<div class="savewrap"><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.24</i></div></main>
+<div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.25</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1869,7 +1869,7 @@ function syncDevice(onlyBlank){
   saveSoon();
 }
 var LV_SRC = {selta:{tx:'K13', rx:'J18'}, abb:{tx:'J11', rx:'J16'}}, lvLast = {};   // Carrier / first-row Coax values of the device form -> LMU levels
-function lvNum(x){ x = String(x == null ? '' : x).trim().replace(/[۰-۹]/g, function(d){ return String(d.charCodeAt(0) - 0x06F0); }).replace(/[٠-٩]/g, function(d){ return String(d.charCodeAt(0) - 0x0660); }).replace(/[−–]/g, '-').replace(/٫|,/g, '.'); return /^[-+]?\d+(\.\d+)?$/.test(x) ? parseFloat(x) : NaN; }
+function lvNum(x){ x = String(x == null ? '' : x).replace(/[\u200c\u200e\u200f\u202a-\u202e\s]/g, '').replace(/[\u06F0-\u06F9]/g, function(d){ return String(d.charCodeAt(0) - 0x06F0); }).replace(/[\u0660-\u0669]/g, function(d){ return String(d.charCodeAt(0) - 0x0660); }).replace(/[\u2212\u2012\u2013\u2014\uFE63\uFF0D]/g, '-').replace(/[\u066B\u066C,\u060C\/]/g, '.'); var m = /^([-+])?(\d+(?:\.\d+)?|\.\d+)(-)?[a-zA-Z]*$/.exec(x); if (!m) return NaN; var n = parseFloat(m[2]); return (m[1] === '-' || m[3]) ? -n : n; }
 function lvPut(ref, v){
   var L = state.vals.lmu; if (!L) return; var cur = String(L[ref] == null ? '' : L[ref]), last = L._lv || (L._lv = {});
   if (cur !== '' && cur !== (last[ref] == null ? '' : last[ref])) return;   // typed by the user: manual entry wins, never overwritten
@@ -2128,6 +2128,10 @@ $('btnSave').addEventListener('click', function(){ askFileName(); });
         if (!phone || !sc.clientWidth) return;
         for (i = 0; i < kids.length; i++) need = Math.max(need, kids[i].scrollWidth);
         if (need > sc.clientWidth + 1){ var z = Math.max(0.5, (sc.clientWidth - 22) / need); for (i = 0; i < kids.length; i++) kids[i].style.zoom = z; sig.push(z.toFixed(2)); }
+      });
+      document.querySelectorAll('#stage .f-selta .mgrid .mtitle').forEach(function(t){   // phones: the TRANSMITTER title keeps the size of the RECEIVER title (the zoomed grid would shrink it)
+        t.style.zoom = ''; var g = t.closest('.mgrid'), gz = g && parseFloat(g.style.zoom);
+        if (phone && gz && gz < 1) t.style.zoom = (1 / gz).toFixed(3);
       });
       // SELTA / ABB on phones: Tx / Rx and every box of the TRANSMITTER / RECEIVER sections get the size of the Station box
       var stIn = document.querySelector('#stage [data-ref="C3"]');
@@ -3022,6 +3026,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.40', d:'1.2.25', items:['در فرم SELTA نسخه ی موبایل، اندازه ی فونت کلمه ی TRANSMITTER با RECEIVER برابر شد.','دکمه ی «ثبت در بایگانی» قبل از «ذخیره فایل Excel» قرار گرفت.','اندازه ی لول بعد از LMU حالا عددهای فارسی، ممیز فارسی (٫ یا /) و عدد دارای واحد (مثل dB) را هم می‌خواند.']},
     {v:'1.8.39', d:'1.2.24', items:['با پاک کردن فرم PLC (فرم مادر)، بقیه ی فرم ها هم پاک می‌شوند.','در گزارش فرکانس، اگر فرم SELTA یا ABB یا Dimat همان ایستگاه تکمیل شده باشد اولویت با آن است و فرکانس ها از فرم PLC فقط وقتی برداشته می‌شود که این فرم ها تکمیل نشده باشند.','منوی «ثبت ورود و خروج کاربران» (مخصوص ادمین) اضافه شد؛ ورود و خروج کاربران روی دستگاه ثبت می‌شود و در پشتیبان‌گیری هم ذخیره و با بازیابی به همین منو اضافه می‌شود.']},
     {v:'1.8.38', d:'1.2.23', items:['منوی «سابقه ی بروزرسانی ها» بعد از «مدیریت کاربران» در منوی نام کاربری اضافه شد؛ تغییرات همه ی نسخه ها از 1.2.3 به بعد، از جدیدترین به قدیمی ترین.']},
     {v:'1.8.37', d:'1.2.22', items:['در فرم LMU مقادیر لول قبل و بعد از LMU و سطح سیگنال فرستنده و گیرنده بر روی PLC علاوه بر پر شدن خودکار، قابل ورود دستی هم هستند؛ مقداری که کاربر دستی وارد کند دیگر به صورت خودکار تغییر نمی‌کند.']},
