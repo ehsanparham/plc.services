@@ -2,10 +2,10 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.40">
-<meta name="app-display-version" content="1.2.25">
+<meta name="app-version" content="1.8.41">
+<meta name="app-display-version" content="1.2.26">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>سامانه دیجیتال سرویس‌های PLC</title><link rel="manifest" href="manifest.webmanifest">
 <style>
@@ -855,7 +855,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.25</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.26</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -881,7 +881,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.25</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.26</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -3026,6 +3026,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.41', d:'1.2.26', items:['در نسخه ی موبایل، با کلیک روی باکس ها برای تایپ یا انتخاب از منوی کشویی، صفحه زوم نمی‌شود و ثابت می‌ماند.']},
     {v:'1.8.40', d:'1.2.25', items:['در فرم SELTA نسخه ی موبایل، اندازه ی فونت کلمه ی TRANSMITTER با RECEIVER برابر شد.','دکمه ی «ثبت در بایگانی» قبل از «ذخیره فایل Excel» قرار گرفت.','اندازه ی لول بعد از LMU حالا عددهای فارسی، ممیز فارسی (٫ یا /) و عدد دارای واحد (مثل dB) را هم می‌خواند.']},
     {v:'1.8.39', d:'1.2.24', items:['با پاک کردن فرم PLC (فرم مادر)، بقیه ی فرم ها هم پاک می‌شوند.','در گزارش فرکانس، اگر فرم SELTA یا ABB یا Dimat همان ایستگاه تکمیل شده باشد اولویت با آن است و فرکانس ها از فرم PLC فقط وقتی برداشته می‌شود که این فرم ها تکمیل نشده باشند.','منوی «ثبت ورود و خروج کاربران» (مخصوص ادمین) اضافه شد؛ ورود و خروج کاربران روی دستگاه ثبت می‌شود و در پشتیبان‌گیری هم ذخیره و با بازیابی به همین منو اضافه می‌شود.']},
     {v:'1.8.38', d:'1.2.23', items:['منوی «سابقه ی بروزرسانی ها» بعد از «مدیریت کاربران» در منوی نام کاربری اضافه شد؛ تغییرات همه ی نسخه ها از 1.2.3 به بعد، از جدیدترین به قدیمی ترین.']},
