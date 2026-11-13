@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.46">
-<meta name="app-display-version" content="1.2.31">
+<meta name="app-version" content="1.8.47">
+<meta name="app-display-version" content="1.2.32">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -727,7 +727,7 @@ body[data-view="app"][data-theme="dark"]:not([data-bg="off"]) .mitem,body[data-v
 #splash .st{color:#fff;font:700 clamp(15px,3.8vw,22px) "FaTitr","FaNazanin",Tahoma,sans-serif;text-align:center;padding:0 16px;opacity:0;animation:spTx .9s 1.5s ease both;text-shadow:0 0 12px rgba(79,182,255,.9)}
 #splash .sb{width:min(46vw,170px);height:3px;border-radius:3px;background:rgba(127,160,220,.25);overflow:hidden;opacity:0;animation:spTx .5s 1.4s ease both}
 #splash .sb i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#2e3192,#4fb6ff);transform-origin:right;animation:spBar 2.1s 1.4s ease-in-out both}
-@keyframes snIn{from{opacity:0;transform:scale(.6);filter:brightness(0) invert(1) blur(14px) drop-shadow(0 0 30px #4fb6ff)}to{opacity:1;transform:none}}
+@keyframes snIn{from{opacity:0;transform:scale(.6);filter:brightness(0) invert(1) blur(14px) drop-shadow(0 0 30px #4fb6ff)}to{opacity:1;transform:none;filter:brightness(0) invert(1) blur(0) drop-shadow(0 0 14px #4fb6ff)}}
 @keyframes snPulse{0%,100%{filter:brightness(0) invert(1) drop-shadow(0 0 10px #4fb6ff)}50%{filter:brightness(0) invert(1) drop-shadow(0 0 26px #7fd0ff)}}
 @keyframes snRise{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh);opacity:0}}
 @keyframes snRing{0%{transform:scale(.3);opacity:.9}100%{transform:scale(11);opacity:0}}
@@ -861,7 +861,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.31</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.32</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -887,7 +887,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.31</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.32</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -3032,6 +3032,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.47', d:'1.2.32', items:['انیمیشن لوگوی صفحه ی اول: لوگو از همان لحظه ی ظاهر شدن سفید است و دیگر ابتدا مشکی دیده نمی‌شود.']},
     {v:'1.8.46', d:'1.2.31', items:['انیمیشن جدید صفحه ی اول (لوگو): لوگوی سفید با درخشش نئونی آبی، حلقه های موج دار و جرقه های رو به بالا روی پس زمینه ی آبی تیره.']},
     {v:'1.8.45', d:'1.2.30', items:['برنامه به عملکرد نسخه ی 1.2.25 برگردانده شد؛ تغییرات نسخه های 1.2.26 تا 1.2.29 (مربوط به زوم، نوار ثابت بالای صفحه و صفحه ی لاگین آیفون) حذف شد.']},
     {v:'1.8.40', d:'1.2.25', items:['در فرم SELTA نسخه ی موبایل، اندازه ی فونت کلمه ی TRANSMITTER با RECEIVER برابر شد.','دکمه ی «ثبت در بایگانی» قبل از «ذخیره فایل Excel» قرار گرفت.','اندازه ی لول بعد از LMU حالا عددهای فارسی، ممیز فارسی (٫ یا /) و عدد دارای واحد (مثل dB) را هم می‌خواند.']},
