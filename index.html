@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.53">
-<meta name="app-display-version" content="1.2.38">
+<meta name="app-version" content="1.8.55">
+<meta name="app-display-version" content="1.2.40">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -875,7 +875,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.38</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.40</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -901,7 +901,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.38</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.40</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2447,7 +2447,7 @@ function openRecord(r){
 // ---- export report as .xlsx (built from scratch)
 function xesc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,''); }
 function colL(i){ return String.fromCharCode(65+i); }
-function sheetXml(rows, widths, titles){
+function sheetXml(rows, widths, titles, land){
   var n = widths.length, hr = titles.length + 2, last = colL(n-1);
   var x = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView rightToLeft="1" workbookViewId="0"><pane ySplit="'+hr+'" topLeftCell="A'+(hr+1)+'" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>';
   widths.forEach(function(w,i){ x += '<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>'; });
@@ -2456,7 +2456,7 @@ function sheetXml(rows, widths, titles){
   rows.forEach(function(r,ri){ var rn = hr + ri; x += '<row r="'+rn+'">'; r.forEach(function(v,ci){ x += '<c r="'+colL(ci)+rn+'" t="inlineStr"'+(ri===0?' s="1"':' s="3"')+'><is><t xml:space="preserve">'+xesc(v)+'</t></is></c>'; }); x += '</row>'; });
   x += '</sheetData><mergeCells count="'+titles.length+'">';
   titles.forEach(function(t,i){ x += '<mergeCell ref="A'+(i+1)+':'+last+(i+1)+'"/>'; });
-  return x + '</mergeCells><printOptions horizontalCentered="1"/><pageMargins left="0.4" right="0.4" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="portrait" fitToWidth="1" fitToHeight="0"/><headerFooter><oddFooter>&amp;C&amp;P / &amp;N</oddFooter></headerFooter></worksheet>';
+  return x + '</mergeCells><printOptions horizontalCentered="1"/><pageMargins left="0.4" right="0.4" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="'+(land ? 'landscape' : 'portrait')+'" fitToWidth="1" fitToHeight="0"/><headerFooter><oddFooter>&amp;C&amp;P / &amp;N</oddFooter></headerFooter></worksheet>';
 }
 function exportReport(){
   if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
@@ -2565,19 +2565,16 @@ function exportFreqXlsx(){
   var ds = list.map(function(r){ return r.dk; }).filter(Boolean), mn = ds.length ? Math.min.apply(null, ds) : 0, mx = ds.length ? Math.max.apply(null, ds) : 0;
   function dstr(k){ var s = String(k); return s.length === 8 ? s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6) : '—'; }
   var dFrom = FILT.from.trim() ? faDigits(FILT.from.trim()) : dstr(mn), dTo = FILT.to.trim() ? faDigits(FILT.to.trim()) : dstr(mx);
-  var titles = ['شرکت تعمیرات نیروی برق فارس', 'گزارش فرکانس TX/RX ایستگاه‌ها (از تاریخ ' + dFrom + ' تا تاریخ ' + dTo + ')'];
-  var r1 = [['ردیف','نام فرم','ناحیه','نام پست','نام خط','شماره خط','نام دستگاه','TX','RX','نوع کانال','مقادیر Transmitter','مقادیر Receiver','تاریخ','ثبت‌کننده']].concat(fr.map(function(o,i){ return [String(i+1), o.form, o.area, o.post, o.line, o.num, o.dev, o.tx, o.rx, o.ch, o.txv, o.rxv, o.date, o.user]; }));
-  var cnt = {}; fr.forEach(function(o){ [o.tx, o.rx].forEach(function(v){ var k = String(v || '').replace(/\s*\(.*\)\s*$/, '').trim(); if (!k) return; (cnt[k] = cnt[k] || {n:0, p:{}}).n++; cnt[k].p[o.post || '—'] = 1; }); });
-  var r2 = [['فرکانس','دفعات استفاده','ایستگاه‌ها']].concat(Object.keys(cnt).sort(function(x,y){ return parseFloat(x) - parseFloat(y) || (x < y ? -1 : 1); }).map(function(k){ return [k, String(cnt[k].n), Object.keys(cnt[k].p).join('، ')]; }));
+  var titles = ['شرکت تعمیرات نیروی برق فارس', 'گزارش فرکانس TX/RX ایستگاه‌ها'];
+  var r1 = [['ردیف','نام پست','نام خط','شماره خط','نام دستگاه','TX','RX','مقادیر Transmitter','مقادیر Receiver']].concat(fr.map(function(o,i){ return [String(i+1), o.post, o.line, o.num, o.dev, o.tx, o.rx, o.txv, o.rxv]; }));
   var z = new JSZip();
-  z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
+  z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
   z.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
-  z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="فرکانس TX-RX" sheetId="1" r:id="rId1"/><sheet name="خلاصه فرکانس‌ها" sheetId="2" r:id="rId2"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\'گزارش\'!$4:$4</definedName><definedName name="_xlnm.Print_Titles" localSheetId="1">\'خلاصه پست‌ها\'!$4:$4</definedName></definedNames></workbook>');
-  z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+  z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="فرکانس TX-RX" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\'فرکانس TX-RX\'!$4:$4</definedName></definedNames></workbook>');
+  z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
   z.file('xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD9E8F5"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FF999999"/></left><right style="thin"><color rgb="FF999999"/></right><top style="thin"><color rgb="FF999999"/></top><bottom style="thin"><color rgb="FF999999"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf></cellXfs></styleSheet>');
-  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,14,12,22,16,10,12,16,16,12,40,40,12,18], titles));
-  z.file('xl/worksheets/sheet2.xml', sheetXml(r2,[16,14,60], titles));
-  var nm = 'Freq_Report_' + dFrom.replace(/\D+/g,'') + '_' + dTo.replace(/\D+/g,'') + '.xlsx';
+  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,18,16,9,10,8,8,28,28], titles));
+  var nm = 'Freq_Report_' + dayStamp() + '.xlsx';
   z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش فرکانس ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
 }
 
@@ -3060,6 +3057,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.55', d:'1.2.40', items:['فایل Excel گزارش فرکانس: ستون «ردیف» دوباره اضافه شد و صفحه ی چاپ به صورت A4 عمودی (Portrait) است.']},
+    {v:'1.8.54', d:'1.2.39', items:['فایل Excel گزارش فرکانس: محدوده ی تاریخ حذف شد و فقط ستون های نام پست، نام خط، شماره خط، نام دستگاه، TX، RX، مقادیر Transmitter و مقادیر Receiver در خروجی می‌آید؛ صفحه ی چاپ A4 افقی و کاملا داخل کادر.']},
     {v:'1.8.53', d:'1.2.38', items:['صفحه ی اول: انیمیشن نئون (لوگوی سفید با درخشش آبی و حلقه های موج‌دار) برگشت؛ در نسخه ی موبایل لوگو دقیقا در همان جایگاه صفحه ی لاگین نمایان می‌شود.']},
     {v:'1.8.52', d:'1.2.37', items:['نسخه ی موبایل - صفحه ی اول: انیمیشن جدید (فلاش نور، زوم به عقب روی تصویر دکل و پست برق و موج شوک) و سپس نمایان شدن لوگو و نام شرکت دقیقا در همان جایگاه صفحه ی لاگین.']},
     {v:'1.8.51', d:'1.2.36', items:['اصلاح مشکل تاریخ: تاریخ داخل فرم‌هایی که قبلا در بایگانی ثبت شده‌اند (هنگام ذخیره، مشاهده و اصلاح) دیگر به تاریخ امروز تغییر نمی‌کند و همان تاریخ ثبت فرم می‌ماند.']},
