@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.50">
-<meta name="app-display-version" content="1.2.35">
+<meta name="app-version" content="1.8.51">
+<meta name="app-display-version" content="1.2.36">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -895,7 +895,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.35</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.36</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -921,7 +921,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.35</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.36</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2280,7 +2280,7 @@ function saveRangeZip(f, t, fs, ts){
     var base = fn, c = 2; while (used[fn.toLowerCase()]) fn = base + '_' + (c++); used[fn.toLowerCase()] = 1;
     ['plc','lmu','selta','abb','dimat'].forEach(function(k){
       var r = g.f[k]; if (!r) return; var sh = shByKey(k);
-      chain = chain.then(function(){ return buildBlob(sh, JSON.parse(JSON.stringify(r.vals))).then(function(b){ zip.file(fn + '/' + nameAll(sh, r.vals, r.date) + '.xlsx', b); }); });
+      chain = chain.then(function(){ return buildBlob(sh, recVals(r)).then(function(b){ zip.file(fn + '/' + nameAll(sh, r.vals, r.date) + '.xlsx', b); }); });
     });
   });
   function fail(e){ console.error(e); toast('خطا در ساخت فایل فشرده: ' + (e && e.message || e)); }
@@ -2357,11 +2357,15 @@ function dkey(s){ // "1405/08/02" -> 14050802 ; 0 when invalid
   return (+m[1])*10000 + (+m[2])*100 + (+m[3]);
 }
 function nowTime(){ var d = new Date(), p = function(n){ return (n<10?'0':'')+n; }; return p(d.getHours())+':'+p(d.getMinutes()); }
+function freezeDates(sh, vals, date){ // keep the date shown in a form fixed in the saved record (otherwise an old record would show today's date later)
+  (sh.cells || []).forEach(function(c){ if (c.labelInput && /^(date|تاریخ)/i.test(String(c.text || '').trim()) && (vals[c.ref] === undefined || String(vals[c.ref]).trim() === '') && date) vals[c.ref] = date; });
+}
+function recVals(r){ var v = JSON.parse(JSON.stringify(r.vals || {})), sh = shByKey(r.form); if (sh) freezeDates(sh, v, r.date); return v; }
 function addRecord(sh){
   var vals = state.vals[sh.key];
   if (!hasData(sh.key)) return false;
   var snap = JSON.parse(JSON.stringify(vals)), snapStr = JSON.stringify(snap);
-  var date = effDate(sh, vals);
+  var date = effDate(sh, vals); freezeDates(sh, snap, date); snapStr = JSON.stringify(snap);
   var post = String(vals[sh.nameRef] || '').trim();
   var last = null; for (var i = RECS.length - 1; i >= 0; i--){ if (RECS[i].form === sh.key){ last = RECS[i]; break; } }
   var rec = {id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), ts: Date.now(), date: date, dk: dkey(date), time: nowTime(),
@@ -2452,12 +2456,12 @@ function exportRecordXlsx(r){
   var sh = shByKey(r.form); if (!sh) return;
   if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
   var d = faDigits(r.date || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
-  askFileName(sh, JSON.parse(JSON.stringify(r.vals)), nameAll(sh, r.vals, r.date));
+  askFileName(sh, recVals(r), nameAll(sh, r.vals, r.date));
 }
 function openRecord(r){
   var sh = shByKey(r.form); if (!sh) return;
   if (hasData(sh.key) && !confirm('اطلاعات فعلی فرم ' + sh.tab + ' با این رکورد جایگزین شود؟')) return;
-  state.vals[sh.key] = JSON.parse(JSON.stringify(r.vals)); (state.edit = state.edit || {})[sh.key] = r.id; saveStore();
+  state.vals[sh.key] = recVals(r); (state.edit = state.edit || {})[sh.key] = r.id; saveStore();
   state.report = false; state.search = false; state.active = SHEETS.indexOf(sh); render(); $('desk').scrollTop = 0; toast('رکورد در فرم باز شد');
 }
 // ---- export report as .xlsx (built from scratch)
@@ -3076,6 +3080,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.51', d:'1.2.36', items:['اصلاح مشکل تاریخ: تاریخ داخل فرم‌هایی که قبلا در بایگانی ثبت شده‌اند (هنگام ذخیره، مشاهده و اصلاح) دیگر به تاریخ امروز تغییر نمی‌کند و همان تاریخ ثبت فرم می‌ماند.']},
     {v:'1.8.50', d:'1.2.35', items:['اگر تاریخی که کاربر در خود فرم نوشته با تاریخ صفحه ی «ناحیه و تاریخ» فرق داشته باشد (مثلا ثبت اطلاعات چند روز بعد)، تاریخ ثبت رکورد در Report و نام فایل ها و فولدرها از تاریخ همان فرم گرفته می‌شود؛ در غیر این صورت تاریخ همان روز استفاده می‌شود.']},
     {v:'1.8.49', d:'1.2.34', items:['تاریخی که در نام فولدر و فایل‌های ذخیره (ذخیره ی فرم‌های تکمیل‌شده، فایل Excel، خروجی ها و فایل پشتیبان) استفاده می‌شود، همان تاریخی است که در فرم ها ثبت شده؛ نه تاریخ امروز دستگاه.']},
     {v:'1.8.48', d:'1.2.33', items:['نسخه ی موبایل - صفحه ی اول: انیمیشن جدید با تصویر دکل و پست برق؛ یک حلقه در جایی که لوگو قرار است بیاید می‌چرخد و سپس لوگو و نام شرکت دقیقا در همان جایگاه صفحه ی لاگین نمایان و ثابت می‌شوند.','دکمه ی «ذخیره ی فرم‌های تکمیل‌شده» در بالای صفحه ی Report هم نمایش داده می‌شود. در موبایل: برای کاربران در یک سطر کنار دکمه ی پشتیبان‌گیری و برای ادمین زیر دکمه ی نام کاربری قرار دارد.']},
