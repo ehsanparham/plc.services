@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.49">
-<meta name="app-display-version" content="1.2.34">
+<meta name="app-version" content="1.8.50">
+<meta name="app-display-version" content="1.2.35">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -895,7 +895,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.34</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.35</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -921,7 +921,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.34</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.35</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1987,10 +1987,20 @@ var FILE_PREFIX = {plc:'PLC_CheckList', lmu:'LMU_CheckList', selta:'SELTA_TestSh
 var NUMREF = {plc:'K10', lmu:'K11', selta:'I3', abb:'I3', dimat:'K5'}, NAMEPFX = {plc:'PLC', lmu:'LMU', selta:'SELTA', abb:'ABB', dimat:'DIMAT'};
 function safeName(t){ return String(t === undefined || t === null ? '' : t).replace(/[\\\/:*?"<>|\r\n\t]+/g,'_').trim().replace(/[. ]+$/,''); }
 function lineNumOf(key, vals){ return safeName(faDigits(String((vals || {})[NUMREF[key]] === undefined ? '' : vals[NUMREF[key]]).trim())); }
+function formDateOf(sh, vals){ // date typed in the form's own date box (only when it is a valid date); '' when empty/invalid
+  var out = '', base = dkey(info && info.date);
+  (sh.cells || []).forEach(function(c){
+    if (!c.labelInput || !/^(date|تاریخ)/i.test(String(c.text || '').trim())) return;
+    var v = faDigits(String(((vals || {})[c.ref]) === undefined ? '' : vals[c.ref]).trim());
+    if (v && dkey(v) && (!out || (dkey(out) === base && dkey(v) !== base))) out = v;   // a box that differs from the entry-page date wins
+  });
+  return out;
+}
+function effDate(sh, vals){ return faDigits(formDateOf(sh, vals) || (info && info.date) || jalaliToday() || ''); }
 function dayStamp(d){ return faDigits(d || (info && info.date) || jalaliToday() || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-'); }
-function nameAll(sh, vals, date){ var n = lineNumOf(sh.key, vals), d = dayStamp(date); return NAMEPFX[sh.key] + (n ? '_' + n : '') + (d ? '_' + d : ''); }
+function nameAll(sh, vals, date){ var n = lineNumOf(sh.key, vals), d = dayStamp(date || formDateOf(sh, vals)); return NAMEPFX[sh.key] + (n ? '_' + n : '') + (d ? '_' + d : ''); }
 function buildName(sh){
-  var d = faDigits((info && info.date) || jalaliToday() || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
+  var d = effDate(sh, state.vals[sh.key]).replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
   return (FILE_PREFIX[sh.key] || sh.file) + (d ? '_' + d : '') + '.xlsx';
 }
 
@@ -2351,7 +2361,7 @@ function addRecord(sh){
   var vals = state.vals[sh.key];
   if (!hasData(sh.key)) return false;
   var snap = JSON.parse(JSON.stringify(vals)), snapStr = JSON.stringify(snap);
-  var date = faDigits((info && info.date) || jalaliToday() || '');
+  var date = effDate(sh, vals);
   var post = String(vals[sh.nameRef] || '').trim();
   var last = null; for (var i = RECS.length - 1; i >= 0; i--){ if (RECS[i].form === sh.key){ last = RECS[i]; break; } }
   var rec = {id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), ts: Date.now(), date: date, dk: dkey(date), time: nowTime(),
@@ -3066,6 +3076,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.50', d:'1.2.35', items:['اگر تاریخی که کاربر در خود فرم نوشته با تاریخ صفحه ی «ناحیه و تاریخ» فرق داشته باشد (مثلا ثبت اطلاعات چند روز بعد)، تاریخ ثبت رکورد در Report و نام فایل ها و فولدرها از تاریخ همان فرم گرفته می‌شود؛ در غیر این صورت تاریخ همان روز استفاده می‌شود.']},
     {v:'1.8.49', d:'1.2.34', items:['تاریخی که در نام فولدر و فایل‌های ذخیره (ذخیره ی فرم‌های تکمیل‌شده، فایل Excel، خروجی ها و فایل پشتیبان) استفاده می‌شود، همان تاریخی است که در فرم ها ثبت شده؛ نه تاریخ امروز دستگاه.']},
     {v:'1.8.48', d:'1.2.33', items:['نسخه ی موبایل - صفحه ی اول: انیمیشن جدید با تصویر دکل و پست برق؛ یک حلقه در جایی که لوگو قرار است بیاید می‌چرخد و سپس لوگو و نام شرکت دقیقا در همان جایگاه صفحه ی لاگین نمایان و ثابت می‌شوند.','دکمه ی «ذخیره ی فرم‌های تکمیل‌شده» در بالای صفحه ی Report هم نمایش داده می‌شود. در موبایل: برای کاربران در یک سطر کنار دکمه ی پشتیبان‌گیری و برای ادمین زیر دکمه ی نام کاربری قرار دارد.']},
     {v:'1.8.47', d:'1.2.32', items:['انیمیشن لوگوی صفحه ی اول: لوگو از همان لحظه ی ظاهر شدن سفید است و دیگر ابتدا مشکی دیده نمی‌شود.']},
