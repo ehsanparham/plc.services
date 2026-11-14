@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.56">
-<meta name="app-display-version" content="1.2.41">
+<meta name="app-version" content="1.8.57">
+<meta name="app-display-version" content="1.2.42">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -883,7 +883,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.41</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.42</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -909,7 +909,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 </header>
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.41</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.42</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2366,7 +2366,19 @@ function addRecord(sh){
 function shByKey(k){ for (var i=0;i<SHEETS.length;i++) if (SHEETS[i].key === k) return SHEETS[i]; return null; }
 var REFS = {plc:{area:'E10',post:'G10',line:'I10',num:'K10',phone:'R27',device:'M10'}, lmu:{area:'D11',post:'G11',line:'I11',num:'K11',device:'M11',phase:'O11',coupling:'R11'}, selta:{post:'C3',line:'C4',num:'I3'}, abb:{post:'C3',line:'C4',num:'I3'}, dimat:{post:'C3',line:'C4'}};
 var DEVNAME = {selta:'SELTA', abb:'ABB', dimat:'Dimat'};
-function rv(r, k){ if (k === 'device' && DEVNAME[r.form]) return DEVNAME[r.form]; var R = REFS[r.form] || {}, v = R[k] ? (r.vals||{})[R[k]] : ''; return String(v === undefined ? '' : v).trim(); }
+function devArea(r){   // SELTA / ABB / Dimat forms have no area: take it from the PLC record completed together with them (same date and post, preferably same line and device)
+  var post = rv(r,'post'), line = rv(r,'line'), best = '', bs = 0;
+  if (!post) return '';
+  (RECS || []).forEach(function(p){
+    if (p.form !== 'plc' || p.date !== r.date) return;
+    var pa = rv(p,'area'); if (!pa || rv(p,'post') !== post) return;
+    var s = 1; if (line && rv(p,'line') === line) s += 2;
+    var pd = rv(p,'device').toLowerCase(); if (pd && pd.indexOf(String(DEVNAME[r.form] || '').toLowerCase()) >= 0) s += 2;
+    if (s > bs){ bs = s; best = pa; }
+  });
+  return best;
+}
+function rv(r, k){ if (k === 'area' && DEVNAME[r.form]){ var own = String(((r.vals||{})[(REFS[r.form]||{}).area] || '')).trim(); return own || devArea(r); } if (k === 'device' && DEVNAME[r.form]) return DEVNAME[r.form]; var R = REFS[r.form] || {}, v = R[k] ? (r.vals||{})[R[k]] : ''; return String(v === undefined ? '' : v).trim(); }
 var FILT = {from:'', to:'', form:'', user:'', q:''};
 function filtered(){
   var f = dkey(FILT.from), t = dkey(FILT.to), q = faDigits(FILT.q).trim().toLowerCase();
@@ -3065,6 +3077,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.57', d:'1.2.42', items:['Report: برای فرم های SELTA، ABB و Dimat که ناحیه ندارند، ناحیه از فرم PLC مربوط به همان پست (و خط و دستگاه) که در همان تاریخ تکمیل شده گرفته می‌شود؛ هم در فهرست فرم های ثبت شده و هم در فایل های Excel گزارش.']},
     {v:'1.8.56', d:'1.2.41', items:['انیمیشن صفحه ی اول (نئون): در پایین صفحه دکل های فشار قوی با سیم ها کشیده می‌شوند و جریان نورانی روی سیم ها حرکت می‌کند.']},
     {v:'1.8.55', d:'1.2.40', items:['فایل Excel گزارش فرکانس: ستون «ردیف» دوباره اضافه شد و صفحه ی چاپ به صورت A4 عمودی (Portrait) است.']},
     {v:'1.8.54', d:'1.2.39', items:['فایل Excel گزارش فرکانس: محدوده ی تاریخ حذف شد و فقط ستون های نام پست، نام خط، شماره خط، نام دستگاه، TX، RX، مقادیر Transmitter و مقادیر Receiver در خروجی می‌آید؛ صفحه ی چاپ A4 افقی و کاملا داخل کادر.']},
