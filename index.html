@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.60">
-<meta name="app-display-version" content="1.2.45">
+<meta name="app-version" content="1.8.62">
+<meta name="app-display-version" content="1.2.47">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -895,7 +895,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.45</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.47</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -922,7 +922,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.45</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.47</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2692,13 +2692,15 @@ var SEC_VALS = {   // every input typed in the Transmitter / Receiver sections: 
   dimat: {tx:[13,15,17,19,21,23].map(function(r,i){ return [['Pilot','Signaling','VFT','Speech 2W','Speech 4W','Teleprotection'][i], [['H','Single 20W'],['I','Single 40W'],['J','Double 20W'],['K','Double 40W'],['L','L'],['M','M']].map(function(c){ return [c[0] + r, c[1]]; })]; }),
           rx:[['VFT',[['L33','']]],['Speech 2W',[['L35','']]],['Speech 4W',[['L37','']]],['Teleprotection',[['L39','']]],['Teleprotection 2',[['L40','']]]]}
 };
-function secVals(form, v, part){   // values typed in the Transmitter / Receiver sections of the SELTA / ABB / Dimat forms
-  var d = SEC_VALS[form]; if (!d) return ''; var out = [];
+var SEC_REN = {selta: {tx: {'Carrier': 'F(carr)', 'Signalling': 'F(Sig+)', 'Speech': 'F(Sig-)'}}};   // Transmitter row titles written like the Receiver ones
+function secVals(form, v, part){   // values typed in the Transmitter / Receiver sections of the SELTA / ABB / Dimat forms; line 1 = first row, line 2 = the other rows
+  var d = SEC_VALS[form]; if (!d) return ''; var out = [], ren = (SEC_REN[form] || {})[part] || {};
   d[part].forEach(function(g){
-    var ps = []; g[1].forEach(function(q){ var x = String((v || {})[q[0]] == null ? '' : v[q[0]]).trim(); if (x) ps.push(q[1] ? q[1] + '=' + x : x); });
-    if (ps.length) out.push(g[0] + ': ' + ps.join(' / '));
+    var nm = ren[g[0]] || g[0], bare = !!ren[g[0]];
+    var ps = []; g[1].forEach(function(q){ if (bare && q[1] !== 'Coax') return; var x = String((v || {})[q[0]] == null ? '' : v[q[0]]).trim(); if (x) ps.push(q[1] && !bare ? q[1] + '=' + x : x); });   // renamed rows (F(carr) ...) show the Coax value only, like the Receiver column
+    if (ps.length) out.push(nm + ': ' + ps.join(' / '));
   });
-  return out.join(' ، ');
+  return out.length > 1 ? out[0] + '\n' + out.slice(1).join('   ') : (out[0] || '');
 }
 function freqRows(list){
   var out = [];
@@ -2719,12 +2721,13 @@ function askFreq(){
   var h = '<h2>گزارش فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
   if (!fr.length) h += '<div class="msg" style="display:block">رکوردی که فرکانس TX یا RX داشته باشد پیدا نشد.</div>';
   else {
-    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:1000px"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>فرم</th><th>تاریخ</th></tr></thead><tbody>';
-    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td dir="ltr" style="font-size:12px;min-width:150px">' + esc(o.txv || '—') + '</td><td dir="ltr" style="font-size:12px;min-width:150px">' + esc(o.rxv || '—') + '</td><td>' + esc(o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
+    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>نام دستگاه</th><th>تاریخ</th></tr></thead><tbody>';
+    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.txv || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.rxv || '—') + '</td><td>' + esc(o.dev || o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
     h += '</tbody></table></div>';
   }
   h += '<div class="row2"><button class="btn sec" id="frClose">بستن</button>' + (fr.length ? '<button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
   openModal(h);
+  if (window.innerWidth > 760) $('modal').style.width = 'min(96vw, 1240px)';   // Windows: wide window, every column visible
   $('frClose').onclick = closeModal;
   if (fr.length) $('frXls').onclick = function(){ exportFreqXlsx(); };
 }
@@ -2742,7 +2745,10 @@ function exportFreqXlsx(){
   z.file('xl/workbook.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="فرکانس TX-RX" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\'فرکانس TX-RX\'!$4:$4</definedName></definedNames></workbook>');
   z.file('xl/_rels/workbook.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
   z.file('xl/styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD9E8F5"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FF999999"/></left><right style="thin"><color rgb="FF999999"/></right><top style="thin"><color rgb="FF999999"/></top><bottom style="thin"><color rgb="FF999999"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf></cellXfs></styleSheet>');
-  z.file('xl/worksheets/sheet1.xml', sheetXml(r1,[6,18,16,9,10,8,8,28,28], titles));
+  var fw = [6,18,16,9,10,8,8,36,36], fx = sheetXml(r1, fw, titles), hr0 = titles.length + 2;
+  r1.forEach(function(r, ri){ if (ri === 0) return; var ln = 1; [7, 8].forEach(function(ci){ var c = 0; String(r[ci] || '').split('\n').forEach(function(t){ c += Math.max(1, Math.ceil(t.length / (fw[ci] * 0.95))); }); ln = Math.max(ln, c); });
+    if (ln > 1) fx = fx.replace('<row r="' + (hr0 + ri) + '">', '<row r="' + (hr0 + ri) + '" ht="' + (15 * ln + 3) + '" customHeight="1">'); });
+  z.file('xl/worksheets/sheet1.xml', fx);
   var nm = 'Freq_Report_' + dayStamp() + '.xlsx';
   z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش فرکانس ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
 }
@@ -2841,7 +2847,13 @@ function clearForm(sh){   // removes only what was typed / picked by hand; defau
     devLast = {};
   }
   state.vals[key] = base ? JSON.parse(JSON.stringify(base)) : {};
-  if (key === 'lmu'){ ['R22','R23','M29','M30'].forEach(function(r){ delete state.vals.lmu[r]; if (state.base.lmu) delete state.base.lmu[r]; }); }   // auto-filled levels go too
+  if (key === 'lmu'){
+    ['R22','R23','M29','M30'].forEach(function(r){ delete state.vals.lmu[r]; if (state.base.lmu) delete state.base.lmu[r]; });   // auto-filled levels go too
+    // the saved start-up copy may hold the station that was in the PLC form back then: drop it and put back what the PLC form holds NOW
+    var pv = state.vals.plc || {};
+    Object.keys(SYNC).forEach(function(q){ delete state.vals.lmu[SYNC[q]]; if (pv[q] !== undefined && String(pv[q]).trim() !== '') state.vals.lmu[SYNC[q]] = pv[q]; });
+    state.base.lmu = JSON.parse(JSON.stringify(state.vals.lmu));
+  }
   delete devLast[key]; if (state.edit) delete state.edit[key];
 }
 $('btnClear').addEventListener('click', function(){
@@ -3226,6 +3238,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.62', d:'1.2.47', items:['گزارش فرکانس (پنجره و Excel): در ستون مقادیر Transmitter فرم SELTA به جای Carrier: Coax= و Signalling: Coax= و Speech: Coax= نوشته می‌شود F(carr): و F(Sig+): و F(Sig-): دقیقا مثل ستون Receiver.','در Excel گزارش فرکانس، سلول مقادیر Transmitter و Receiver دو سطری است: سطر اول F(carr): و سطر دوم F(Sig+): و در ادامه ی آن F(Sig-):','در پنجره ی گزارش فرکانس سرستون «فرم» به «نام دستگاه» تغییر کرد و در نسخه ی ویندوز پنجره آن‌قدر پهن است که همه ی ستون ها دیده شوند.']},
+    {v:'1.8.61', d:'1.2.46', items:['اصلاح دکمه ی پاک کردن فرم LMU: فقط اطلاعاتی که کاربر دستی وارد کرده حذف می‌شود و اطلاعات منتقل شده از فرم PLC (ایستگاه فعلی) باقی می‌ماند؛ دیگر اطلاعات ایستگاه قبلی جایگزین نمی‌شود.']},
     {v:'1.8.60', d:'1.2.45', items:['تغییر تاریخ پایین فرم PLC (زیر مسئول گروه یا زیر ناظر): تاریخ هر دو جای فرم PLC، هر دو تاریخ فرم LMU و تاریخ فرم دستگاه انتخاب شده (SELTA، ABB یا Dimat) هم زمان به همان تاریخ تغییر می‌کند؛ اگر تاریخی وارد نشود همان تاریخ روز می‌ماند.','نام فایل فشرده ی ذخیره ی فرم ها و فایل پشتیبان هم از همین تاریخ ثبت شده در فرم ها گرفته می‌شود (نام Excel ها و پوشه ها از قبل بر اساس تاریخ فرم بود).']},
     {v:'1.8.59', d:'1.2.44', items:['نمونه فرم های کاربر مهمان فقط در پروفایل همان کاربر دیده می‌شود و برای ادمین و بقیه ی کاربران نمایش داده نمی‌شود.','تصویر خروجی فرم بعد از ساخته شدن تمام صفحه و کامل (بدون نیاز به ضربه زدن) نمایش داده می‌شود و با دو انگشت قابل زوم و با یک انگشت قابل جابه‌جایی است.']},
     {v:'1.8.58', d:'1.2.43', items:['دکمه ی «نمایش تصویر خروجی» زیر دکمه های ثبت و ذخیره ی همه ی فرم ها اضافه شد؛ تصویری دقیقا هم چیدمان خروجی Excel از همان فرم نشان می‌دهد و می‌توان آن را ذخیره کرد.','کاربر جدید «کاربر مهمان» (نام کاربری و رمز عبور: test) برای نمایش و معرفی برنامه اضافه شد و سه نمونه فرم PLC، SELTA و LMU (ناحیه شیراز، پست نیروگاه فارس، خط دانشگاه، شماره ی خط 839) در Report او دیده می‌شود.']},
