@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.64">
-<meta name="app-display-version" content="1.2.49">
+<meta name="app-version" content="1.8.65">
+<meta name="app-display-version" content="1.2.50">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.49</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.50</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -924,7 +924,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.49</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.50</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -3199,8 +3199,8 @@ boot();
 window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, USERS: USERS};
 })();
 
-(function(){ var sp = document.getElementById('splash'); if (!sp) return;   // splash lasts 4 seconds; the bar fills right to left together with 1% ... 100%
-  var bar = sp.querySelector('.sb i'), pct = document.getElementById('spPct'), t0 = Date.now(), TOT = 4000, FILL = 3800;
+(function(){ var sp = document.getElementById('splash'); if (!sp) return;   // splash lasts 5 seconds; the bar fills right to left together with 1% ... 100%
+  var bar = sp.querySelector('.sb i'), pct = document.getElementById('spPct'), t0 = Date.now(), TOT = 5000, FILL = 4800;
   function tick(){ var k = Math.min(1, (Date.now() - t0) / FILL), n = Math.max(1, Math.min(100, Math.ceil(k * 100)));
     if (bar) bar.style.transform = 'scaleX(' + k + ')'; if (pct) pct.textContent = n + '%'; if (k < 1 && sp.parentNode) requestAnimationFrame(tick); }
   tick();
@@ -3244,6 +3244,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.65', d:'1.2.50', items:['مدت نمایش صفحه ی اول (لوگو) به 5 ثانیه تنظیم شد؛ نوار لود و درصد 1% تا 100% در همین 5 ثانیه پر می‌شود و بعد صفحه محو می‌شود.']},
     {v:'1.8.64', d:'1.2.49', items:['مدت نمایش صفحه ی اول (لوگو) از 3 ثانیه به 4 ثانیه افزایش یافت؛ نوار لود و درصد 1% تا 100% در همین 4 ثانیه پر می‌شود و بعد صفحه محو می‌شود.']},
     {v:'1.8.63', d:'1.2.48', items:['صفحه ی اول (نمایش لوگو) دقیقا 3 ثانیه طول می‌کشد و نوار لود از سمت راست به چپ همراه با عدد درصد از 1% تا 100% پر می‌شود.']},
     {v:'1.8.62', d:'1.2.47', items:['گزارش فرکانس (پنجره و Excel): در ستون مقادیر Transmitter فرم SELTA به جای Carrier: Coax= و Signalling: Coax= و Speech: Coax= نوشته می‌شود F(carr): و F(Sig+): و F(Sig-): دقیقا مثل ستون Receiver.','در Excel گزارش فرکانس، سلول مقادیر Transmitter و Receiver دو سطری است: سطر اول F(carr): و سطر دوم F(Sig+): و در ادامه ی آن F(Sig-):','در پنجره ی گزارش فرکانس سرستون «فرم» به «نام دستگاه» تغییر کرد و در نسخه ی ویندوز پنجره آن‌قدر پهن است که همه ی ستون ها دیده شوند.']},
@@ -3347,7 +3348,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
     function close(){ lsSet(SEEN_KEY, CUR); if (ov.parentNode) ov.parentNode.removeChild(ov); }
     document.getElementById('wnOk').onclick = close;
   }
-  setTimeout(show, 4700);   // after the opening splash
+  setTimeout(show, 5700);   // after the opening splash
 })();
 </script>
 </body>
