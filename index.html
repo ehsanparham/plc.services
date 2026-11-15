@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.58">
-<meta name="app-display-version" content="1.2.43">
+<meta name="app-version" content="1.8.59">
+<meta name="app-display-version" content="1.2.44">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -590,6 +590,13 @@ body[data-report="1"] .savewrap,body[data-report="1"] #btnClear,body[data-report
 }
 .savewrap{gap:12px;flex-wrap:wrap}
 .savewrap.sw2{margin-top:12px}
+.oiView{position:fixed;inset:0;z-index:99999;background:#081024;display:flex;flex-direction:column;direction:rtl}
+.oiTop{padding:10px 14px;color:#fff;font-family:"FaTitr","FaNazanin",Tahoma,sans-serif;font-size:16px;text-align:center;flex:0 0 auto}
+.oiStage{flex:1 1 auto;position:relative;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;background:#0b1530}
+.oiStage img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.5);-webkit-user-drag:none}
+.oiBar{display:flex;gap:10px;padding:10px 14px 4px;flex:0 0 auto}
+.oiBar .btn{flex:1;justify-content:center;background:#1d3e78 !important;color:#fff !important;border:1px solid #6ea8ff !important;box-shadow:none !important}
+.oiHint2{color:#9fb3d6;font-size:12.5px;text-align:center;padding:0 0 10px;flex:0 0 auto}
 .oiBox{max-height:68vh;overflow:auto;border:1px solid #c9d6e8;border-radius:10px;background:#fff;-webkit-overflow-scrolling:touch}
 .oiBox img{display:block;width:100%;height:auto;cursor:zoom-in}
 .oiBox.big img{width:260%;max-width:none;cursor:zoom-out}
@@ -888,7 +895,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.43</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.44</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -915,7 +922,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.43</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.44</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2219,12 +2226,47 @@ function showOutputImage(){
   toast('در حال ساخت تصویر خروجی ...');
   makeOutputImage(sh, state.vals[sh.key]).then(function(res){
     var base = buildName(sh).replace(/\.xlsx$/i, '');
-    openModal('<h2>تصویر خروجی فرم</h2><div style="font-size:14px;color:#6b7a8c">همان چیدمان فایل Excel (' + esc(TAB_NAMES[sh.key] || sh.key) + ')</div>' +
-      '<div class="oiBox" id="oiBox" style="margin-top:10px"><img id="oiImg" alt="" src="' + res.url + '"></div><div class="oiHint">برای بزرگ نمایی یا کوچک کردن، روی تصویر بزنید</div>' +
-      '<div class="row2"><button class="btn sec" id="oiClose">بستن</button><button class="btn pri" id="oiSave">ذخیره ی تصویر</button></div>');
-    $('modal').style.width = 'min(96vw, 900px)';
-    $('oiImg').onclick = function(){ $('oiBox').classList.toggle('big'); };
-    $('oiClose').onclick = function(){ closeModal(); try { URL.revokeObjectURL(res.url); } catch(e){} };
+    var old = document.getElementById('oiView'); if (old) old.remove();
+    var v = document.createElement('div'); v.id = 'oiView'; v.className = 'oiView';
+    v.innerHTML = '<div class="oiTop"><span>تصویر خروجی فرم - ' + esc(TAB_NAMES[sh.key] || sh.key) + '</span></div><div class="oiStage" id="oiStage"><img id="oiImg" alt="" draggable="false"></div>' +
+      '<div class="oiBar"><button class="btn sec" id="oiClose">بستن</button><button class="btn pri" id="oiSave">ذخیره ی تصویر</button></div><div class="oiHint2">با دو انگشت زوم کنید؛ با یک انگشت جابه‌جا کنید</div>';
+    document.body.appendChild(v);
+    var st = $('oiStage'), im = $('oiImg'), s = 1, tx = 0, ty = 0, fit = 1, iw = 1, ih = 1, cw = 1, ch = 1, ps = {};
+    function clamp(){
+      var W = iw * s, H = ih * s;
+      tx = W <= cw ? (cw - W) / 2 : Math.min(0, Math.max(cw - W, tx));
+      ty = H <= ch ? (ch - H) / 2 : Math.min(0, Math.max(ch - H, ty));
+    }
+    function apply(){ clamp(); im.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')'; }
+    function layout(){
+      cw = st.clientWidth; ch = st.clientHeight; iw = im.naturalWidth || 1; ih = im.naturalHeight || 1;
+      var k = Math.min(cw / iw, ch / ih); im.style.width = iw + 'px'; im.style.height = ih + 'px';
+      var ns = k; if (fit && s !== fit && Math.abs(s / fit - 1) > 0.001){ ns = k * (s / fit); } fit = k; s = ns; apply();
+    }
+    function zoomAt(f, cx, cy){
+      var ns = Math.min(fit * 8, Math.max(fit, s * f)); f = ns / s; tx = cx - (cx - tx) * f; ty = cy - (cy - ty) * f; s = ns; apply();
+    }
+    im.onload = function(){ s = 0; fit = 0; layout(); };
+    im.src = res.url;
+    window.addEventListener('resize', layout);
+    function pts(){ return Object.keys(ps).map(function(k){ return ps[k]; }); }
+    var last = null;
+    st.addEventListener('pointerdown', function(e){ try { st.setPointerCapture(e.pointerId); } catch(x){} ps[e.pointerId] = {x: e.clientX, y: e.clientY}; last = null; e.preventDefault(); });
+    st.addEventListener('pointermove', function(e){
+      if (!ps[e.pointerId]) return; var r = st.getBoundingClientRect(), p = pts(), before = p.map(function(q){ return {x: q.x, y: q.y}; });
+      ps[e.pointerId] = {x: e.clientX, y: e.clientY}; var a = pts();
+      if (a.length >= 2){
+        var d0 = Math.hypot(before[0].x - before[1].x, before[0].y - before[1].y), d1 = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
+        var c0x = (before[0].x + before[1].x) / 2, c0y = (before[0].y + before[1].y) / 2, c1x = (a[0].x + a[1].x) / 2, c1y = (a[0].y + a[1].y) / 2;
+        if (d0 > 5){ zoomAt(d1 / d0, c0x - r.left, c0y - r.top); } tx += c1x - c0x; ty += c1y - c0y; apply();
+      } else if (a.length === 1){ tx += a[0].x - before[0].x; ty += a[0].y - before[0].y; apply(); }
+      e.preventDefault();
+    });
+    function up(e){ delete ps[e.pointerId]; }
+    st.addEventListener('pointerup', up); st.addEventListener('pointercancel', up);
+    st.addEventListener('wheel', function(e){ e.preventDefault(); var r = st.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, e.clientX - r.left, e.clientY - r.top); }, {passive: false});
+    st.addEventListener('dblclick', function(e){ var r = st.getBoundingClientRect(); if (s > fit * 1.05){ s = fit; apply(); } else zoomAt(2.5, e.clientX - r.left, e.clientY - r.top); });
+    $('oiClose').onclick = function(){ window.removeEventListener('resize', layout); v.remove(); try { URL.revokeObjectURL(res.url); } catch(e){} };
     $('oiSave').onclick = function(){ downloadBlob(res.blob, base + '.' + res.type); toast('تصویر ذخیره شد'); };
   }).catch(function(e){ console.error(e); toast('خطا در ساخت تصویر: ' + (e && e.message || e)); });
 }
@@ -2418,9 +2460,12 @@ $('btnSaveAll').addEventListener('click', askSaveAll);
 var REC_KEY = 'plc_records_v1';
 var RECS = [];
 var SAMPLE_RECS = /*SAMPLES*/[{"id":"demo1","ts":1794744379448,"date":"1405/08/23","dk":14050823,"time":"15:36","user":"کاربر مهمان","uid":"test","form":"plc","post":"نیروگاه فارس","sup":"مهندس مهدی تراب فر","vals":{"E27":"✓","cb:cb5":1,"cb:cb17":1,"cb:cb6":1,"cb:cb7":1,"cb:cb18":1,"cb:cb8":1,"cb:cb9":1,"cb:cb10":1,"cb:cb41":1,"cb:cb43":1,"cb:cb11":1,"cb:cb12":1,"cb:cb13":1,"cb:cb14":1,"cb:cb31":1,"cb:cb15":1,"cb:cb48":1,"_init":1,"E10":"شیراز","G10":"نیروگاه فارس","I10":"دانشگاه","K10":"839","M10":"SELTA","O10:tx":"276","O10:rx":"324","O10:ch":"d","E13":"53ولت","H13":"50ولت","K13":"40وات","N13":"پارس تارا","R27":"5821","R28":"✓","I28":"✓","M28":"✓","E28":"✓","E33":"DTT","G33":"4521","J33":"4527","M33":"3310","P33":"3316","E35":"Dis-SUB 1","G35":"1204","J35":"1209","M35":"998","P35":"1003","E37":"DeF","G37":"7712","J37":"7718","M37":"6405","P37":"6411","E39":"Dis-SUB 2","G39":"530","J39":"534","M39":"472","P39":"476","C43":"رضا محمدی","K43":"مهندس مهدی تراب فر","C45":"1405/08/23","K45":"1405/08/23","C47":"محمدی","K47":"تراب فر","cb:cb4":1,"cb:cb16":1,"cb:cb45":1,"cb:cb53":1}},{"id":"demo2","ts":1794744379452,"date":"1405/08/23","dk":14050823,"time":"15:36","user":"کاربر مهمان","uid":"test","form":"lmu","post":"نیروگاه فارس","sup":"مهندس مهدی تراب فر","vals":{"cb:cb24":1,"cb:cb25":1,"cb:cb26":1,"cb:cb28":1,"cb:cb29":1,"cb:cb30":1,"M27":"✓","M28":"✓","cb:cb4":1,"cb:cb5":1,"cb:cb9":1,"cb:cb6":1,"cb:cb7":1,"cb:cb10":1,"cb:cb8":1,"cb:cb17":1,"cb:cb18":1,"cb:cb19":1,"_init":1,"_lv":{"R22":"-21.3","M29":"-21.3","M30":"-22.4","R23":"-21.9"},"R22":"-21.3","M29":"-21.3","M30":"-22.4","R23":"-21.9","D11":"شیراز","G11":"نیروگاه فارس","I11":"دانشگاه","K11":"839","D33":"رضا محمدی","L33":"مهندس مهدی تراب فر","D35":"1405/08/23","L35":"1405/08/23","M11":"موج نیرو","O11":"A","R11":"فاز به زمین","D37":"محمدی","L37":"تراب فر"}},{"id":"demo3","ts":1794744379463,"date":"1405/08/23","dk":14050823,"time":"15:36","user":"کاربر مهمان","uid":"test","form":"selta","post":"نیروگاه فارس","sup":"","vals":{"C3":"نیروگاه فارس","C4":"دانشگاه","D6":"✓","F6":"✓","H6":"✓","F7":"✓","D7":"✓","I3":"839","D5":"276 (±4)","G5":"324 (±4)","G3":"","G4":"✓","I4":"1","K4":"2","G8":"40","I13":"-21.4","J13":"-21.6","K13":"-21.3","I14":"-25.2","J14":"-25.4","K14":"-25.1","I15":"-13.1","J15":"-13.3","K15":"-13.0","I16":"-25.0","J16":"-25.2","K16":"-24.9","J18":"-22.4","J19":"-26.1","J20":"-26.3","J23":"-21.0","D25":"-33.8","D26":"-38.1","D27":"-25.9","D28":"-37.7","I25":"-27.3","I26":"-31.2","I27":"-19.4","I28":"-31.0","B30":"تست دستگاه انجام شد و سطوح اندازه گیری شده در محدوده ی مجاز می‌باشد.","B34":"رضا محمدی","E34":"1405/08/23","H34":"محمدی"}}]/*END*/;   // demo forms of the guest user (test)
+function purgeSamples(){   // the demo forms exist only while the guest user is signed in
+  var n = RECS.length; RECS = RECS.filter(function(r){ return !/^demo\d+$/.test(r.id); }); if (RECS.length !== n) saveRecs();
+}
 function seedSamples(u){
   if (!u || u.u !== 'test' || !SAMPLE_RECS.length) return;
-  for (var i = 0; i < RECS.length; i++) if (RECS[i].uid === 'test') return;
+  for (var i = 0; i < RECS.length; i++) if (/^demo\d+$/.test(RECS[i].id)) return;
   var t = Date.now();
   SAMPLE_RECS.forEach(function(r, k){ var c = JSON.parse(JSON.stringify(r)); c.ts = t - (SAMPLE_RECS.length - k) * 60000; RECS.push(c); });
   saveRecs();
@@ -2920,7 +2965,7 @@ $('loginForm').addEventListener('submit', function(e){
   e.preventDefault();
   var u = findUser($('lgU').value), pw = $('lgP').value;
   if (u && pwHash(u.u, pw) === userHash(u)){
-    session = u; seedSamples(u); logEnter(u); sessSet({u:u.u, info:null}); $('lgErr').textContent = ''; $('lgP').value = ''; loadUserLook();
+    session = u; if (u.u === 'test') seedSamples(u); else purgeSamples(); logEnter(u); sessSet({u:u.u, info:null}); $('lgErr').textContent = ''; $('lgP').value = ''; loadUserLook();
     SHEETS.forEach(function(s){ state.vals[s.key] = {}; }); devLast = {}; state.base = {}; state.edit = {}; state.noSync = {}; state.active = 0; state.report = false; state.search = false; saveStore();   // every login starts with empty forms
     clearLabelOverrides(/inspector|^date|مسئول گروه|ناظر|^تاریخ/i);
     info = {sup:'', date:''};
@@ -3000,7 +3045,7 @@ function showLogins(selUser){
 $('miLog').addEventListener('click', function(){ showLogins(''); });
 $('miHist').addEventListener('click', function(){ if (window.__showHistory) window.__showHistory(); });
 $('miOut').addEventListener('click', function(){
-  logTouch(true); session = null; sessSet(null); info = {sup:'', date:''}; $('lgU').value=''; $('lgP').value=''; loadUserLook();
+  logTouch(true); session = null; sessSet(null); purgeSamples(); info = {sup:'', date:''}; $('lgU').value=''; $('lgP').value=''; loadUserLook();
   setView('login'); focusSoon('lgU');
   var vl = $('vLogin'); vl.classList.remove('opIn'); void vl.offsetWidth; vl.classList.add('opIn');   // reverse effect: content comes back from top/bottom
   setTimeout(function(){ vl.classList.remove('opIn'); }, 1050);
@@ -3114,9 +3159,9 @@ function boot(){
   var ss = sessGet();
   var u = ss && findUser(ss.u);
   if (u){
-    session = u; loadUserLook(); if (!curLogId()) logEnter(u);
+    session = u; if (u.u === 'test') seedSamples(u); else purgeSamples(); loadUserLook(); if (!curLogId()) logEnter(u);
     if (ss.info){ info = ss.info; enterApp(); } else { enterInfo(); }
-  } else { setView('login'); focusSoon('lgU'); }
+  } else { purgeSamples(); setView('login'); focusSoon('lgU'); }
 }
 
 boot();
@@ -3164,6 +3209,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.59', d:'1.2.44', items:['نمونه فرم های کاربر مهمان فقط در پروفایل همان کاربر دیده می‌شود و برای ادمین و بقیه ی کاربران نمایش داده نمی‌شود.','تصویر خروجی فرم بعد از ساخته شدن تمام صفحه و کامل (بدون نیاز به ضربه زدن) نمایش داده می‌شود و با دو انگشت قابل زوم و با یک انگشت قابل جابه‌جایی است.']},
     {v:'1.8.58', d:'1.2.43', items:['دکمه ی «نمایش تصویر خروجی» زیر دکمه های ثبت و ذخیره ی همه ی فرم ها اضافه شد؛ تصویری دقیقا هم چیدمان خروجی Excel از همان فرم نشان می‌دهد و می‌توان آن را ذخیره کرد.','کاربر جدید «کاربر مهمان» (نام کاربری و رمز عبور: test) برای نمایش و معرفی برنامه اضافه شد و سه نمونه فرم PLC، SELTA و LMU (ناحیه شیراز، پست نیروگاه فارس، خط دانشگاه، شماره ی خط 839) در Report او دیده می‌شود.']},
     {v:'1.8.57', d:'1.2.42', items:['Report: برای فرم های SELTA، ABB و Dimat که ناحیه ندارند، ناحیه از فرم PLC مربوط به همان پست (و خط و دستگاه) که در همان تاریخ تکمیل شده گرفته می‌شود؛ هم در فهرست فرم های ثبت شده و هم در فایل های Excel گزارش.']},
     {v:'1.8.56', d:'1.2.41', items:['انیمیشن صفحه ی اول (نئون): در پایین صفحه دکل های فشار قوی با سیم ها کشیده می‌شوند و جریان نورانی روی سیم ها حرکت می‌کند.']},
