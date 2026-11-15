@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.59">
-<meta name="app-display-version" content="1.2.44">
+<meta name="app-version" content="1.8.60">
+<meta name="app-display-version" content="1.2.45">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -895,7 +895,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.44</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.45</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -922,7 +922,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.44</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.45</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1177,7 +1177,7 @@ function renderClassic(o){
       var inp = el('input',null,'height:'+Math.ceil(lh+2)+'px;margin-inline-start:6px;font-size:inherit;'+(rtl ? 'text-align:right;' : ''));
       inp.type='text'; inp.setAttribute('dir','auto'); inp.setAttribute('autocomplete','off'); inp.spellcheck=false;
       inp.value = (vals[c.ref] !== undefined) ? vals[c.ref] : labelDefault(c); inp.dataset.ref = c.ref;
-      inp.addEventListener('input', function(){ vals[c.ref] = inp.value; saveSoon(); markTab(); });
+      inp.addEventListener('input', function(){ vals[c.ref] = inp.value; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, inp.value); });
       inp.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); focusNext(inp); } });
       lab.appendChild(inp); paper.appendChild(lab); fields.push(inp);
       return;
@@ -1896,7 +1896,8 @@ function syncDevice(onlyBlank){
   });
   if (!dev) return;
   var f = state.vals[dev]; if (!f) return;
-  var want = {C3: post, C4: line};
+  var want = {C3: post, C4: line}, pdt = String(pv.C45 !== undefined && String(pv.C45).trim() !== '' ? pv.C45 : (pv.K45 !== undefined ? pv.K45 : '')).trim();
+  if (DEV_DATE[dev]) want[DEV_DATE[dev]] = pdt;
   var tx = fq(pv, 'O10:tx'), rx = fq(pv, 'O10:rx'), chs = pv['O10:ch'] || '';
   if (dev === 'dimat'){ want.C5 = dimatApp(pv); want.K5 = String(pv.K10 || ''); want.K3 = tx; want.K4 = rx; want.G4 = chs === 's' ? 'Single Channel' : chs === 'd' ? 'Double Channel' : ''; }   // line number -> IP Address
   else { DEV_CHECKS.forEach(function(p){ want[p[1]] = pv[p[0]] ? '\u2713' : ''; }); want.I3 = String(pv.K10 || ''); want.D5 = tx; want.G5 = rx; want.G3 = chs === 's' ? '\u2713' : ''; want.G4 = chs === 'd' ? '\u2713' : ''; }   // line number -> Linkno
@@ -1927,7 +1928,23 @@ function syncLevels(editedKey){
   lvPut('R23', isNaN(n) ? '' : String(Math.round((n - 0.6) * 10) / 10));
   saveSoon();
 }
-function syncLmu(ref, v){ var m = SYNC[ref]; if (m && state.vals.lmu){ state.vals.lmu[m] = v; saveSoon(); } }
+function syncLmu(ref, v){
+  if (ref === 'C45' || ref === 'K45'){ syncDates(ref, v); return; }
+  var m = SYNC[ref]; if (m && state.vals.lmu){ state.vals.lmu[m] = v; saveSoon(); }
+}
+// the date under "Group leader" or "Supervisor" at the bottom of the PLC form: both PLC dates, both LMU dates and the date of the selected device form follow it
+function syncDates(ref, v){
+  var P = state.vals.plc, L = state.vals.lmu, other = ref === 'C45' ? 'K45' : 'C45';
+  if (P) P[other] = v;
+  if (L){ L.D35 = v; L.L35 = v; }
+  [other, 'D35', 'L35'].forEach(function(r){ var f = document.querySelector('#stage [data-ref="' + r + '"]'); if (f && f.value !== v) f.value = v; });
+  syncDevice(); saveSoon();
+}
+var DEV_DATE = {selta:'E34', abb:'E27', dimat:'D41'};
+function workDate(){   // date written in the forms (PLC first); the entry-page date / today only when no form has one
+  var o = ''; SHEETS.forEach(function(sh){ if (!o){ var d = formDateOf(sh, state.vals[sh.key]); if (d) o = d; } });
+  return faDigits(o || (info && info.date) || jalaliToday() || '');
+}
 function hasUserData(key){
   var v = state.vals[key] || {}, b = (state.base && state.base[key]) || {}, dl = devLast[key] || {}, pv = state.vals.plc || {};
   for (var k in v){
@@ -2409,7 +2426,7 @@ function saveRangeZip(f, t, fs, ts){
 }
 function saveZipForms(list, names){
   if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
-  var d = faDigits((info && info.date) || jalaliToday() || '').replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
+  var d = workDate().replace(/[^0-9\/\-]/g,'').replace(/\//g,'-');
   var zname = 'PLC_Forms' + (d ? '_' + d : '') + '.zip';
   function fail(e){ console.error(e); toast('خطا در ساخت فایل فشرده: ' + (e && e.message || e)); }
   function finish(nm){ saveStore(); toast('فایل فشرده ذخیره شد و در بایگانی ثبت شد: ' + nm); }
@@ -2775,7 +2792,7 @@ function renderSearch(){
 }
 
 function askBackup(){
-  var base = 'BackUP_' + ((session && session.u) || 'user') + '_' + faDigits((info && info.date) || jalaliToday() || '').replace(/\//g,'-');
+  var base = 'BackUP_' + ((session && session.u) || 'user') + '_' + workDate().replace(/\//g,'-');
   openModal('<h2>پشتیبان‌گیری</h2><div style="font-size:15px;color:#6b7a8c">نام فایل پشتیبان را وارد کنید (پسوند .json خودکار اضافه می‌شود)؛ بعد از تأیید محل ذخیره پرسیده می‌شود.</div>'+
     '<label class="fl" for="bkIn">نام فایل</label><div style="display:flex;align-items:center;gap:8px;direction:ltr"><input class="in" id="bkIn" dir="auto" autocomplete="off" spellcheck="false" style="flex:1"><span style="font-weight:700;color:#33465c">.json</span></div>'+
     '<div class="msg" id="bkMsg"></div><div class="row2"><button class="btn sec" id="bkCancel">انصراف</button><button class="btn pri" id="bkOk">ادامه و انتخاب محل ذخیره</button></div>');
@@ -3209,6 +3226,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.60', d:'1.2.45', items:['تغییر تاریخ پایین فرم PLC (زیر مسئول گروه یا زیر ناظر): تاریخ هر دو جای فرم PLC، هر دو تاریخ فرم LMU و تاریخ فرم دستگاه انتخاب شده (SELTA، ABB یا Dimat) هم زمان به همان تاریخ تغییر می‌کند؛ اگر تاریخی وارد نشود همان تاریخ روز می‌ماند.','نام فایل فشرده ی ذخیره ی فرم ها و فایل پشتیبان هم از همین تاریخ ثبت شده در فرم ها گرفته می‌شود (نام Excel ها و پوشه ها از قبل بر اساس تاریخ فرم بود).']},
     {v:'1.8.59', d:'1.2.44', items:['نمونه فرم های کاربر مهمان فقط در پروفایل همان کاربر دیده می‌شود و برای ادمین و بقیه ی کاربران نمایش داده نمی‌شود.','تصویر خروجی فرم بعد از ساخته شدن تمام صفحه و کامل (بدون نیاز به ضربه زدن) نمایش داده می‌شود و با دو انگشت قابل زوم و با یک انگشت قابل جابه‌جایی است.']},
     {v:'1.8.58', d:'1.2.43', items:['دکمه ی «نمایش تصویر خروجی» زیر دکمه های ثبت و ذخیره ی همه ی فرم ها اضافه شد؛ تصویری دقیقا هم چیدمان خروجی Excel از همان فرم نشان می‌دهد و می‌توان آن را ذخیره کرد.','کاربر جدید «کاربر مهمان» (نام کاربری و رمز عبور: test) برای نمایش و معرفی برنامه اضافه شد و سه نمونه فرم PLC، SELTA و LMU (ناحیه شیراز، پست نیروگاه فارس، خط دانشگاه، شماره ی خط 839) در Report او دیده می‌شود.']},
     {v:'1.8.57', d:'1.2.42', items:['Report: برای فرم های SELTA، ABB و Dimat که ناحیه ندارند، ناحیه از فرم PLC مربوط به همان پست (و خط و دستگاه) که در همان تاریخ تکمیل شده گرفته می‌شود؛ هم در فهرست فرم های ثبت شده و هم در فایل های Excel گزارش.']},
