@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.69">
-<meta name="app-display-version" content="1.2.54">
+<meta name="app-version" content="1.8.71">
+<meta name="app-display-version" content="1.2.56">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.54</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.56</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -924,7 +924,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.54</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.56</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -963,6 +963,7 @@ var DEVICES = ['SELTA','DIMAT','ABB','SELTA Optical Fiber','DIMAT Optical Fiber'
 var OPT_MAP = {'dimat optical fiber':'dimat','selta optical fiber':'selta'}, OPT_TXT = 'تله پروتکشن نوری فرکانس ندارد.';
 function optKey(v){ return OPT_MAP[String(v || '').trim().toLowerCase()] || ''; }
 function isOpt(v){ return !!optKey(v); }
+function optDevText(v){ return (optKey(v) === 'selta' ? 'SELTA' : 'DIMAT') + '\nOptical Fiber'; }
 var TPS_TYPES = ['DTT','Dis-SUB 1','DeF','Dis-SUB 2'];
 // Posts (substations) of each area: fill in as  'ناحیه': ['پست ۱','پست ۲', ...]
 var POSTS = {"داراب":["داراب","رستاق","جنت شهر","نقش شاپور","دارابگرد","فسارود","فسا"],"سورمق":["سورمق","صغاد","آباده","اقلید","ایزدخواست","پاسارگاد","حسن آباد","بیدگل","مرودشت","دهبید","خرمبید","علی آباد","آسپاس"],"پاسارگاد":["پاسارگاد","سورمق","فسا","سرچهان","قادرآباد","سیدان","ارسنجان","آباده طشک","سعادتشهر"],"مرودشت":["مرودشت","سورمق","بیدگل","حسن آباد","نیروگاه فارس","سهل آباد","تخت جمشید","صدرا","زرقان","مهجن آباد","پمپاژ","مجتمع گوشت","درودزن"],"لار":["لار","جهرم","نصیرخانی","نیروگاه جهرم","خنج","لطیفی","ایراهستان","کورده","گراش","اوز","قیصریه"],"نی ریز":["نیریز","فولاد نیریز","فسا","غدیرگه","دانشگاه آزاد نیریز","قطرویه","مشکان"],"فسا":["فسا","نیروگاه جهرم","ذوب آهن","نیروگاه فارس","پاسارگاد","نیریز","داراب","ایج","استهبان","کوشک قاضی","فسا دو","خرامه","ششده","زنگنه","زاهدشهر"],"کازرون":["نیروگاه کازرون","چنارشاهیجان","قائمیه","ملک مکان","برازجان","پریشان","بالاده","سلمان","پردیس","کازرون"],"قائمیه":["چنارشاهیجان","ملک مکان","نیروگاه کازرون","نورآباد","شولستان","بوشیگان","قائمیه","چغادک"],"شیراز":["ملک مکان","نیروگاه حافظ","نیروگاه کازرون","قائمیه","چنارشاهیجان","صدرا","نیروگاه فارس","دهنو","سفیر","شیراز","اکبرآباد","برف فروشان","خانه زنیان","سعدی","توربین","داریون","دیندارلو","نصر","مرودشت","دانشگاه","سپیدان","دالین","بانش","سینا","تله بیضا","امام زاده","فیروزآباد","فسا","بابا حاجی","سیمان فیروزآباد","کوار","شهروزشهر","شهرک صنعتی","صنعت","پایگاه","مدرس"],"جهرم":["نیروگاه جهرم","فسا","انرژی بر غدیر","سیمکان","لار","جهرم","نصیرخانی","نارنجستان","جهرم یک","خفر","بنارویه","حاجی آباد","جویم","دشت دال","امام شهر","قدمگاه","مبارک آباد","قیر"],"فیروزآباد":["فیروزآباد","نیروگاه فارس","میمند","شاکری","فراشبند","موشکان","دهرم","کربنات سدیم"],"لامرد":["لامرد","انرژی بر غدیر","سیمان لامرد","جهاد","قائد","گله دار","دماوند","نفت","پارس","نیروگاه جهرم","نیروگاه عسلویه"],"بوشهر":["برازجان","نیروگاه گناوه","چغادک","نیروگاه کازرون","دهقاید","فرهنگ","برازجان2","تنگ ارم","طبیعت","بوشهرگازی","بوشهر2","نیروگاه اتمی بوشهر","دشتستان","جائینک","رستمی","عالی شهر","دشتی","کنگان","پتروپالایش","LNG","نیروگاه عسلویه","پارس","گازی کنگان","بهارستان","گناوه","میاندشت","تلمبه خانه","دیلم"]};   // names (posts + lines) of each area, from number_for_map.xlsx8-1405.xlsx
@@ -2051,7 +2052,7 @@ function buildBlob(sh, vals){
     var wrapO10 = false, optShrink = {};
     return zip.file(path).async('string').then(function(xml){
       sh.cells.forEach(function(c){
-        if (sh.key === 'plc' && c.ref === 'M10' && isOpt(vals.M10)){ xml = setCell(xml, 'M10', (optKey(vals.M10) === 'selta' ? 'SELTA' : 'DIMAT') + '\nOptical Fiber'); optShrink.M10 = 1; }
+        if (sh.key === 'plc' && c.ref === 'M10' && isOpt(vals.M10)){ xml = setCell(xml, 'M10', optDevText(vals.M10)); optShrink.M10 = 1; }
         else if (sh.key === 'plc' && c.ref === 'O10'){
           if (isOpt(vals.M10)){ optShrink.O10 = 1; var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot); if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'TPS نوری\nفرکانس ندارد'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2]; if (ot){ xml = setCell(xml, 'O10', ot); wrapO10 = true; } } else {
           var tx = fq(vals, 'O10:tx'), rx = fq(vals, 'O10:rx'), ltr = function(t){ return t ? '\u202A' + t + '\u202C' : t; };   // number first, then the +/\u00b1 sign (left to right), even in a right-to-left cell
@@ -2197,6 +2198,14 @@ function flattenForImage(paper, vals){
   Array.prototype.forEach.call(paper.querySelectorAll('input,textarea'), function(f){
     var isLab = f.parentNode && f.parentNode.classList && f.parentNode.classList.contains('lab'), ref = f.dataset && f.dataset.ref, val = f.value;
     if (ref === 'O10:tx' || ref === 'O10:rx') val = fq(vals, ref);
+    var optOn = isOpt(vals.M10), optSt = '';
+    if (optOn && ref === 'M10'){ val = optDevText(vals.M10); var fpx = parseFloat(f.style.fontSize) || 14; optSt = ';font-size:' + Math.max(8, Math.round(fpx * 0.58 * 10) / 10) + 'px !important;line-height:1.15 !important;text-align:center;'; }
+    if (optOn && (ref === 'O10:tx' || ref === 'O10:rx')){
+      var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot);
+      if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'TPS نوری\nفرکانس ندارد'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2];
+      var ol = ot.split('\n'); val = ref === 'O10:tx' ? (ol[0] || '') : ol.slice(1).join(' ');
+      optSt = ';border-top:0 !important;';
+    }
     var isTa = f.tagName === 'TEXTAREA', ta = (f.style.textAlign || '').toLowerCase();
     var d = document.createElement(isLab ? 'span' : 'div'), st = f.getAttribute('style') || '';
     d.textContent = val;
@@ -2205,7 +2214,7 @@ function flattenForImage(paper, vals){
       var sinp = /\bsinp\b/.test(f.className);
       d.className = 'fld' + (sinp ? ' sinp' : '');
       d.setAttribute('dir', 'auto');
-      d.setAttribute('style', st + ';box-sizing:border-box;overflow:hidden;white-space:pre-wrap;word-break:break-word;background:' + (sinp ? '#fff' : 'transparent') + ' !important;background-image:none !important;' + (isTa ? 'display:block;padding:2px 3px;line-height:1.25;' : 'display:flex;align-items:center;justify-content:' + (ta === 'right' ? 'flex-end' : ta === 'left' ? 'flex-start' : 'center') + ';padding:0 3px;'));
+      d.setAttribute('style', st + optSt + ';box-sizing:border-box;overflow:hidden;white-space:pre-wrap;word-break:break-word;background:' + (sinp ? '#fff' : 'transparent') + ' !important;background-image:none !important;' + (isTa ? 'display:block;padding:2px 3px;line-height:1.25;' : 'display:flex;align-items:center;justify-content:' + (ta === 'right' ? 'flex-end' : ta === 'left' ? 'flex-start' : 'center') + ';padding:0 3px;'));
     }
     f.parentNode.replaceChild(d, f);
   });
@@ -2225,7 +2234,7 @@ function makeOutputImage(sh, vals){
       var sty = document.createElement('style'); sty.textContent = outCss(); wrap.appendChild(sty); wrap.appendChild(paper);
       var xml = new XMLSerializer().serializeToString(wrap); fin();
       var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><foreignObject x="0" y="0" width="' + w + '" height="' + h + '">' + xml + '</foreignObject></svg>';
-      var svgUrl = URL.createObjectURL(new Blob([svg], {type: 'image/svg+xml;charset=utf-8'}));
+      var svgUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);   // data URL (not blob): keeps the canvas clean so the picture can be saved as JPG
       var sc = Math.min(2, Math.sqrt(14000000 / (w * h))); if (sc < 1) sc = 1;
       var img = new Image();
       img.onload = function(){
@@ -2233,7 +2242,7 @@ function makeOutputImage(sh, vals){
           try {
             var cvs = document.createElement('canvas'); cvs.width = Math.round(w * sc); cvs.height = Math.round(h * sc);
             var g = cvs.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cvs.width, cvs.height); g.drawImage(img, 0, 0, cvs.width, cvs.height);
-            cvs.toBlob(function(b){ if (b){ URL.revokeObjectURL(svgUrl); resolve({blob: b, url: URL.createObjectURL(b), type: 'png'}); } else resolve({blob: new Blob([svg], {type: 'image/svg+xml'}), url: svgUrl, type: 'svg'}); }, 'image/png');
+            cvs.toBlob(function(b){ if (b){ URL.revokeObjectURL(svgUrl); resolve({blob: b, url: URL.createObjectURL(b), type: 'jpg'}); } else resolve({blob: new Blob([svg], {type: 'image/svg+xml'}), url: svgUrl, type: 'svg'}); }, 'image/jpeg', 0.95);
           } catch(e){ resolve({blob: new Blob([svg], {type: 'image/svg+xml'}), url: svgUrl, type: 'svg'}); }   // canvas refused: show / save the picture as SVG
         }, 450);
       };
@@ -3246,6 +3255,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.71', d:'1.2.56', items:['تصویر خروجی فرم‌ها دیگر با پسوند SVG ذخیره نمی‌شود؛ همیشه به صورت فایل JPG (با کیفیت بالا) ساخته و ذخیره می‌شود.']},
+    {v:'1.8.70', d:'1.2.55', items:['در «نمایش تصویر خروجی» فرم PLC، نام دستگاه SELTA Optical Fiber و DIMAT Optical Fiber حالا در دو سطر (بالا SELTA یا DIMAT، پایین Optical Fiber) و با فونت کوچک‌تر داخل کادر نوشته می‌شود و خانه ی فرکانس هم «TPS نوری / فرکانس ندارد» نمایش داده می‌شود؛ مانند خروجی اکسل.']},
     {v:'1.8.69', d:'1.2.54', items:['در خروجی اکسل فرم PLC، وقتی نام دستگاه SELTA Optical Fiber یا DIMAT Optical Fiber انتخاب شود، سایز فونت متن نام دستگاه کوچکتر شد تا کاملا داخل کادر سلول جا شود و بیرون نزند.']},
     {v:'1.8.68', d:'1.2.53', items:['با انتخاب SELTA Optical Fiber یا DIMAT Optical Fiber در فرم PLC، دیگر اطلاعاتی به فرم SELTA یا DIMAT منتقل نمی‌شود و نیازی به تکمیل آن فرم‌ها نیست؛ همان فرم PLC کافی است.']},
     {v:'1.8.67', d:'1.2.52', items:['ترتیب گزینه‌های منوی نام دستگاه در فرم PLC به این صورت شد: SELTA، DIMAT، ABB، SELTA Optical Fiber، DIMAT Optical Fiber (عملکرد هر گزینه بدون تغییر).']},
