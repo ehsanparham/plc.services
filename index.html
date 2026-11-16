@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.65">
-<meta name="app-display-version" content="1.2.50">
+<meta name="app-version" content="1.8.66">
+<meta name="app-display-version" content="1.2.51">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.50</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.51</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -924,7 +924,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.50</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.51</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -959,9 +959,10 @@ var TAB_NAMES = {plc:'PLC CheckList', lmu:'LMU CheckList', selta:'SELTA TestShee
 SHEETS.forEach(function(s){ if (TAB_NAMES[s.key]) s.tab = TAB_NAMES[s.key]; });
 SHEETS.forEach(function(s){ if (s.key === 'lmu') s.cells.forEach(function(c){ if (c.ref === 'D35'){ c.input = false; c.labelInput = true; c.text = 'تاریخ:'; } }); });   // LMU: a date box under the group-leader name (like the one under the supervisor)
 var AREAS = ["شیراز","کازرون","قائمیه","جهرم","مرودشت","فیروزآباد","فسا","داراب","سورمق","پاسارگاد","نی ریز","لار","لامرد","بوشهر"];
-var DEVICES = ['SELTA','ABB','DIMAT','DIMAT Optical Fiber'];
-var OPT_DEV = 'dimat optical fiber', OPT_TXT = 'تله پروتکشن نوری فرکانس ندارد.';
-function isOpt(v){ return String(v || '').trim().toLowerCase() === OPT_DEV; }
+var DEVICES = ['SELTA','SELTA Optical Fiber','ABB','DIMAT','DIMAT Optical Fiber'];
+var OPT_MAP = {'dimat optical fiber':'dimat','selta optical fiber':'selta'}, OPT_TXT = 'تله پروتکشن نوری فرکانس ندارد.';
+function optKey(v){ return OPT_MAP[String(v || '').trim().toLowerCase()] || ''; }
+function isOpt(v){ return !!optKey(v); }
 var TPS_TYPES = ['DTT','Dis-SUB 1','DeF','Dis-SUB 2'];
 // Posts (substations) of each area: fill in as  'ناحیه': ['پست ۱','پست ۲', ...]
 var POSTS = {"داراب":["داراب","رستاق","جنت شهر","نقش شاپور","دارابگرد","فسارود","فسا"],"سورمق":["سورمق","صغاد","آباده","اقلید","ایزدخواست","پاسارگاد","حسن آباد","بیدگل","مرودشت","دهبید","خرمبید","علی آباد","آسپاس"],"پاسارگاد":["پاسارگاد","سورمق","فسا","سرچهان","قادرآباد","سیدان","ارسنجان","آباده طشک","سعادتشهر"],"مرودشت":["مرودشت","سورمق","بیدگل","حسن آباد","نیروگاه فارس","سهل آباد","تخت جمشید","صدرا","زرقان","مهجن آباد","پمپاژ","مجتمع گوشت","درودزن"],"لار":["لار","جهرم","نصیرخانی","نیروگاه جهرم","خنج","لطیفی","ایراهستان","کورده","گراش","اوز","قیصریه"],"نی ریز":["نیریز","فولاد نیریز","فسا","غدیرگه","دانشگاه آزاد نیریز","قطرویه","مشکان"],"فسا":["فسا","نیروگاه جهرم","ذوب آهن","نیروگاه فارس","پاسارگاد","نیریز","داراب","ایج","استهبان","کوشک قاضی","فسا دو","خرامه","ششده","زنگنه","زاهدشهر"],"کازرون":["نیروگاه کازرون","چنارشاهیجان","قائمیه","ملک مکان","برازجان","پریشان","بالاده","سلمان","پردیس","کازرون"],"قائمیه":["چنارشاهیجان","ملک مکان","نیروگاه کازرون","نورآباد","شولستان","بوشیگان","قائمیه","چغادک"],"شیراز":["ملک مکان","نیروگاه حافظ","نیروگاه کازرون","قائمیه","چنارشاهیجان","صدرا","نیروگاه فارس","دهنو","سفیر","شیراز","اکبرآباد","برف فروشان","خانه زنیان","سعدی","توربین","داریون","دیندارلو","نصر","مرودشت","دانشگاه","سپیدان","دالین","بانش","سینا","تله بیضا","امام زاده","فیروزآباد","فسا","بابا حاجی","سیمان فیروزآباد","کوار","شهروزشهر","شهرک صنعتی","صنعت","پایگاه","مدرس"],"جهرم":["نیروگاه جهرم","فسا","انرژی بر غدیر","سیمکان","لار","جهرم","نصیرخانی","نارنجستان","جهرم یک","خفر","بنارویه","حاجی آباد","جویم","دشت دال","امام شهر","قدمگاه","مبارک آباد","قیر"],"فیروزآباد":["فیروزآباد","نیروگاه فارس","میمند","شاکری","فراشبند","موشکان","دهرم","کربنات سدیم"],"لامرد":["لامرد","انرژی بر غدیر","سیمان لامرد","جهاد","قائد","گله دار","دماوند","نفت","پارس","نیروگاه جهرم","نیروگاه عسلویه"],"بوشهر":["برازجان","نیروگاه گناوه","چغادک","نیروگاه کازرون","دهقاید","فرهنگ","برازجان2","تنگ ارم","طبیعت","بوشهرگازی","بوشهر2","نیروگاه اتمی بوشهر","دشتستان","جائینک","رستمی","عالی شهر","دشتی","کنگان","پتروپالایش","LNG","نیروگاه عسلویه","پارس","گازی کنگان","بهارستان","گناوه","میاندشت","تلمبه خانه","دیلم"]};   // names (posts + lines) of each area, from number_for_map.xlsx8-1405.xlsx
@@ -1808,7 +1809,7 @@ var SYNC = {E10:'D11', G10:'G11', I10:'I11', K10:'K11', C43:'D33', K43:'L33', C4
 // PLC post / line -> the form of the selected device (Station: / Direction:)
 function chSuf(v){ var c = (v || {})['O10:ch']; return c === 's' ? '(+4)' : c === 'd' ? '(\u00b14)' : ''; }
 function fq(v, k){ var n = String((v || {})[k] || '').trim(); var sf = chSuf(v); return n ? (sf ? n + ' ' + sf : n) : ''; }
-var DEV_FORM = {selta:'selta', abb:'abb', dimat:'dimat', 'dimat optical fiber':'dimat'}, devLast = {};
+var DEV_FORM = {selta:'selta', abb:'abb', dimat:'dimat', 'dimat optical fiber':'dimat', 'selta optical fiber':'selta'}, devLast = {};
 var DEV_CHECKS = [['R28','D6'], ['I28','F6'], ['I28','H6'], ['M28','F7'], ['E28','D7']];   // PLC TPS / PAX / DTS / data  ->  Pro / Pax / DTS / Data (SELTA, ABB)
 function dimatApp(pv){   // Dimat has one "Application" box instead of check boxes
   var tps = !!pv.R28, pax = !!pv.I28, data = !!pv.E28;
@@ -1856,7 +1857,7 @@ function applyFreqMode(){
 }
 function paintDev(){
   var f = document.querySelector('#stage [data-ref="M10"]'); if (!f || !f.parentElement) return;
-  var w = f.parentElement, img = w.querySelector('.devimg'), v = String(f.value || '').trim().toLowerCase(), src = BRAND[isOpt(v) ? 'dimat' : v];
+  var w = f.parentElement, img = w.querySelector('.devimg'), v = String(f.value || '').trim().toLowerCase(), src = BRAND[isOpt(v) ? optKey(v) : v];
   if (!src){ if (img) img.remove(); f.classList.remove('hasdev'); return; }
   if (!img){ img = document.createElement('img'); img.className = 'devimg'; img.alt = ''; img.setAttribute('draggable','false'); w.appendChild(img); }
   img.src = src; f.classList.add('hasdev');
@@ -2049,7 +2050,7 @@ function buildBlob(sh, vals){
     var wrapO10 = false, optShrink = {};
     return zip.file(path).async('string').then(function(xml){
       sh.cells.forEach(function(c){
-        if (sh.key === 'plc' && c.ref === 'M10' && isOpt(vals.M10)){ xml = setCell(xml, 'M10', 'DIMAT\nOptical Fiber'); optShrink.M10 = 1; }
+        if (sh.key === 'plc' && c.ref === 'M10' && isOpt(vals.M10)){ xml = setCell(xml, 'M10', (optKey(vals.M10) === 'selta' ? 'SELTA' : 'DIMAT') + '\nOptical Fiber'); optShrink.M10 = 1; }
         else if (sh.key === 'plc' && c.ref === 'O10'){
           if (isOpt(vals.M10)){ optShrink.O10 = 1; var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot); if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'TPS نوری\nفرکانس ندارد'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2]; if (ot){ xml = setCell(xml, 'O10', ot); wrapO10 = true; } } else {
           var tx = fq(vals, 'O10:tx'), rx = fq(vals, 'O10:rx'), ltr = function(t){ return t ? '\u202A' + t + '\u202C' : t; };   // number first, then the +/\u00b1 sign (left to right), even in a right-to-left cell
@@ -3244,6 +3245,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.66', d:'1.2.51', items:['در فرم PLC، در قسمت نام دستگاه گزینه ی SELTA Optical Fiber اضافه شد (با لوگوی SELTA)؛ مانند DIMAT Optical Fiber فرکانس ندارد، باکس‌های TX و RX نمایش داده نمی‌شود و خروجی اکسل آن دقیقا مثل خروجی DIMAT Optical Fiber است.']},
     {v:'1.8.65', d:'1.2.50', items:['مدت نمایش صفحه ی اول (لوگو) به 5 ثانیه تنظیم شد؛ نوار لود و درصد 1% تا 100% در همین 5 ثانیه پر می‌شود و بعد صفحه محو می‌شود.']},
     {v:'1.8.64', d:'1.2.49', items:['مدت نمایش صفحه ی اول (لوگو) از 3 ثانیه به 4 ثانیه افزایش یافت؛ نوار لود و درصد 1% تا 100% در همین 4 ثانیه پر می‌شود و بعد صفحه محو می‌شود.']},
     {v:'1.8.63', d:'1.2.48', items:['صفحه ی اول (نمایش لوگو) دقیقا 3 ثانیه طول می‌کشد و نوار لود از سمت راست به چپ همراه با عدد درصد از 1% تا 100% پر می‌شود.']},
