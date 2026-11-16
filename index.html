@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.68">
-<meta name="app-display-version" content="1.2.53">
+<meta name="app-version" content="1.8.69">
+<meta name="app-display-version" content="1.2.54">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.53</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.54</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -924,7 +924,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.53</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.54</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2100,7 +2100,7 @@ function buildBlob(sh, vals){
               else nx = src.replace(/<\/xf>$/, '<alignment wrapText="1"/></xf>');
               if (optShrink[ref]){   // smaller font for this cell only: clone the font two points down
                 var fm = /fontId="(\d+)"/.exec(nx), fsrc = fm && fonts[+fm[1]];
-                if (fsrc){ var fsz = /<sz val="([\d.]+)"/.exec(fsrc); if (fsz){ fadd += fsrc.replace(/<sz val="[\d.]+"/, '<sz val="' + Math.max(8, parseFloat(fsz[1]) - (ref === 'M10' ? 4 : 2)) + '"'); nx = nx.replace(/fontId="\d+"/, 'fontId="' + (fcnt++) + '"'); } }
+                if (fsrc){ var fsz = /<sz val="([\d.]+)"/.exec(fsrc); if (fsz){ fadd += fsrc.replace(/<sz val="[\d.]+"/, '<sz val="' + Math.max(7, parseFloat(fsz[1]) - (ref === 'M10' ? 5.5 : 2)) + '"'); nx = nx.replace(/fontId="\d+"/, 'fontId="' + (fcnt++) + '"'); } }
               }
               if (nx === src){ cache[ck] = +mm[1]; } else { cache[ck] = cnt++; add += nx; }
             }
@@ -3246,6 +3246,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.69', d:'1.2.54', items:['در خروجی اکسل فرم PLC، وقتی نام دستگاه SELTA Optical Fiber یا DIMAT Optical Fiber انتخاب شود، سایز فونت متن نام دستگاه کوچکتر شد تا کاملا داخل کادر سلول جا شود و بیرون نزند.']},
     {v:'1.8.68', d:'1.2.53', items:['با انتخاب SELTA Optical Fiber یا DIMAT Optical Fiber در فرم PLC، دیگر اطلاعاتی به فرم SELTA یا DIMAT منتقل نمی‌شود و نیازی به تکمیل آن فرم‌ها نیست؛ همان فرم PLC کافی است.']},
     {v:'1.8.67', d:'1.2.52', items:['ترتیب گزینه‌های منوی نام دستگاه در فرم PLC به این صورت شد: SELTA، DIMAT، ABB، SELTA Optical Fiber، DIMAT Optical Fiber (عملکرد هر گزینه بدون تغییر).']},
     {v:'1.8.66', d:'1.2.51', items:['در فرم PLC، در قسمت نام دستگاه گزینه ی SELTA Optical Fiber اضافه شد (با لوگوی SELTA)؛ مانند DIMAT Optical Fiber فرکانس ندارد، باکس‌های TX و RX نمایش داده نمی‌شود و خروجی اکسل آن دقیقا مثل خروجی DIMAT Optical Fiber است.']},
