@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.72">
-<meta name="app-display-version" content="1.2.57">
+<meta name="app-version" content="1.8.73">
+<meta name="app-display-version" content="1.2.58">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.57</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.58</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -924,7 +924,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.57</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.58</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2054,7 +2054,7 @@ function buildBlob(sh, vals){
       sh.cells.forEach(function(c){
         if (sh.key === 'plc' && c.ref === 'M10' && isOpt(vals.M10)){ xml = setCell(xml, 'M10', optDevText(vals.M10)); optShrink.M10 = 1; }
         else if (sh.key === 'plc' && c.ref === 'O10'){
-          if (isOpt(vals.M10)){ optShrink.O10 = 1; var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot); if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'TPS نوری\nفرکانس ندارد'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2]; if (ot){ xml = setCell(xml, 'O10', ot); wrapO10 = true; } } else {
+          if (isOpt(vals.M10)){ optShrink.O10 = 1; var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot); if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'تله پروتکشن نوری\nفرکانس ندارد.'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2] + '.'; if (ot){ xml = setCell(xml, 'O10', ot); wrapO10 = true; } } else {
           var tx = fq(vals, 'O10:tx'), rx = fq(vals, 'O10:rx'), ltr = function(t){ return t ? '\u202A' + t + '\u202C' : t; };   // number first, then the +/\u00b1 sign (left to right), even in a right-to-left cell
           if (tx || rx){ xml = setCell(xml, 'O10', ltr(tx) + '\n' + ltr(rx)); wrapO10 = true; } }
         } else if (c.input){
@@ -2101,7 +2101,7 @@ function buildBlob(sh, vals){
               else nx = src.replace(/<\/xf>$/, '<alignment wrapText="1"/></xf>');
               if (optShrink[ref]){   // smaller font for this cell only: clone the font two points down
                 var fm = /fontId="(\d+)"/.exec(nx), fsrc = fm && fonts[+fm[1]];
-                if (fsrc){ var fsz = /<sz val="([\d.]+)"/.exec(fsrc); if (fsz){ fadd += fsrc.replace(/<sz val="[\d.]+"/, '<sz val="' + Math.max(9, parseFloat(fsz[1]) - (ref === 'M10' ? 3.5 : 2)) + '"'); nx = nx.replace(/fontId="\d+"/, 'fontId="' + (fcnt++) + '"'); } }
+                if (fsrc){ var fsz = /<sz val="([\d.]+)"/.exec(fsrc); if (fsz){ fadd += fsrc.replace(/<sz val="[\d.]+"/, '<sz val="' + (ref === 'M10' || ref === 'O10' ? 9.5 : Math.max(8, parseFloat(fsz[1]) - 2)) + '"'); nx = nx.replace(/fontId="\d+"/, 'fontId="' + (fcnt++) + '"'); } }
               }
               if (nx === src){ cache[ck] = +mm[1]; } else { cache[ck] = cnt++; add += nx; }
             }
@@ -2202,9 +2202,9 @@ function flattenForImage(paper, vals){
     if (optOn && ref === 'M10'){ val = optDevText(vals.M10); var fpx = parseFloat(f.style.fontSize) || 14; optSt = ';font-size:' + Math.max(8, Math.round(fpx * 0.73 * 10) / 10) + 'px !important;line-height:1.15 !important;text-align:center;'; }
     if (optOn && (ref === 'O10:tx' || ref === 'O10:rx')){
       var ot = String(vals['O10:opt'] === undefined ? OPT_TXT : vals['O10:opt']).replace(/\r\n?/g, '\n').trim(), om = /^([\s\S]*?)\s+(فرکانس ندارد)\.?$/.exec(ot);
-      if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'TPS نوری\nفرکانس ندارد'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2];
+      if (ot.replace(/\.$/, '') === OPT_TXT.replace(/\.$/, '')) ot = 'تله پروتکشن نوری\nفرکانس ندارد.'; else if (om && ot.indexOf('\n') < 0) ot = om[1].trim() + '\n' + om[2] + '.';
       var ol = ot.split('\n'); val = ref === 'O10:tx' ? (ol[0] || '') : ol.slice(1).join(' ');
-      optSt = ';border-top:0 !important;';
+      var fpx2 = parseFloat(f.style.fontSize) || 14; optSt = ';border-top:0 !important;font-size:' + Math.max(8, Math.round(fpx2 * 0.73 * 10) / 10) + 'px !important;line-height:1.15 !important;text-align:center;';
     }
     var isTa = f.tagName === 'TEXTAREA', ta = (f.style.textAlign || '').toLowerCase();
     var d = document.createElement(isLab ? 'span' : 'div'), st = f.getAttribute('style') || '';
@@ -3255,6 +3255,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.73', d:'1.2.58', items:['برای SELTA Optical Fiber و DIMAT Optical Fiber، جمله ی خانه ی فرکانس در خروجی اکسل (و تصویر خروجی) در دو سطر «تله پروتکشن نوری / فرکانس ندارد.» و هم‌اندازه با عنوان نام دستگاه نوشته می‌شود.']},
     {v:'1.8.72', d:'1.2.57', items:['اندازه ی فونت نام دستگاه در خروجی اکسل (و تصویر خروجی) برای SELTA Optical Fiber و DIMAT Optical Fiber دو سایز بزرگتر شد؛ همچنان در دو سطر و داخل سلول.']},
     {v:'1.8.71', d:'1.2.56', items:['تصویر خروجی فرم‌ها دیگر با پسوند SVG ذخیره نمی‌شود؛ همیشه به صورت فایل JPG (با کیفیت بالا) ساخته و ذخیره می‌شود.']},
     {v:'1.8.70', d:'1.2.55', items:['در «نمایش تصویر خروجی» فرم PLC، نام دستگاه SELTA Optical Fiber و DIMAT Optical Fiber حالا در دو سطر (بالا SELTA یا DIMAT، پایین Optical Fiber) و با فونت کوچک‌تر داخل کادر نوشته می‌شود و خانه ی فرکانس هم «TPS نوری / فرکانس ندارد» نمایش داده می‌شود؛ مانند خروجی اکسل.']},
