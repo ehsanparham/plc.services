@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.73">
-<meta name="app-display-version" content="1.2.58">
+<meta name="app-version" content="1.8.74">
+<meta name="app-display-version" content="1.2.59">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.58</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.59</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -924,7 +924,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.58</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.59</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2255,10 +2255,62 @@ function showOutputImage(){
   var sh = SHEETS[state.active];
   toast('در حال ساخت تصویر خروجی ...');
   makeOutputImage(sh, state.vals[sh.key]).then(function(res){
-    var base = buildName(sh).replace(/\.xlsx$/i, '');
+    showImageViewer(res, 'تصویر خروجی فرم - ' + esc(TAB_NAMES[sh.key] || sh.key), buildName(sh).replace(/\.xlsx$/i, ''));
+  }).catch(function(e){ console.error(e); toast('خطا در ساخت تصویر: ' + (e && e.message || e)); });
+}
+
+function htmlToJpg(wrap, w, h, host){
+  return new Promise(function(resolve, reject){
+    var xml = new XMLSerializer().serializeToString(wrap);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><foreignObject x="0" y="0" width="' + w + '" height="' + h + '">' + xml + '</foreignObject></svg>';
+    var svgUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    var sc = Math.min(2, Math.sqrt(14000000 / (w * h))); if (sc < 1) sc = 1;
+    var img = new Image();
+    img.onload = function(){
+      setTimeout(function(){
+        try {
+          var cvs = document.createElement('canvas'); cvs.width = Math.round(w * sc); cvs.height = Math.round(h * sc);
+          var g = cvs.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cvs.width, cvs.height); g.drawImage(img, 0, 0, cvs.width, cvs.height);
+          cvs.toBlob(function(b){ if (b) resolve({blob: b, url: URL.createObjectURL(b), type: 'jpg'}); else resolve({blob: new Blob([svg], {type: 'image/svg+xml'}), url: svgUrl, type: 'svg'}); }, 'image/jpeg', 0.95);
+        } catch(e){ resolve({blob: new Blob([svg], {type: 'image/svg+xml'}), url: svgUrl, type: 'svg'}); }
+      }, 450);
+    };
+    img.onerror = function(){ reject(new Error('رسم تصویر ممکن نشد')); };
+    img.src = svgUrl;
+  });
+}
+function makeFreqImage(fr, titles){   // the same table as the Excel file (Freq_Report): same columns, order, widths, header colour and borders
+  var fw = [6,18,16,9,10,8,8,36,36], heads = ['ردیف','نام پست','نام خط','شماره خط','نام دستگاه','TX','RX','مقادیر Transmitter','مقادیر Receiver'];
+  var px = fw.map(function(c){ return Math.round(c * 7 + 5); }), w = px.reduce(function(a,b){ return a + b; }, 0);
+  function esc2(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var bd = 'border:1px solid #999;', cell = 'box-sizing:border-box;padding:2px 4px;text-align:center;vertical-align:middle;white-space:pre-wrap;word-break:break-word;font:14.67px/20px Calibri,Carlito,Arial,sans-serif;' + bd;
+  var h = '<div style="width:' + w + 'px;background:#fff;direction:rtl;font-family:Calibri,Carlito,Arial,sans-serif">';
+  titles.forEach(function(t){ h += '<div style="height:32px;line-height:32px;text-align:center;font:bold 18.67px/32px Calibri,Carlito,Arial,sans-serif;color:#000">' + esc2(t) + '</div>'; });
+  h += '<div style="height:20px"></div><table dir="rtl" style="border-collapse:collapse;table-layout:fixed;width:' + w + 'px"><colgroup>' + px.map(function(p){ return '<col style="width:' + p + 'px">'; }).join('') + '</colgroup><thead><tr>' +
+    heads.map(function(t){ return '<th style="' + cell + 'background:#D9E8F5;font-weight:bold;height:20px">' + esc2(t) + '</th>'; }).join('') + '</tr></thead><tbody>';
+  fr.forEach(function(o,i){
+    var vs = [String(i+1), o.post, o.line, o.num, o.dev, o.tx, o.rx, o.txv, o.rxv];
+    h += '<tr>' + vs.map(function(v, ci){ return '<td style="' + cell + (ci >= 7 ? 'direction:ltr;unicode-bidi:plaintext;' : '') + '">' + esc2(v) + '</td>'; }).join('') + '</tr>';
+  });
+  h += '</tbody></table><div style="height:12px"></div></div>';
+  var host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-30000px;top:0;visibility:hidden;pointer-events:none'; host.innerHTML = h; document.body.appendChild(host);
+  var wrap = host.firstChild, hh = Math.ceil(wrap.getBoundingClientRect().height);
+  var sty = document.createElement('style'); sty.textContent = outCss(); wrap.insertBefore(sty, wrap.firstChild);
+  wrap.style.height = hh + 'px';
+  return htmlToJpg(wrap, w, hh).then(function(r){ try { document.body.removeChild(host); } catch(e){} return r; }, function(e){ try { document.body.removeChild(host); } catch(x){} throw e; });
+}
+function showFreqImage(){
+  var list = filtered(), fr = freqRows(list); if (!fr.length){ toast('رکوردی با فرکانس TX/RX برای نمایش وجود ندارد'); return; }
+  toast('در حال ساخت تصویر ...');
+  makeFreqImage(fr, ['شرکت تعمیرات نیروی برق فارس', 'گزارش فرکانس TX/RX ایستگاه‌ها']).then(function(res){
+    showImageViewer(res, 'تصویر گزارش فرکانس‌ها', 'Freq_Report_' + dayStamp());
+  }).catch(function(e){ console.error(e); toast('خطا در ساخت تصویر: ' + (e && e.message || e)); });
+}
+function showImageViewer(res, ttl, base){
+  {
     var old = document.getElementById('oiView'); if (old) old.remove();
     var v = document.createElement('div'); v.id = 'oiView'; v.className = 'oiView';
-    v.innerHTML = '<div class="oiTop"><span>تصویر خروجی فرم - ' + esc(TAB_NAMES[sh.key] || sh.key) + '</span></div><div class="oiStage" id="oiStage"><img id="oiImg" alt="" draggable="false"></div>' +
+    v.innerHTML = '<div class="oiTop"><span>' + ttl + '</span></div><div class="oiStage" id="oiStage"><img id="oiImg" alt="" draggable="false"></div>' +
       '<div class="oiBar"><button class="btn sec" id="oiClose">بستن</button><button class="btn pri" id="oiSave">ذخیره ی تصویر</button></div><div class="oiHint2">با دو انگشت زوم کنید؛ با یک انگشت جابه‌جا کنید</div>';
     document.body.appendChild(v);
     var st = $('oiStage'), im = $('oiImg'), s = 1, tx = 0, ty = 0, fit = 1, iw = 1, ih = 1, cw = 1, ch = 1, ps = {};
@@ -2298,7 +2350,7 @@ function showOutputImage(){
     st.addEventListener('dblclick', function(e){ var r = st.getBoundingClientRect(); if (s > fit * 1.05){ s = fit; apply(); } else zoomAt(2.5, e.clientX - r.left, e.clientY - r.top); });
     $('oiClose').onclick = function(){ window.removeEventListener('resize', layout); v.remove(); try { URL.revokeObjectURL(res.url); } catch(e){} };
     $('oiSave').onclick = function(){ downloadBlob(res.blob, base + '.' + res.type); toast('تصویر ذخیره شد'); };
-  }).catch(function(e){ console.error(e); toast('خطا در ساخت تصویر: ' + (e && e.message || e)); });
+  }
 }
 $('btnImg').addEventListener('click', showOutputImage);
 
@@ -2734,15 +2786,15 @@ function askFreq(){
   var h = '<h2>گزارش فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
   if (!fr.length) h += '<div class="msg" style="display:block">رکوردی که فرکانس TX یا RX داشته باشد پیدا نشد.</div>';
   else {
-    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>نام دستگاه</th><th>تاریخ</th></tr></thead><tbody>';
-    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.txv || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.rxv || '—') + '</td><td>' + esc(o.dev || o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
+    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>شماره خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>نام دستگاه</th><th>تاریخ</th></tr></thead><tbody>';
+    fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td>' + esc(o.num || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.txv || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.rxv || '—') + '</td><td>' + esc(o.dev || o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
     h += '</tbody></table></div>';
   }
-  h += '<div class="row2"><button class="btn sec" id="frClose">بستن</button>' + (fr.length ? '<button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
+  h += '<div class="row2"><button class="btn sec" id="frClose">بستن</button>' + (fr.length ? '<button class="btn sec" id="frImg">🖼 نمایش تصویر فرکانس ها</button><button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
   openModal(h);
   if (window.innerWidth > 760) $('modal').style.width = 'min(96vw, 1240px)';   // Windows: wide window, every column visible
   $('frClose').onclick = closeModal;
-  if (fr.length) $('frXls').onclick = function(){ exportFreqXlsx(); };
+  if (fr.length){ $('frXls').onclick = function(){ exportFreqXlsx(); }; $('frImg').onclick = function(){ closeModal(); showFreqImage(); }; }
 }
 function exportFreqXlsx(){
   if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
@@ -3255,6 +3307,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.74', d:'1.2.59', items:['برخی از اطلاعات سامانه بروز شد.']},
     {v:'1.8.73', d:'1.2.58', items:['برای SELTA Optical Fiber و DIMAT Optical Fiber، جمله ی خانه ی فرکانس در خروجی اکسل (و تصویر خروجی) در دو سطر «تله پروتکشن نوری / فرکانس ندارد.» و هم‌اندازه با عنوان نام دستگاه نوشته می‌شود.']},
     {v:'1.8.72', d:'1.2.57', items:['اندازه ی فونت نام دستگاه در خروجی اکسل (و تصویر خروجی) برای SELTA Optical Fiber و DIMAT Optical Fiber دو سایز بزرگتر شد؛ همچنان در دو سطر و داخل سلول.']},
     {v:'1.8.71', d:'1.2.56', items:['تصویر خروجی فرم‌ها دیگر با پسوند SVG ذخیره نمی‌شود؛ همیشه به صورت فایل JPG (با کیفیت بالا) ساخته و ذخیره می‌شود.']},
