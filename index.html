@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.74">
-<meta name="app-display-version" content="1.2.59">
+<meta name="app-version" content="1.8.75">
+<meta name="app-display-version" content="1.2.60">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -499,11 +499,11 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   body .welcome{white-space:nowrap;font-size:14px !important;padding:8px 12px !important;gap:6px;max-width:96vw;border-radius:12px !important}
   body .welcome i{width:22px;height:22px;flex:none}
   .fadein{animation:none !important}
-  .tabs{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;overflow:visible;border-radius:20px;padding:6px}
+  .tabs{display:grid !important;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;overflow:visible;border-radius:20px;padding:6px}
   .tabs .tab{padding:9px 1px;font-size:min(12.5px,3.15vw);white-space:nowrap;text-align:center;min-width:0}
-  .tabs .tab:nth-child(1){order:1}.tabs .tab:nth-child(2){order:2}.tabs .tab:nth-child(6){order:3}
-  .tabs .tab:nth-child(3){order:4}.tabs .tab:nth-child(4){order:5}.tabs .tab:nth-child(5){order:6}
-  .tabs .tab:nth-child(7){order:7;grid-column:1 / -1}
+  .tabs .tab.r1{grid-column:span 3}.tabs .tab.r2{grid-column:span 2}.tabs .tab.r3{grid-column:span 3}
+  .tabs.n3-1 .tab.r3{grid-column:1 / -1}.tabs.n3-3 .tab.r3{grid-column:span 2}
+  .actions>.srbox{order:2;flex:none}.actions>.srbox>button{width:46px;min-height:46px;padding:0;font-size:20px}
   html,body{height:auto !important}
   .desk{overflow:visible !important;flex:none}
   .bar-top{flex-wrap:wrap;align-items:center;gap:8px}
@@ -897,7 +897,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.59</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.60</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -914,6 +914,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
     <div class="actions">
       <div class="zoom"><button id="zOut" title="کوچک‌تر">−</button><span id="zVal">100%</span><button id="zIn" title="بزرگ‌تر">+</button><button id="zFit" title="تناسب با عرض صفحه" style="font-size:12px;width:auto;padding:0 10px">Fit</button></div>
       <div class="umenu"><button id="thBtn" title="تغییر تم و رنگ" aria-label="تم">🎨</button><div class="drop" id="thDrop"></div></div>
+      <div class="umenu srbox"><button id="srBtn" title="Search" aria-label="Search" style="display:none">🔍</button></div>
       <button class="btn ghost" id="btnBackup" style="display:none">🗄 پشتیبان‌گیری</button><button class="btn ghost" id="btnSaveAll">💾 ذخیره فرم‌های تکمیل‌شده</button><button class="btn ghost" id="btnClear">پاک‌کردن فرم</button>
       <div class="umenu"><button id="umBtn">👤 <span id="umName"></span> ▾</button>
         <div class="drop" id="umDrop"><button id="miPw">تغییر رمز عبور من</button><button id="miSup">تغییر نام مهندس ناظر</button><button id="miPerms" style="display:none">مدیریت دسترسی‌ها</button><button id="miAdmin" style="display:none">مدیریت کاربران</button><button id="miLog" style="display:none">ثبت ورود و خروج کاربران</button><button id="miHist">سابقه ی بروزرسانی ها</button><hr><button id="miOut">خروج از حساب</button></div></div>
@@ -924,7 +925,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.59</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.60</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1105,7 +1106,7 @@ function fontCss(c){
   return 'font-family:'+fontStack(c.font)+';font-size:'+px(c.sz).toFixed(2)+'px;'+(c.b?'font-weight:700;':'')+(c.i?'font-style:italic;':'')+(c.color?'color:'+c.color+';':'');
 }
 
-function render(){ if (state.report && !can('rep_view')) state.report = false; if (state.search && !can('sea_view')) state.search = false; if (state.search){ renderSearch(); return; } if (state.report){ renderReport(); return; } document.body.removeAttribute('data-report'); renderModern(); }
+function render(){ if (state.phone && !(session && session.admin)) state.phone = false; if (state.phone){ state.report = false; state.search = false; renderPhone(); return; } if (state.report && !can('rep_view')) state.report = false; if (state.search && !can('sea_view')) state.search = false; if (state.search){ renderSearch(); return; } if (state.report){ renderReport(); return; } document.body.removeAttribute('data-report'); renderModern(); }
 function renderClassic(o){
   o = o || {};
   var sh = o.sh || SHEETS[state.active], vals = o.vals || state.vals[sh.key], rtl = !!sh.rtl;
@@ -1442,7 +1443,7 @@ function renderModern(){
     if (cfgc) makeCombo(f, cfgc, function(v){ vals[c.ref] = v; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, v); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10'){ paintDev(); applyFreqMode(); } if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); if (/^(E10|G10|I10|D11|G11|I11)$/.test(c.ref)) refreshNum(sh.key); });
     if (sh.key === 'plc' && c.ref === 'R27'){   // phone: 4 digits only
       f.maxLength = 4; f.setAttribute('inputmode','numeric'); f.placeholder = '----';
-      f.addEventListener('input', function(){ var n = faDigits(f.value).replace(/\D/g,'').slice(0,4); if (n !== f.value) f.value = n; });
+      f.addEventListener('input', function(){ var n = faDigits(f.value).replace(/\D/g,'').slice(0,4); if (n !== f.value) f.value = n; if (n.length === 4) phSync(vals.E10, vals.G10, n); });
     }
     f.addEventListener('input', function(){ vals[c.ref] = f.value; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, f.value); if (sh.key === 'selta' || sh.key === 'abb') syncLevels(sh.key); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10') paintDev(); if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); if (sh.key === 'lmu' && c.ref === 'R22'){ vals.M29 = f.value; var t29 = document.querySelector('[data-ref="M29"]'); if (t29) t29.value = f.value; } if ((sh.key === 'selta' || sh.key === 'abb') && (c.ref === 'G5' || c.ref === 'D5')) updateCalc(); });
     f.addEventListener('keydown', function(e){ if (e.key === 'Enter' && !tall){ e.preventDefault(); var nx = (sh.key === 'plc' && c.ref === 'R27') ? document.querySelector('#stage .mcb[data-ref="E28"]') : null; if (nx) nx.focus(); else focusNext(f); } });
@@ -1962,17 +1963,75 @@ function hasUserData(key){
 }
 function hasData(key){ var v = state.vals[key]; for (var k in v){ if (k.charAt(0) !== '_' && v[k] !== '' && v[k] !== undefined) return true; } return false; }
 function fadeStage(){ var h = $('holder'); if (!h) return; h.classList.remove('fadein'); void h.offsetWidth; h.classList.add('fadein'); }
+var PH_BASE = [["شیراز ۳","شیراز","","38226436","3221 - 3222","","s"],["شیراز ۳","شیراز","","38228008","3233","","s"],["شیراز ۳","میانرود","","38405161","2755","","s"],["شیراز ۳","صنایع","","36249065","","","s"],["شیراز ۳","معالی آباد","","36253192","2267","","s"],["شیراز ۳","کهره سرخی","","09174373589","2415","","s"],["شیراز ۳","خان زنیان","","38615981","","","s"],["شیراز ۳","اکبر آباد","","32424090","3228","","s"],["شیراز ۴","دانشگاه","","36468324","6600 - 6601","","s"],["شیراز ۴","کوهسار","","36468138","","","s"],["شیراز ۴","فلسطین","","32340299","2525","","s"],["شیراز ۴","همت","","36309183","2373","","s"],["شیراز ۴","مرکزی","","32307187","2251","","s"],["شیراز ۴","فردوسی","","32220507","","","s"],["شیراز ۴","سراج","","38374378","","","s"],["شیراز ۴","احمدی","","37382923","3210","","s"],["شیراز ۴","چوگان","","38435578","","","s"],["شیراز ۴","قرآن","","32282865","2548","","s"],["مرودشت","مرودشت","","43311080 - 32355204","2950","","s"],["مرودشت","بیدگل","","32307069","6022","","s"],["مرودشت","امامزاده","","32622776","6310","","s"],["مرودشت","زرقان","","32622771","6009","","s"],["مرودشت","درودزن","","43462256","6014","","s"],["مرودشت","سهل آباد","","43241300","6008","","s"],["مرودشت","مجتمع گوشت","","43448100","6013","","s"],["مرودشت","تخت جمشید","","43404267","6007","","s"],["مرودشت","مهجن آباد","","43633087","6010","","s"],["مرودشت","کمربندی","","43339335","6012","","s"],["مرودشت","برج","","32307069","6022","","s"],["مرودشت","نقش رستم","","09179286680","6015","","s"],["آباده","سورمق","","44374200","6100 - 6101 - 6102","","s"],["آباده","ایزدخواست","","32200441","6102","","s"],["آباده","حسن آباد","","","6109","","s"],["آباده","اقلید","","44552007","6113","","s"],["آباده","آباده","","58513246","6105","","s"],["آباده","دهبید","","44452900","","","s"],["آباده","بوانات","","44404035","6111","","s"],["آباده","علی آباد","","58535753","6114","","s"],["آباده","سپاس","","44590414","6115","","s"],["آباده","صفاد","","44382666","6106","","s"],["آباده","خرمید","","44454982","6112","","s"],["آباده","شورجستان","","32200441","6102","","s"],["آباده","شهر بالا","","","6109","","s"],["قائمیه","قائمیه","","32331653","4406 - 4407","","s"],["قائمیه","چنار شاهیجان","","32345164","4400","","s"],["قائمیه","بابامیدان","","42677413","","","s"],["قائمیه","نور آباد","","42544211","4411","","s"],["قائمیه","شولستان","","42615333","4420","","s"],["قائمیه","شهید موسوی","","32300443","4412","","s"],["صدرا","صدرا","","36407834 - 36407177 - 32263248","6300 - 6301","","s"],["صدرا","تل بیضا","","36773000 - 36773080","6322","","s"],["صدرا","گلستان","","36208885","6320","","s"],["صدرا","سپیدان","","36722868","6315","","s"],["صدرا","سینا","","36415007","6321","","s"],["صدرا","نمایشگاه","","36222722","","","s"],["صدرا","تنگ تیزاب","","36760320 - 58730320","","","s"],["صدرا","برف فروشان","","36363101","3210","","s"],["صدرا","تپه کاج","","58008333","6312","","s"],["صدرا","خلیج فارس","","36216827","6309","","s"],["صدرا","گویم","","58076942","6323","","s"],["صدرا","دالین","","58188-59","6331","","s"],["صدرا","بانش","","","6316","","s"],["پاسارگاد","پاسارگاد","","43567832","6200","","s"],["پاسارگاد","سیدان","","43472237","6210","","s"],["پاسارگاد","سعادت شهر","","43562281","6211","","s"],["پاسارگاد","قادر آباد","","44492440","6214","","s"],["پاسارگاد","ارسنجان","","58645384","6212","","s"],["پاسارگاد","آباده طشک","","53892084","6207","","s"],["پاسارگاد","سرچهان","","58572036","6216","","s"],["کازرون","نیروگاه کازرون","","32362181 - 42364051\n32362181 - 42364052","4000 - 4001","","s"],["کازرون","پریشان","","42364052","4007","","s"],["کازرون","بوشیگان","","42386070","4416","","s"],["کازرون","بالاده","","58211172","4016","","s"],["کازرون","سلمان","","42242727","4015","","s"],["کازرون","فراشبند","","38752122","4018","","s"],["کازرون","کنار تخته","","42444371","4019","","s"],["کازرون","کازرون","","42230102","4017","","s"],["کازرون","خشت","","42453878","2177","","s"],["اختصاصی - شیراز ۳","سیمان شیراز","","38228686","","","s"],["اختصاصی - آباده","سیمان آباده","","09171530454","","","s"],["اختصاصی - مرودشت","پالایشگاه","","38217561","","","s"],["اختصاصی - مرودشت","آزمایش","","33389955 - 43311055","","","s"],["اختصاصی - مرودشت","پتروشیمی","","43228415 و 16","2481","","s"],["اختصاصی - مرودشت","پمپاژ 1","","43448895","","","s"],["اختصاصی - مرودشت","پمپاژ 2","","43448895 - 6","","","s"],["اختصاصی - مرودشت","پمپاژ 3","","38217561","","","s"],["اختصاصی - شیراز ۴","نمازی","","36474828 - 09018718843","","","s"],["کنگان","کنگان","7400 - 7401","","","","s"],["کنگان","اختر","7412","","","","s"],["کنگان","اندیشه","7409","","","","s"],["کنگان","تشان","7413","","","","s"],["کنگان","کاکی","7414","","","","s"],["کنگان","تشان - اپراتور نیروگاه","","","","","r"],["کنگان","کنگان - رئیس ناحیه","7402","","","","r"],["کنگان","کنگان - نظارت","7403","","","","r"],["کنگان","کنگان - نگهبانی","7407","","","","r"],["گناوه","بینک","4615","","","","s"],["گناوه","سیامکان","4608","","","","s"],["گناوه","گناوه","4600","","","","s"],["گناوه","بندرریگ","4610","","","","s"],["گناوه","دیلم","4606","","","","s"],["گناوه","گناوه 2","4614","","","","s"],["گناوه","گوره","4607","","","","s"],["گناوه","نفت امید","4609","","","","s"],["گناوه","نیروگاه گناوه","4602","","","","s"],["گناوه","گناوه - نگهبانی","4613","","","","r"],["گناوه","دیلم - نگهبانی","4611","","","","r"],["عسلویه","پارس","7300 - 7301","","","","s"],["عسلویه","اخند","7302","","","","s"],["عسلویه","پرک","7315","","","","s"],["عسلویه","جم 2","7307","","","","s"],["عسلویه","عسلویه","7305","","","","s"],["عسلویه","پارس - حراست","7304","","","","r"],["عسلویه","پارس - رئیس ناحیه","7303","","","","r"],["عسلویه","پارس - ناظر","7308 - 7309","","","","r"],["بوشهر","بوشهر 1","4152","","","","s"],["بوشهر","بوشهر 2","4120","","","","s"],["بوشهر","آزادی","4154","","","","s"],["بوشهر","بهمنی","4119","","","","s"],["بوشهر","پودر","4123","","","","s"],["بوشهر","تنگسیر","4106","","","","s"],["بوشهر","جفره","4155","","","","s"],["بوشهر","دانشجو","4153","","","","s"],["بوشهر","سبزاباد","4158","","","","s"],["بوشهر","فانوس","4165","","","","s"],["بوشهر","ماهینی","4108","","","","s"],["بوشهر","مرکزی","4101","","","","s"],["بوشهر","هلیله","4109","","","","s"],["بوشهر","بوشهر 2 - حراست","4121","","","","r"],["بوشهر","بوشهر 1 - رئیس ناحیه","4150","","","","r"],["بوشهر","بوشهر 1 - ناظر","4151","","","","r"],["بوشهر","تعمیرات","4107","","","","r"],["برازجان","برازجان","4200","","","","s"],["برازجان","دشتستان","4221","","","","s"],["برازجان","میاندشت","4216","","","","s"],["برازجان","اتحاد","4222","","","","s"],["برازجان","آپیخش","4205","","","","s"],["برازجان","برازجان 1","4211","","","","s"],["برازجان","برازجان 2","4217","","","","s"],["برازجان","پشتکوه","4212","","","","s"],["برازجان","تنگ ارم","4213","","","","s"],["برازجان","دهقائد","4224","","","","s"],["برازجان","شبانکاره","4209","","","","s"],["برازجان","فرهنگ","4206","","","","s"],["برازجان","کلمه","4214","","","","s"],["برازجان","دشتستان - حراست","4223","","","","r"],["برازجان","برازجان - رئیس ناحیه","4204","","","","r"],["برازجان","برازجان - ناظر","4202 - 4203","","","","r"],["برازجان","برازجان - نگهبانی","4220","","","","r"],["برازجان","میاندشت - نگهبانی","4219","","","","r"],["چغادک","چغادک","4300 - 4302","","","","s"],["چغادک","اهرم","4315","","","","s"],["چغادک","جائینک","4307","","","","s"],["چغادک","خورموج","4302","","","","s"],["چغادک","دشتی جدید","4305","","","","s"],["چغادک","دلیران","4304","","","","s"],["چغادک","رستمی","4314","","","","s"],["چغادک","عالی شهر","4313","","","","s"],["چغادک","نفت خاییز","4311","","","","s"],["چغادک","چغادک - انبار","4311","","","","r"],["چغادک","دشتی جدید - حراست","4312","","","","r"],["چغادک","چغادک - رئیس ناحیه","4303","","","","r"],["چغادک","دشتی جدید - ناظر","4124","","","","r"],["چغادک","چغادک - نگهبانی","4306","","","","r"],["بهره‌برداری PLC (افراد)","مهندس شجاعی پور","4141","","","","p"],["بهره‌برداری PLC (افراد)","مهندس یزدان پناه فرد","4111","","","","p"],["بهره‌برداری PLC (افراد)","بدون نام","4105","","","","p"],["بهره‌برداری PLC (افراد)","ناصری","4132","","","","p"],["بهره‌برداری PLC (افراد)","نقلیه","4118","","","","p"],["بهره‌برداری PLC (افراد)","باصولی","4125","","","","p"],["بهره‌برداری PLC (افراد)","سلحشور","4126","","","","p"],["بهره‌برداری PLC (افراد)","زنده بودی","4127","","","","p"],["بهره‌برداری PLC (افراد)","جان احمدی","4128","","","","p"],["بهره‌برداری PLC (افراد)","حمادی","4129","","","","p"],["بهره‌برداری PLC (افراد)","کاشفی","4130","","","","p"],["بهره‌برداری PLC (افراد)","طاهرزاده","4131","","","","p"],["بهره‌برداری PLC (افراد)","بهنام ور","4133","","","","p"],["بهره‌برداری PLC (افراد)","شریفی","4136","","","","p"],["بهره‌برداری PLC (افراد)","تمیمی","4137","","","","p"],["بهره‌برداری PLC (افراد)","حسامی","4138","","","","p"],["بهره‌برداری PLC (افراد)","خورده بین","4138","","","","p"],["بهره‌برداری PLC (افراد)","کامران","4112","","","","p"],["بهره‌برداری PLC (افراد)","زارع","4113","","","","p"],["بهره‌برداری PLC (افراد)","خدری","4100","","","","p"],["بهره‌برداری PLC (افراد)","دشمن زیاری","4117","","","","p"],["بهره‌برداری PLC (افراد)","مرکز کنترل 1","4114","","","","p"],["بهره‌برداری PLC (افراد)","مرکز کنترل 2","4115","","","","p"],["بهره‌برداری PLC (افراد)","مرکز کنترل 3","4116","","","","p"],["بهره‌برداری PLC (افراد)","برق منطقه ای","111","","","","p"],["بهره‌برداری PLC (افراد)","بهره برداری شیراز","120","","","","p"],["بهره‌برداری PLC (افراد)","پشتیبان مرکز برازجان","4207","","","","p"],["بهره‌برداری PLC (افراد)","نوایی","4140","","","","p"],["بهره‌برداری PLC (افراد)","دشتی","4142","","","","p"],["بهره‌برداری PLC (افراد)","شهابی","4143","","","","p"],["بهره‌برداری PLC (افراد)","نگهبانی","4144","","","","p"],["بهره‌برداری PLC (افراد)","پیکری","4145","","","","p"],["بهره‌برداری PLC (افراد)","محمدی","4146","","","","p"],["بهره‌برداری PLC (افراد)","اسماعیلی","4147","","","","p"],["بهره‌برداری PLC (افراد)","حیدری","4148","","","","p"],["بهره‌برداری PLC (افراد)","عاشوری","4167","","","","p"],["قائمیه (افراد)","مهندس بینا","","32303461","2353","09171134659","p"],["قائمیه (افراد)","مهندس حیدری","","","2391","09173015223","p"],["قائمیه (افراد)","مهندس نجاتی","","","","09179673634","p"],["قائمیه (افراد)","مهندس رهنمایی","","","4414","09177211294","p"],["قائمیه (افراد)","مهندس نعیمی","","44374208","6103","09177378217","p"],["قائمیه (افراد)","مهندس ارژنگ محمدی","","","4403","09171243642","p"],["قائمیه (افراد)","مهندس آزادی","","","","09173185687","p"],["قائمیه (افراد)","مهندس دارایی","","","","09173191787","p"],["قائمیه (افراد)","مهندس مهدی","","","","09171224111","p"]];
+
+// ---------- Station Telephone (admin): station phone book, searchable; PLC numbers typed in the PLC form keep it up to date
+var PH_KEY = 'plc_phonebook_v1', PH_OV = {plc:{}, add:[]}, PQ = {area:'', q:''};
+try { var _po = JSON.parse(localStorage.getItem(PH_KEY) || 'null'); if (_po && _po.plc && _po.add) PH_OV = _po; } catch(e){}
+function phSave(){ try { localStorage.setItem(PH_KEY, JSON.stringify(PH_OV)); } catch(e){} }
+function phNorm(s){ return faDigits(String(s == null ? '' : s)).replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[‌‎‏\s]+/g,'').toLowerCase(); }
+function phRows(){
+  var out = PH_BASE.map(function(r,i){ var o = PH_OV.plc['b'+i]; return {id:'b'+i, a:r[0], p:r[1], plc:o !== undefined ? o : r[2], d:r[3], i:r[4], m:r[5], k:r[6]}; });
+  PH_OV.add.forEach(function(r,i){ var o = PH_OV.plc['n'+i]; out.push({id:'n'+i, a:r.a, p:r.p, plc:o !== undefined ? o : r.plc, d:'', i:'', m:'', k:'s'}); });
+  return out;
+}
+function phSync(area, post, phone){   // PLC form: station PLC phone -> phone book (fix a different number, or add a missing station)
+  phone = faDigits(String(phone || '')).replace(/\D/g,''); post = String(post || '').trim();
+  if (!post || !/^\d{4}$/.test(phone)) return;
+  var np = phNorm(post), na = phNorm(area), rows = phRows().filter(function(r){ return r.k === 's' && phNorm(r.p) === np; });
+  if (!rows.length){ PH_OV.add.push({a:String(area || '').trim() || '—', p:post, plc:phone}); phSave(); return; }
+  var row = rows.filter(function(r){ return phNorm(r.a) === na; })[0] || rows[0];
+  if (String(row.plc).split(/\D+/).indexOf(phone) >= 0) return;
+  PH_OV.plc[row.id] = phone; phSave();
+}
+function renderPhone(){
+  document.body.setAttribute('data-report','1');
+  var stage = $('stage'); stage.innerHTML = ''; stage.className = 'stage mod';
+  var page = el('div','mpage'); page.setAttribute('dir','rtl'); stage.appendChild(page);
+  var head = el('div','mhead'); var h = el('h2'); h.textContent = 'Station Telephone'; var sm = el('small'); sm.textContent = 'دفترچه تلفن ایستگاه‌ها (ناحیه، نام پست، تلفن PLC، تلفن مستقیم و تلفن همراه)'; head.appendChild(h); head.appendChild(sm); page.appendChild(head);
+  var card = el('div','mcard'); page.appendChild(card);
+  var g = el('div','mgrid sfilter'); g.style.gridTemplateColumns = 'minmax(0,1fr) minmax(0,2fr)'; g.style.minWidth = '0'; card.appendChild(g);
+  function fld(label, node){ var w = el('div','mlf'); var s = el('span'); s.textContent = label; w.appendChild(s); w.appendChild(node); g.appendChild(w); }
+  var sel = el('select','mi'), areas = [], seen = {}; phRows().forEach(function(r){ if (!seen[r.a]){ seen[r.a] = 1; areas.push(r.a); } });
+  [''].concat(areas).forEach(function(a){ var o = document.createElement('option'); o.value = a; o.textContent = a || 'همه نواحی'; sel.appendChild(o); }); sel.value = PQ.area;
+  sel.addEventListener('change', function(){ PQ.area = sel.value; refresh(); }); fld('ناحیه', sel);
+  var q = el('input','mi'); q.type = 'text'; q.value = PQ.q; q.placeholder = 'جستجو: نام پست، شماره تلفن، نام فرد ...'; q.setAttribute('dir','auto'); q.setAttribute('autocomplete','off');
+  q.addEventListener('input', function(){ PQ.q = q.value; refresh(); }); fld('جستجو', q);
+  var box = el('div','mcard'); page.appendChild(box);
+  function refresh(){
+    var nq = phNorm(PQ.q), list = phRows().filter(function(r){ return (!PQ.area || r.a === PQ.area) && (!nq || phNorm([r.a, r.p, r.plc, r.d, r.i, r.m].join(' ')).indexOf(nq) >= 0); });
+    box.innerHTML = '';
+    var t = el('div','mtitle'); t.textContent = 'تعداد: ' + list.length; box.appendChild(t);
+    if (!list.length){ var e1 = el('div','mhint'); e1.textContent = 'مورد مطابقی پیدا نشد.'; box.appendChild(e1); return; }
+    var wrap = el('div','mscroll'), tb = el('table','mrt'), thd = document.createElement('thead'), tr = document.createElement('tr');
+    ['ردیف','ناحیه','نام پست','تلفن PLC','تلفن مستقیم','تلفن همراه'].forEach(function(c){ var th = document.createElement('th'); th.textContent = c; tr.appendChild(th); }); thd.appendChild(tr); tb.appendChild(thd);
+    var tbd = document.createElement('tbody');
+    list.forEach(function(r,i){
+      var row = document.createElement('tr');
+      var dir = r.d ? (r.d + (r.i ? '\nداخلی: ' + r.i : '')) : (r.i ? 'داخلی: ' + r.i : '');
+      [String(i+1), r.a, r.p, r.plc, dir, r.m].forEach(function(v, ci){ var td = document.createElement('td'); td.textContent = v || '—'; if (ci >= 3){ td.style.whiteSpace = 'pre-line'; td.style.textAlign = 'center'; td.style.unicodeBidi = 'plaintext'; } row.appendChild(td); });
+      tbd.appendChild(row);
+    });
+    tb.appendChild(tbd); wrap.appendChild(tb); box.appendChild(wrap);
+  }
+  refresh(); markTab();
+}
+
 function markTab(){
   var bb = $('btnBackup'); if (bb) bb.style.display = (session && !session.admin && state.report && !state.search) ? '' : 'none';
   var nav = $('tabs'); nav.innerHTML='';
+  var adm = !!(session && session.admin), n3 = 0, none = !state.report && !state.search && !state.phone;
   SHEETS.forEach(function(s,i){
-    var b = el('button','tab'+(i===state.active&&!state.report&&!state.search?' on':'')); b.textContent = s.tab;
+    var b = el('button','tab '+(i < 2 ? 'r1' : 'r2')+(i===state.active&&none?' on':'')); b.textContent = s.tab;
     if (hasUserData(s.key)){ var d = document.createElement('i'); b.appendChild(d); }
-    b.addEventListener('click', function(){ if (i!==state.active || state.report || state.search){ state.report=false; state.search=false; state.active=i; render(); fadeStage(); $('desk').scrollTop=0; } });
+    b.addEventListener('click', function(){ if (i!==state.active || !none){ state.report=false; state.search=false; state.phone=false; state.active=i; render(); fadeStage(); $('desk').scrollTop=0; } });
     nav.appendChild(b);
   });
-  if (can('rep_view')){ var rb = el('button','tab'+(state.report&&!state.search?' on':'')); rb.textContent = '📊 Report'; rb.addEventListener('click', function(){ if (!state.report || state.search){ state.report=true; state.search=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(rb); }
-  if (can('sea_view')){ var sb = el('button','tab'+(state.search?' on':'')); sb.textContent = '🔍 Search'; sb.addEventListener('click', function(){ if (!state.search){ state.search=true; state.report=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(sb); }
+  if (adm){ n3++; var pb = el('button','tab r3'+(state.phone?' on':'')); pb.textContent = '📞 Station Telephone'; pb.addEventListener('click', function(){ if (!state.phone){ state.phone=true; state.report=false; state.search=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(pb); }
+  if (can('rep_view')){ n3++; var rb = el('button','tab r3'+(state.report&&!state.search&&!state.phone?' on':'')); rb.textContent = '📊 Report'; rb.addEventListener('click', function(){ if (!state.report || state.search || state.phone){ state.report=true; state.search=false; state.phone=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(rb); }
+  if (!adm && can('sea_view')){ n3++; var sb = el('button','tab r3'+(state.search?' on':'')); sb.textContent = '🔍 Search'; sb.addEventListener('click', function(){ if (!state.search){ state.search=true; state.report=false; state.phone=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(sb); }
+  nav.className = 'tabs n3-' + n3;
+  var sr = $('srBtn'); if (sr){ sr.style.display = adm ? '' : 'none'; sr.classList.toggle('on', !!state.search); }
 }
 
 // ---------- Excel export: patch the original workbook so every style / border / image is preserved
@@ -2676,7 +2735,7 @@ function openRecord(r){
   var sh = shByKey(r.form); if (!sh) return;
   if (hasData(sh.key) && !confirm('اطلاعات فعلی فرم ' + sh.tab + ' با این رکورد جایگزین شود؟')) return;
   state.vals[sh.key] = recVals(r); (state.edit = state.edit || {})[sh.key] = r.id; saveStore();
-  state.report = false; state.search = false; state.active = SHEETS.indexOf(sh); render(); $('desk').scrollTop = 0; toast('رکورد در فرم باز شد');
+  state.report = false; state.search = false; state.phone = false; state.active = SHEETS.indexOf(sh); render(); $('desk').scrollTop = 0; toast('رکورد در فرم باز شد');
 }
 // ---- export report as .xlsx (built from scratch)
 function xesc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,''); }
@@ -2902,7 +2961,7 @@ function restoreRecs(){
   f.click();
 }
 $('btnBackup').addEventListener('click', askBackup);
-$('btnArchive').addEventListener('click', function(){ var sh = SHEETS[state.active]; if (!hasUserData(sh.key)){ toast('خطا: هیچ اطلاعاتی به‌صورت دستی وارد نشده است؛ رکورد ثبت نشد'); return; } if (addRecord(sh)) toast('در بایگانی ثبت شد'); });
+$('btnArchive').addEventListener('click', function(){ var sh = SHEETS[state.active]; if (!hasUserData(sh.key)){ toast('خطا: هیچ اطلاعاتی به‌صورت دستی وارد نشده است؛ رکورد ثبت نشد'); return; } if (sh.key === 'plc') phSync(state.vals.plc && state.vals.plc.E10, state.vals.plc && state.vals.plc.G10, state.vals.plc && state.vals.plc.R27); if (addRecord(sh)) toast('در بایگانی ثبت شد'); });
 
 function clearForm(sh){   // removes only what was typed / picked by hand; defaults (names, date, supervisor, fixed values) stay
   var key = sh.key, old = state.vals[key] || {}, base = state.base[key];
@@ -3060,7 +3119,7 @@ $('loginForm').addEventListener('submit', function(e){
   var u = findUser($('lgU').value), pw = $('lgP').value;
   if (u && pwHash(u.u, pw) === userHash(u)){
     session = u; if (u.u === 'test') seedSamples(u); else purgeSamples(); logEnter(u); sessSet({u:u.u, info:null}); $('lgErr').textContent = ''; $('lgP').value = ''; loadUserLook();
-    SHEETS.forEach(function(s){ state.vals[s.key] = {}; }); devLast = {}; state.base = {}; state.edit = {}; state.noSync = {}; state.active = 0; state.report = false; state.search = false; saveStore();   // every login starts with empty forms
+    SHEETS.forEach(function(s){ state.vals[s.key] = {}; }); devLast = {}; state.base = {}; state.edit = {}; state.noSync = {}; state.active = 0; state.report = false; state.search = false; state.phone = false; saveStore();   // every login starts with empty forms
     clearLabelOverrides(/inspector|^date|مسئول گروه|ناظر|^تاریخ/i);
     info = {sup:'', date:''};
     loginOpen(u.name);
@@ -3106,6 +3165,7 @@ function loadUserLook(){   // every user has a personal theme / background choic
 }
 applyBg(true);
 (function(){ var base = applyTheme; applyTheme = function(k){ base(k); var d=$('thDrop'); if(!d) return; var hr=document.createElement('hr'); d.appendChild(hr); var b=document.createElement('button'); var on = document.body.getAttribute('data-bg') !== 'off'; b.textContent = on ? '🖼 حذف تصویر پس‌زمینه' : '🖼 نمایش تصویر پس‌زمینه'; b.addEventListener('click', function(){ applyBg(!on); applyTheme(document.body.getAttribute('data-theme')); }); d.appendChild(b); }; applyTheme(document.body.getAttribute('data-theme') || 'glass'); })();
+$('srBtn').addEventListener('click', function(e){ e.stopPropagation(); if (!(session && session.admin)) return; state.search = true; state.report = false; state.phone = false; render(); fadeStage(); $('desk').scrollTop = 0; });
 $('thBtn').addEventListener('click',function(e){ e.stopPropagation(); $('umDrop').classList.remove('open'); $('thDrop').classList.toggle('open'); });
 
 document.addEventListener('click', function(){ $('umDrop').classList.remove('open'); var th=$('thDrop'); if(th) th.classList.remove('open'); });
@@ -3307,6 +3367,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.75', d:'1.2.60', items:['در پروفایل ادمین تب جدید «Station Telephone» (دفترچه تلفن ایستگاه‌ها) اضافه شد: جدول ردیف، ناحیه، نام پست، تلفن PLC، تلفن مستقیم و تلفن همراه با قابلیت جستجو؛ شماره‌ای که در باکس «تلفن PLC ایستگاه» فرم PLC وارد شود در صورت نبودن یا مغایرت در دفترچه اضافه یا اصلاح می‌شود.','دکمه ی Search در پروفایل ادمین با آیکون ذره‌بین کنار دکمه ی تم قرار گرفت.','چیدمان تب‌ها در نسخه ی موبایل: سطر اول PLC CheckList و LMU CheckList، سطر دوم بدون تغییر، سطر سوم Station Telephone و Report.']},
     {v:'1.8.74', d:'1.2.59', items:['برخی از اطلاعات سامانه بروز شد.']},
     {v:'1.8.73', d:'1.2.58', items:['برای SELTA Optical Fiber و DIMAT Optical Fiber، جمله ی خانه ی فرکانس در خروجی اکسل (و تصویر خروجی) در دو سطر «تله پروتکشن نوری / فرکانس ندارد.» و هم‌اندازه با عنوان نام دستگاه نوشته می‌شود.']},
     {v:'1.8.72', d:'1.2.57', items:['اندازه ی فونت نام دستگاه در خروجی اکسل (و تصویر خروجی) برای SELTA Optical Fiber و DIMAT Optical Fiber دو سایز بزرگتر شد؛ همچنان در دو سطر و داخل سلول.']},
