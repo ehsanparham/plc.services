@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.76">
-<meta name="app-display-version" content="1.2.61">
+<meta name="app-version" content="1.8.77">
+<meta name="app-display-version" content="1.2.62">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -898,7 +898,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.61</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.62</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -926,7 +926,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.61</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.62</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1441,7 +1441,7 @@ function renderModern(){
     if (sh.key === 'plc' && /^(K10|R27|E13|H13|K13|N13|[CGJMP](33|35|37|39))$/.test(c.ref)){ f.setAttribute('dir','ltr'); f.style.textAlign = 'center'; }
     if (sh.key === 'plc' && (c.ref === 'E13' || c.ref === 'H13')){ f.readOnly = true; f.tabIndex = -1; f.classList.add('mro'); f.title = 'مقدار ثابت'; }
     var cfgc = COMBOS[sh.key] && COMBOS[sh.key][c.ref];
-    if (cfgc) makeCombo(f, cfgc, function(v){ vals[c.ref] = v; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, v); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10'){ paintDev(); applyFreqMode(); } if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); if (/^(E10|G10|I10|D11|G11|I11)$/.test(c.ref)) refreshNum(sh.key); });
+    if (cfgc) makeCombo(f, cfgc, function(v){ vals[c.ref] = v; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, v); if (sh.key === 'plc' && (c.ref === 'G10' || c.ref === 'I10' || c.ref === 'K10' || c.ref === 'M10')) syncDevice(); if (sh.key === 'plc' && c.ref === 'M10'){ paintDev(); applyFreqMode(); } if ((sh.key === 'plc' && c.ref === 'E10') || (sh.key === 'lmu' && c.ref === 'D11')) onAreaChange(sh.key, c.ref, sh.key === 'plc' ? ['G10','I10'] : ['G11','I11']); if (/^(E10|G10|I10|D11|G11|I11)$/.test(c.ref)) refreshNum(sh.key); if (sh.key === 'plc' && c.ref === 'G10') phFill(vals); });
     if (sh.key === 'plc' && c.ref === 'R27'){   // phone: 4 digits only
       f.maxLength = 4; f.setAttribute('inputmode','numeric'); f.placeholder = '----';
       f.addEventListener('input', function(){ var n = faDigits(f.value).replace(/\D/g,'').slice(0,4); if (n !== f.value) f.value = n; if (n.length === 4) phSync(vals.E10, vals.G10, n); });
@@ -1984,6 +1984,13 @@ function phSync(area, post, phone){   // PLC form: station PLC phone -> phone bo
   var row = rows.filter(function(r){ return phNorm(r.a) === na; })[0] || rows[0];
   if (String(row.plc).split(/\D+/).indexOf(phone) >= 0) return;
   PH_OV.plc[row.id] = phone; phSave();
+}
+function phFill(vals){   // PLC form: a station picked from the list -> its PLC phone comes from the phone book (if it has one)
+  var post = String(vals.G10 || '').trim(); if (!post) return;
+  var np = phNorm(post), na = phNorm(vals.E10), rows = phRows().filter(function(r){ return r.k === 's' && phNorm(r.p) === np && /\d{4}/.test(String(r.plc)); });
+  if (!rows.length) return;
+  var row = rows.filter(function(r){ return phNorm(r.a) === na; })[0] || rows[0], m = /\d{4}/.exec(String(row.plc)); if (!m) return;
+  vals.R27 = m[0]; var f = document.querySelector('#stage [data-ref="R27"]'); if (f) f.value = m[0]; saveSoon(); markTab();
 }
 function renderPhone(){
   document.body.setAttribute('data-report','1'); document.body.setAttribute('data-phone','1');
@@ -2938,7 +2945,7 @@ function askBackup(){
   setTimeout(function(){ inp.focus(); inp.select(); }, 60);
 }
 function saveBackupFile(name){
-  var blob = new Blob([JSON.stringify({app:'plc-records',v:1,recs:RECS,logins:LOGS})], {type:'application/json'});
+  var blob = new Blob([JSON.stringify({app:'plc-records',v:1,recs:RECS,logins:LOGS,phonebook:PH_OV})], {type:'application/json'});
   function viaDownload(){ downloadBlob(blob, name); toast('فایل پشتیبان ساخته شد: ' + name); }
   if (typeof window.showSaveFilePicker === 'function'){
     var pick; try { pick = window.showSaveFilePicker({suggestedName: name, types: [{description: 'JSON (*.json)', accept: {'application/json': ['.json']}}]}); } catch(e){ viaDownload(); return; }
@@ -2956,7 +2963,13 @@ function restoreRecs(){
       var haveL = {}, addL = 0; LOGS.forEach(function(l){ haveL[l.id] = 1; });
       (Array.isArray(o.logins) ? o.logins : []).forEach(function(l){ if (l && l.id && l.uid && l.tin && !haveL[l.id]){ LOGS.push({id:l.id, uid:l.uid, name:l.name || l.uid, tin:+l.tin, tout:+l.tout || 0, seen:+l.seen || +l.tin}); haveL[l.id] = 1; addL++; } });
       if (addL){ LOGS.sort(function(a,b){ return a.tin - b.tin; }); saveLogs(); }
-      saveRecs(); renderReport(); toast(add + ' رکورد جدید' + (addL ? ' و ' + addL + ' ورود و خروج' : '') + ' بازیابی شد');
+      var pbN = 0, pb = o.phonebook;   // phone book changes made by users (PLC numbers fixed / stations added)
+      if (pb && typeof pb === 'object'){
+        Object.keys(pb.plc || {}).forEach(function(k){ if (/^[bn]\d+$/.test(k) && /^\d{4}$/.test(String(pb.plc[k])) && PH_OV.plc[k] !== pb.plc[k]){ PH_OV.plc[k] = String(pb.plc[k]); pbN++; } });
+        (Array.isArray(pb.add) ? pb.add : []).forEach(function(r, i){ if (!r || !r.p) return; var have = PH_OV.add.some(function(x){ return phNorm(x.p) === phNorm(r.p) && phNorm(x.a) === phNorm(r.a); }); if (!have){ var ni = PH_OV.add.length; PH_OV.add.push({a:String(r.a || '—'), p:String(r.p), plc:String(r.plc || '')}); if (pb.plc && pb.plc['n' + i] !== undefined) PH_OV.plc['n' + ni] = String(pb.plc['n' + i]); pbN++; } });
+        if (pbN) phSave();
+      }
+      saveRecs(); renderReport(); toast(add + ' رکورد جدید' + (addL ? ' و ' + addL + ' ورود و خروج' : '') + (pbN ? ' و ' + pbN + ' تغییر دفترچه تلفن' : '') + ' بازیابی شد');
     } catch(e){ toast('فایل پشتیبان معتبر نیست'); } };
     fr.readAsText(file); };
   f.click();
@@ -3368,6 +3381,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.77', d:'1.2.62', items:['فرم PLC: با انتخاب نام پست، اگر شماره ی تلفن PLC آن ایستگاه در دفترچه تلفن (Station Telephone) موجود باشد خودکار در باکس «تلفن PLC ایستگاه» قرار می‌گیرد؛ اگر نبود یا متفاوت بود و کاربر شماره ی ۴ رقمی را وارد کرد، در دفترچه ثبت یا اصلاح می‌شود.','تغییرات دفترچه تلفن (شماره ها و ایستگاه های افزوده شده) همراه با پشتیبان‌گیری ذخیره و هنگام بازیابی برگردانده می‌شود.']},
     {v:'1.8.76', d:'1.2.61', items:['نسخه ی موبایل: دکمه ی تب Report دوباره به سطر اول کنار PLC CheckList و LMU CheckList برگشت؛ Station Telephone (برای ادمین) در سطر سوم است.','در تب Station Telephone دکمه ی «ذخیره فرم‌های تکمیل‌شده» نمایش داده نمی‌شود.','در دفترچه تلفن، شماره ی داخلی ۴ رقمی ایستگاه‌ها همان تلفن PLC است و به ستون «تلفن PLC» منتقل شد؛ ستون «تلفن مستقیم» فقط شماره ی مستقیم را نشان می‌دهد.']},
     {v:'1.8.75', d:'1.2.60', items:['در پروفایل ادمین تب جدید «Station Telephone» (دفترچه تلفن ایستگاه‌ها) اضافه شد: جدول ردیف، ناحیه، نام پست، تلفن PLC، تلفن مستقیم و تلفن همراه با قابلیت جستجو؛ شماره‌ای که در باکس «تلفن PLC ایستگاه» فرم PLC وارد شود در صورت نبودن یا مغایرت در دفترچه اضافه یا اصلاح می‌شود.','دکمه ی Search در پروفایل ادمین با آیکون ذره‌بین کنار دکمه ی تم قرار گرفت.','چیدمان تب‌ها در نسخه ی موبایل: سطر اول PLC CheckList و LMU CheckList، سطر دوم بدون تغییر، سطر سوم Station Telephone و Report.']},
     {v:'1.8.74', d:'1.2.59', items:['برخی از اطلاعات سامانه بروز شد.']},
