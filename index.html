@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.83">
-<meta name="app-display-version" content="1.2.68">
+<meta name="app-version" content="1.8.84">
+<meta name="app-display-version" content="1.2.69">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -901,7 +901,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.68</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.69</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -929,7 +929,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.68</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.69</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2005,7 +2005,7 @@ function renderPhone(){
   document.body.setAttribute('data-report','1'); document.body.setAttribute('data-phone','1');
   var stage = $('stage'); stage.innerHTML = ''; stage.className = 'stage mod';
   var page = el('div','mpage'); page.setAttribute('dir','rtl'); stage.appendChild(page);
-  var head = el('div','mhead'); var h = el('h2'); h.textContent = 'Station Telephone'; var sm = el('small'); sm.textContent = 'دفترچه تلفن ایستگاه‌ها (ناحیه، نام پست، تلفن PLC، تلفن مستقیم و تلفن همراه)'; head.appendChild(h); head.appendChild(sm); page.appendChild(head);
+  var head = el('div','mhead'); var h = el('h2'); h.textContent = "Station's Telephone Number"; head.appendChild(h); page.appendChild(head);
   var card = el('div','mcard'); page.appendChild(card);
   var g = el('div','mgrid sfilter'); g.style.gridTemplateColumns = 'minmax(0,1fr) minmax(0,2fr)'; g.style.minWidth = '0'; card.appendChild(g);
   function fld(label, node){ var w = el('div','mlf'); var s = el('span'); s.textContent = label; w.appendChild(s); w.appendChild(node); g.appendChild(w); }
@@ -3397,6 +3397,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.84', d:'1.2.69', items:['برخی از اطلاعات سامانه بروز شد.']},
     {v:'1.8.83', d:'1.2.68', items:['فرم LMU (موبایل): اندازه‌ی فونت عنوان ۴ مورد جدول سطح سیگنال هم‌اندازه‌ی عنوان‌های بالایی (مثل «اندازه ی لول قبل از LMU») شد.']},
     {v:'1.8.82', d:'1.2.67', items:['فرم LMU (موبایل): عنوان‌های ۴ مورد جدول سطح سیگنال به ردیف‌های ۱ تا ۴ نزدیک شد و باکس دو مورد پایین (سطح سیگنال فرستنده و گیرنده) پهن‌تر شد.','خروجی Excel و تصویر فرم LMU: تیک دو مورد اول جدول سطح سیگنال کوچک‌تر و کم‌رنگ‌تر شد.']},
     {v:'1.8.81', d:'1.2.66', items:['با انتخاب SELTA Optical Fiber یا DIMAT Optical Fiber در فرم PLC، در فرم LMU دو باکس «اندازه ی لول قبل/بعد از LMU» به صورت دو سطری (TPS / Optical Fiber) و دو باکس «سطح سیگنال فرستنده/گیرنده بر روی PLC» به صورت «TPS Optical Fiber» پر می‌شود؛ در خروجی Excel و تصویر هم همین‌طور است.']},
