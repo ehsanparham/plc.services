@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.8.80">
-<meta name="app-display-version" content="1.2.65">
+<meta name="app-version" content="1.8.82">
+<meta name="app-display-version" content="1.2.67">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -303,6 +303,7 @@ body::after{width:460px;height:460px;background:#2f62c9;opacity:.35;bottom:-190p
 .mtxt{flex:1;font-size:16px;font-weight:600}
 .mopt{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#1d3e78}
 .mitem .msm{width:130px;min-height:34px}
+.mitem .msm.m2l{min-height:46px;height:46px;resize:none;line-height:1.2;padding:3px 6px;font-size:14px;text-align:center;overflow:hidden}
 .mcb{width:22px;height:22px;border-radius:7px;border:1.5px solid #3f67b0;background:#fff;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none;transition:all .12s;outline:0}
 .mcb:hover{box-shadow:0 0 8px rgba(47,139,255,.6)}
 .mcb:focus-visible{box-shadow:0 0 0 2px #2f8bff}
@@ -519,12 +520,14 @@ body[data-theme="gradient"] .drop,body[data-theme="gradient"] .cbx{box-shadow:0 
   .bar-top:after{content:'';order:3;flex:0 0 100%;height:0}
   .actions .btn,.actions .umenu:last-of-type>button{width:100%;min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 3px;font-size:16px;white-space:normal;line-height:1.2;letter-spacing:-.3px;overflow-wrap:anywhere}
   .lmusig{overflow:visible !important}
-  .lmusig>.mgrid{grid-template-columns:34px minmax(0,1fr) 92px !important;min-width:0 !important;zoom:1 !important;gap:6px !important;width:100%}
+  .lmusig>.mgrid{grid-template-columns:34px minmax(0,1fr) 116px !important;min-width:0 !important;zoom:1 !important;gap:6px !important;width:100%}
   .lmusig>.mgrid>*{grid-area:auto !important;font-size:16px !important;min-width:0 !important;width:auto;zoom:1 !important}
   .lmusig>.mgrid>.mlbl,.lmusig>.mgrid>.mchip{justify-self:stretch !important;text-align:center !important;white-space:normal;line-height:1.35;padding:8px 6px;letter-spacing:0}
   .lmusig>.mgrid>.mlbl .mt,.lmusig>.mgrid>.mchip .mt{font-size:16px !important}
   .lmusig>.mgrid>input.mi{height:46px;font-size:16px !important}
   .lmusig>.mgrid>.sigone{white-space:nowrap !important;overflow:hidden;padding:8px 4px !important}
+  .lmusig>.mgrid>.mlbl.side,.lmusig>.mgrid>.mlbl.side .mt{font-size:13px !important}
+  .lmusig>.mgrid>.mlbl.side{text-align:right !important;justify-content:flex-start !important;padding-inline:0 !important}
   .mpage.f-dimat .mscroll.dimhdr>.mgrid{grid-template-columns:78px minmax(0,1fr) 76px minmax(0,1fr) !important;min-width:0 !important;zoom:1 !important;gap:8px 6px !important}
   .mpage.f-dimat .mscroll.dimhdr>.mgrid>*{grid-area:auto !important;zoom:1 !important;font-size:14px !important}
   .mpage.f-dimat .mscroll.dimhdr>.mgrid>.mlbl{white-space:normal;line-height:1.15;padding:0 2px;justify-content:flex-end;text-align:right;font-size:13px !important}
@@ -898,7 +901,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.65</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.67</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -926,7 +929,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.65</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.67</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1159,7 +1162,7 @@ function renderClassic(o){
       var def = (c.text === undefined ? '' : String(c.text));
       if (DEFAULTS[sh.key] && DEFAULTS[sh.key][c.ref] !== undefined) def = DEFAULTS[sh.key][c.ref];
       var v = (vals[c.ref] !== undefined) ? vals[c.ref] : def;
-      var tall = (h > lh*2.4 && w > 220) || /\n/.test(def);
+      var tall = (h > lh*2.4 && w > 220) || /\n/.test(def) || (sh.key === 'lmu' && (c.ref === 'R22' || c.ref === 'R23'));
       var f = el(tall ? 'textarea' : 'input', 'fld', geo + fcss + 'text-align:'+(c.h ? algn : (rtl ? 'center' : algn))+';');
       if (!tall) f.type = 'text';
       f.value = v; f.setAttribute('dir','auto'); f.setAttribute('autocomplete','off'); f.spellcheck = false;
@@ -1437,6 +1440,7 @@ function renderModern(){
     var f = el(tall ? 'textarea' : 'input', 'mi' + (tall ? ' mta' : ''));
     if (!tall) f.type = 'text';
     f.value = vals[c.ref] !== undefined ? vals[c.ref] : inputDefault(c);
+    if (sh.key === 'lmu' && (c.ref === 'M29' || c.ref === 'M30') && f.value === OPT_LV[c.ref]){ f.style.setProperty('font-size','9.5px','important'); f.style.setProperty('padding-inline','2px','important'); }
     f.setAttribute('dir','auto'); f.setAttribute('autocomplete','off'); f.spellcheck = false; f.dataset.ref = c.ref;
     if (sh.key === 'plc' && /^(K10|R27|E13|H13|K13|N13|[CGJMP](33|35|37|39))$/.test(c.ref)){ f.setAttribute('dir','ltr'); f.style.textAlign = 'center'; }
     if (sh.key === 'plc' && (c.ref === 'E13' || c.ref === 'H13')){ f.readOnly = true; f.tabIndex = -1; f.classList.add('mro'); f.title = 'مقدار ثابت'; }
@@ -1520,7 +1524,7 @@ function renderModern(){
         var it = el('div','mitem');
         var nm = el('span','mnum'); nm.textContent = g.num ? trim(g.num.c.text) : ''; it.appendChild(nm);
         var lb = el('span','mtxt'); lb.textContent = g.label ? trim(g.label.c.text) : ''; lb.setAttribute('dir', rtl ? 'rtl' : 'auto'); it.appendChild(lb);
-        if (g.inp){ var f = mkInput(g.inp.c, false); f.classList.add('msm'); it.appendChild(f); }
+        if (g.inp){ var two = sh.key === 'lmu' && (g.inp.c.ref === 'R22' || g.inp.c.ref === 'R23'), f = mkInput(g.inp.c, two); f.classList.add('msm'); if (two){ f.classList.remove('mta'); f.classList.add('m2l'); f.rows = 2; } it.appendChild(f); }
         [['بلی',g.yes],['خیر',g.no]].forEach(function(p){
           if (!p[1]) return;
           var o = el('span','mopt'); var tx = el('span'); tx.textContent = p[0]; o.appendChild(tx);
@@ -1838,8 +1842,10 @@ function sigFont(){
 function sigOneFit(){
   if (window.innerWidth > 760) return;
   document.querySelectorAll('#stage .sigone').forEach(function(e){
+    if (e.closest('.lmusig')){ e.style.removeProperty('font-size'); return; }
     var fs = 16; e.style.setProperty('font-size', fs + 'px', 'important');
-    while (e.scrollWidth > e.clientWidth + 1 && fs > 10){ fs -= 0.5; e.style.setProperty('font-size', fs + 'px', 'important'); }
+    var tt = e.querySelector('.mt') || e;
+    while ((e.scrollWidth > e.clientWidth + 1 || tt.getBoundingClientRect().width > e.clientWidth - 8) && fs > 10){ fs -= 0.5; e.style.setProperty('font-size', fs + 'px', 'important'); }
   });
 }
 setInterval(function(){ try { sigFont(); sigOneFit(); } catch(e){} }, 500);
@@ -1901,7 +1907,7 @@ function syncDevice(onlyBlank){
   Object.keys(devLast).forEach(function(k){   // device changed: take our values back out of the previous form
     if (k !== dev){ var o = state.vals[k], l = devLast[k]; if (o) Object.keys(l).forEach(function(r){ if (o[r] === l[r]) delete o[r]; }); delete devLast[k]; }
   });
-  if (!dev) return;
+  if (!dev){ syncLevels(); return; }
   var f = state.vals[dev]; if (!f) return;
   var want = {C3: post, C4: line}, pdt = String(pv.C45 !== undefined && String(pv.C45).trim() !== '' ? pv.C45 : (pv.K45 !== undefined ? pv.K45 : '')).trim();
   if (DEV_DATE[dev]) want[DEV_DATE[dev]] = pdt;
@@ -1924,10 +1930,13 @@ function lvNum(x){ x = String(x == null ? '' : x).replace(/[\u200c\u200e\u200f\u
 function lvPut(ref, v){
   var L = state.vals.lmu; if (!L) return; var cur = String(L[ref] == null ? '' : L[ref]), last = L._lv || (L._lv = {});
   if (cur !== '' && cur !== (last[ref] == null ? '' : last[ref])) return;   // typed by the user: manual entry wins, never overwritten
-  L[ref] = v; last[ref] = v; var f = document.querySelector('#stage [data-ref="'+ref+'"]'); if (f && SHEETS[state.active] && SHEETS[state.active].key === 'lmu') f.value = v;
+  L[ref] = v; last[ref] = v; var f = document.querySelector('#stage [data-ref="'+ref+'"]'); if (f && SHEETS[state.active] && SHEETS[state.active].key === 'lmu'){ f.value = v; if (ref === 'M29' || ref === 'M30') if (v === OPT_LV[ref]){ f.style.setProperty('font-size','9.5px','important'); f.style.setProperty('padding-inline','2px','important'); } else { f.style.removeProperty('font-size'); f.style.removeProperty('padding-inline'); } }
 }
+var OPT_LV = {R22:'TPS\nOptical Fiber', R23:'TPS\nOptical Fiber', M29:'TPS Optical Fiber', M30:'TPS Optical Fiber'};   // LMU level boxes when the PLC device is an Optical Fiber one
 function syncLevels(editedKey){
   var pv = state.vals.plc || {}, key = DEV_FORM[String(pv.M10 || '').trim().toLowerCase()];
+  if (isOpt(pv.M10)){ Object.keys(OPT_LV).forEach(function(r){ lvPut(r, OPT_LV[r]); }); saveSoon(); return; }
+  var L0 = state.vals.lmu; if (L0 && L0._lv) Object.keys(OPT_LV).forEach(function(r){ if (L0[r] === OPT_LV[r] && L0._lv[r] === OPT_LV[r]) lvPut(r, ''); });
   if (!key || !LV_SRC[key]) key = editedKey; if (!LV_SRC[key]) return;
   if (editedKey && editedKey !== key) return;
   var d = state.vals[key] || {}, s = LV_SRC[key], tx = String(d[s.tx] == null ? '' : d[s.tx]).trim(), rx = String(d[s.rx] == null ? '' : d[s.rx]).trim(), n = lvNum(tx);
@@ -1957,7 +1966,7 @@ function hasUserData(key){
   for (var k in v){
     var x = v[k]; if (k.charAt(0) === '_' || x === '' || x === undefined) continue;
     if (b[k] === x || dl[k] === x) continue;
-    if (key === 'lmu'){ var src = null; Object.keys(SYNC).forEach(function(q){ if (SYNC[q] === k) src = q; }); if (src && pv[src] === x) continue; if (k === 'M29' && v.R22 === x) continue; }
+    if (key === 'lmu'){ var src = null; Object.keys(SYNC).forEach(function(q){ if (SYNC[q] === k) src = q; }); if (src && pv[src] === x) continue; if (k === 'M29' && v.R22 === x) continue; if (OPT_LV[k] === x) continue; }
     return true;
   }
   return false;
@@ -2138,6 +2147,8 @@ function buildBlob(sh, vals){
       var wrapRefs = [];
       if (wrapO10) wrapRefs.push('O10');
       if (optShrink.M10) wrapRefs.push('M10');
+      var lightRefs = {}; if (sh.key === 'lmu') ['M27','M28'].forEach(function(r){ if (String(vals[r] || '') !== ''){ lightRefs[r] = 1; wrapRefs.push(r); } });
+      if (sh.key === 'lmu') ['R22','R23'].forEach(function(r){ if (/\n/.test(String(vals[r] || ''))) wrapRefs.push(r); });
       (sh.key === 'plc' ? ['E10','G10','I10'] : sh.key === 'lmu' ? ['D11','G11','I11'] : []).forEach(function(r){ if (String(vals[r] || '').trim()) wrapRefs.push(r); });
       if (wrapRefs.length && (sh.key === 'plc' || sh.key === 'lmu')){   // a very long name gets a taller row so every line stays visible
         var rowNo = sh.key === 'plc' ? 10 : 11, lines = 1;
@@ -2160,7 +2171,7 @@ function buildBlob(sh, vals){
           var cnt = xfs.length, add = '', cache = {}, fa = sx.indexOf('<fonts'), fb = sx.indexOf('</fonts>'), fonts = sx.slice(fa, fb).match(/<font>[\s\S]*?<\/font>|<font\/>/g) || [], fcnt = fonts.length, fadd = '';
           wrapRefs.forEach(function(ref){
             var mm = new RegExp('<c r="'+ref+'" s="(\\d+)"').exec(xml); if (!mm) return;
-            var ck = mm[1] + (optShrink[ref] ? 's' : '');
+            var ck = mm[1] + (optShrink[ref] ? 's' : '') + (lightRefs[ref] ? 'l' : '');
             if (cache[ck] === undefined){
               var src = xfs[+mm[1]], nx; if (!src) return;
               if (/<alignment[^>]*\/>/.test(src)){ nx = /wrapText=/.test(src) ? src : src.replace(/<alignment/, '<alignment wrapText="1"'); }
@@ -2169,6 +2180,10 @@ function buildBlob(sh, vals){
               if (optShrink[ref]){   // smaller font for this cell only: clone the font two points down
                 var fm = /fontId="(\d+)"/.exec(nx), fsrc = fm && fonts[+fm[1]];
                 if (fsrc){ var fsz = /<sz val="([\d.]+)"/.exec(fsrc); if (fsz){ fadd += fsrc.replace(/<sz val="[\d.]+"/, '<sz val="' + (ref === 'M10' || ref === 'O10' ? 9.5 : Math.max(8, parseFloat(fsz[1]) - 2)) + '"'); nx = nx.replace(/fontId="\d+"/, 'fontId="' + (fcnt++) + '"'); } }
+              }
+              if (lightRefs[ref]){   // small, pale tick (the heavy default one is too strong in the LMU level table)
+                var fm2 = /fontId="(\d+)"/.exec(nx), fsrc2 = fm2 && fonts[+fm2[1]];
+                if (fsrc2){ var nf = fsrc2.replace(/<sz val="[\d.]+"/, '<sz val="12"').replace(/<b\/>/, '').replace(/<color [^>]*\/>/, ''); nf = nf.replace(/<sz val="12"\s*\/>/, '<sz val="12"/><color rgb="FF8C8C8C"/>'); fadd += nf; nx = nx.replace(/fontId="\d+"/, 'fontId="' + (fcnt++) + '"'); }
               }
               if (nx === src){ cache[ck] = +mm[1]; } else { cache[ck] = cnt++; add += nx; }
             }
@@ -2273,6 +2288,7 @@ function flattenForImage(paper, vals){
       var ol = ot.split('\n'); val = ref === 'O10:tx' ? (ol[0] || '') : ol.slice(1).join(' ');
       var fpx2 = parseFloat(f.style.fontSize) || 14; optSt = ';border-top:0 !important;font-size:' + Math.max(8, Math.round(fpx2 * 0.73 * 10) / 10) + 'px !important;line-height:1.15 !important;text-align:center;';
     }
+    if (vals === state.vals.lmu && (ref === 'M27' || ref === 'M28') && val) optSt += ';font-size:14px !important;font-weight:400 !important;color:#8c8c8c !important;';
     var isTa = f.tagName === 'TEXTAREA', ta = (f.style.textAlign || '').toLowerCase();
     var d = document.createElement(isLab ? 'span' : 'div'), st = f.getAttribute('style') || '';
     d.textContent = val;
@@ -3381,6 +3397,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.8.82', d:'1.2.67', items:['فرم LMU (موبایل): عنوان‌های ۴ مورد جدول سطح سیگنال به ردیف‌های ۱ تا ۴ نزدیک شد و باکس دو مورد پایین (سطح سیگنال فرستنده و گیرنده) پهن‌تر شد.','خروجی Excel و تصویر فرم LMU: تیک دو مورد اول جدول سطح سیگنال کوچک‌تر و کم‌رنگ‌تر شد.']},
+    {v:'1.8.81', d:'1.2.66', items:['با انتخاب SELTA Optical Fiber یا DIMAT Optical Fiber در فرم PLC، در فرم LMU دو باکس «اندازه ی لول قبل/بعد از LMU» به صورت دو سطری (TPS / Optical Fiber) و دو باکس «سطح سیگنال فرستنده/گیرنده بر روی PLC» به صورت «TPS Optical Fiber» پر می‌شود؛ در خروجی Excel و تصویر هم همین‌طور است.']},
     {v:'1.8.80', d:'1.2.65', items:['برخی از اطلاعات سامانه بروز شد.']},
     {v:'1.8.79', d:'1.2.64', items:['در پایین فرم‌های PLC و LMU عنوان‌ها به «نماینده ی تعمیرات نیرو:» و «ناظر مربوطه:» تغییر کرد.']},
     {v:'1.8.78', d:'1.2.63', items:['در پایین فرم‌های PLC و LMU عنوان «نام و نام خانوادگی مسئول گروه» به «نام و نام خانوادگی نماینده ی تعمیرات نیرو» تغییر کرد.','برخی از اطلاعات سامانه بروز شد.']},
