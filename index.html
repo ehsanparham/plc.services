@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.00">
-<meta name="app-display-version" content="1.2.85">
+<meta name="app-version" content="1.9.02">
+<meta name="app-display-version" content="1.2.87">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -604,7 +604,7 @@ body[data-report="1"] .savewrap,body[data-report="1"] #btnClear,body[data-report
 .pgBtn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(10,30,80,.28)}
 .pgBtn img{max-width:80%;max-height:70px;object-fit:contain}
 .pgBtn span{direction:ltr}
-@media (max-width:760px){.tabs .tab.r3h{grid-column:span 3;order:5}.oiStage.zmIn{height:calc(100vh - 300px);height:calc(100dvh - 300px)}.pgBtn{padding:22px 8px;font-size:18px}}
+@media (max-width:760px){.tabs .tab.r3h{grid-column:span 3;order:5}.tabs.many .tab.r3,.tabs.many .tab.r3h{grid-column:span 2;order:4;font-size:min(11px,2.9vw);padding-left:0;padding-right:0}.oiStage.zmIn{height:calc(100vh - 300px);height:calc(100dvh - 300px)}.pgBtn{padding:22px 8px;font-size:18px}}
 @media (min-width:761px){.tabs.many{flex-wrap:wrap;justify-content:center;overflow-x:visible;border-radius:26px;row-gap:4px}.tabs.many .tab{flex:0 0 auto}}
 .oiView{position:fixed;inset:0;z-index:99999;background:#081024;display:flex;flex-direction:column;direction:rtl}
 .oiTop{padding:10px 14px;color:#fff;font-family:"FaTitr","FaNazanin",Tahoma,sans-serif;font-size:16px;text-align:center;flex:0 0 auto}
@@ -913,7 +913,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.85</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.87</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -941,7 +941,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.85</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.87</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1122,7 +1122,7 @@ function fontCss(c){
   return 'font-family:'+fontStack(c.font)+';font-size:'+px(c.sz).toFixed(2)+'px;'+(c.b?'font-weight:700;':'')+(c.i?'font-style:italic;':'')+(c.color?'color:'+c.color+';':'');
 }
 
-function render(){ if (state.pg && !(session && session.admin)) state.pg = ''; if (state.pg){ state.report = false; state.search = false; state.phone = false; state.daily = false; renderPg(); return; } if (state.daily && (state.report || state.search || state.phone || !(session && session.admin))) state.daily = false; if (state.daily && !state.phone){ renderDaily(); return; } if (!state.phone) document.body.removeAttribute('data-phone'); if (state.phone && !(session && session.admin)) state.phone = false; if (state.phone){ state.report = false; state.search = false; renderPhone(); return; } if (state.report && !can('rep_view')) state.report = false; if (state.search && !can('sea_view')) state.search = false; if (state.search){ renderSearch(); return; } if (state.report){ renderReport(); return; } document.body.removeAttribute('data-report'); renderModern(); }
+function render(){ if ((state.pg === 'map' && !can('map_view')) || (state.pg === 'tps' && !can('tps_view'))) state.pg = ''; if (state.pg){ state.report = false; state.search = false; state.phone = false; state.daily = false; renderPg(); return; } if (state.daily && (state.report || state.search || state.phone || !can('daily_view'))) state.daily = false; if (state.daily && !state.phone){ renderDaily(); return; } if (!state.phone) document.body.removeAttribute('data-phone'); if (state.phone && !can('phone_view')) state.phone = false; if (state.phone){ state.report = false; state.search = false; renderPhone(); return; } if (state.report && !can('rep_view')) state.report = false; if (state.search && !can('sea_view')) state.search = false; if (state.search){ renderSearch(); return; } if (state.report){ renderReport(); return; } document.body.removeAttribute('data-report'); renderModern(); }
 function renderClassic(o){
   o = o || {};
   var sh = o.sh || SHEETS[state.active], vals = o.vals || state.vals[sh.key], rtl = !!sh.rtl;
@@ -2065,11 +2065,12 @@ function markTab(){
     nav.appendChild(b);
   });
   if (can('rep_view')){ var rb = el('button','tab rp'+(state.report&&!state.search&&!state.phone?' on':'')); rb.textContent = '📊 Report'; rb.addEventListener('click', function(){ if (!state.report || state.search || state.phone){ state.report=true; state.search=false; state.phone=false; state.pg = ''; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(rb); }
-  if (adm){ n3++; var pb = el('button','tab r3'+(state.phone?' on':'')); pb.textContent = '📞 Station Telephone'; pb.addEventListener('click', function(){ if (!state.phone){ state.phone=true; state.pg=''; state.report=false; state.search=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(pb);
-    function pgTab(lbl, key, on){ var t = el('button','tab r3h'+(on?' on':'')); t.textContent = lbl; t.addEventListener('click', function(){ if (state.pg !== key || (key === 'tps' && state.tps)){ state.pg = key; state.tps = ''; state.report = false; state.search = false; state.phone = false; state.daily = false; render(); fadeStage(); $('desk').scrollTop = 0; } }); nav.appendChild(t); }
-    pgTab('🗺️ PLC Map', 'map', state.pg === 'map'); pgTab('🔌 TPS Wireing', 'tps', state.pg === 'tps'); }
+function pgTab(lbl, key, on){ var t = el('button','tab r3h'+(on?' on':'')); t.textContent = lbl; t.addEventListener('click', function(){ if (state.pg !== key || (key === 'tps' && state.tps)){ state.pg = key; state.tps = ''; state.report = false; state.search = false; state.phone = false; state.daily = false; render(); fadeStage(); $('desk').scrollTop = 0; } }); nav.appendChild(t); }
+  if (can('phone_view')){ n3++; var pb = el('button','tab r3'+(state.phone?' on':'')); pb.textContent = '📞 Station Telephone'; pb.addEventListener('click', function(){ if (!state.phone){ state.phone=true; state.pg=''; state.report=false; state.search=false; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(pb);
+    }
+  if (can('map_view')) pgTab('🗺️ PLC Map', 'map', state.pg === 'map'); if (can('tps_view')) pgTab('🔌 TPS Wireing', 'tps', state.pg === 'tps');
   if (!adm && can('sea_view')){ n3++; var sb = el('button','tab r3'+(state.search?' on':'')); sb.textContent = '🔍 Search'; sb.addEventListener('click', function(){ if (!state.search){ state.search=true; state.report=false; state.phone=false; state.pg = ''; render(); fadeStage(); $('desk').scrollTop=0; } }); nav.appendChild(sb); }
-  nav.className = 'tabs n3-' + n3 + (adm ? ' many' : '');
+  nav.className = 'tabs n3-' + n3 + ((can('phone_view') || can('map_view') || can('tps_view')) ? ' many' : '');
   var sr = $('srBtn'); if (sr){ sr.style.display = adm ? '' : 'none'; sr.classList.toggle('on', !!state.search); }
 }
 
@@ -2736,14 +2737,17 @@ function renderReport(){
   function btn(t, cls, fn){ var b = el('button','btn '+cls); b.textContent = t; b.addEventListener('click', fn); bar.appendChild(b); return b; }
   if (can('rep_export')) btn('⬇ خروجی Excel گزارش','pri', function(){ exportReport(); });
   btn('📡 بانک فرکانس TX,RX','sec', askFreq);
-  if (session && session.admin) btn('📋 تست شیت روزانه','sec', dailyStart);
-  if (session && session.admin) btn('📥 گزارش برداشت اطلاعات','sec', askDaq);
+  var xbox = null, xbar = null;   // users who were given the daily sheet / data-collection report get their own small button row (the filter card stays admin-only)
+  function xbtn(t, cls, fn){ if (session && session.admin) return btn(t, cls, fn); if (!xbox){ xbox = el('div','mcard'); xbar = el('div','mrbar'); xbox.appendChild(xbar); } var b = el('button','btn '+cls); b.textContent = t; b.addEventListener('click', fn); xbar.appendChild(b); return b; }
+  if (can('daily_view')) xbtn('📋 تست شیت روزانه','sec', dailyStart);
+  if (can('daq_view')) xbtn('📥 گزارش برداشت اطلاعات','sec', askDaq);
   btn('پاک‌کردن فیلترها','sec', function(){ FILT = {from:'',to:'',form:'',user:'',q:''}; renderReport(); });
   if (can('rep_backup')) btn('پشتیبان‌گیری (JSON)','sec', askBackup);
   if (can('rep_restore')) btn('بازیابی از پشتیبان','sec', restoreRecs);
   fg.appendChild(sf.parentNode); bar.classList.add('mrbar2'); if (window.innerWidth > 760) fg.style.gridTemplateColumns = 'repeat(' + fg.children.length + ',minmax(0,1fr))';   // form-type filter sits with the buttons, under the submitter / post fields
 
   if (!(session && session.admin)){ card.style.display = 'none'; }
+  if (xbox) page.appendChild(xbox);
   var listBox = el('div','mcard'); page.appendChild(listBox);
 
   function refresh(){
@@ -2816,7 +2820,7 @@ function exportReport(){
 }
 function daqList(){ return filtered().filter(function(r){ return r.form === 'plc' && r.vals && r.vals['DAQ:1']; }); }
 function askDaq(){
-  if (!(session && session.admin)) return;
+  if (!can('daq_view')) return;
   var dl = daqList(), posts = {}; dl.forEach(function(r){ posts[rv(r,'post') || '—'] = 1; });
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   var h = '<h2>گزارش برداشت اطلاعات ایستگاه ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نام پست). تعداد: ' + dl.length + ' رکورد در ' + Object.keys(posts).length + ' ایستگاه</div>';
@@ -3080,7 +3084,7 @@ var USER_KEY = 'plc_users_v1', SESS_KEY = 'plc_session_v1';
 var PERM_KEY = 'plc_perms_v1', PERMS = {};
 try { PERMS = JSON.parse(localStorage.getItem(PERM_KEY) || '{}') || {}; } catch(e){ PERMS = {}; }
 function savePerms(){ try { localStorage.setItem(PERM_KEY, JSON.stringify(PERMS)); } catch(e){} }
-var CAPS = [['rep_view','Report: مشاهده تب'],['rep_export','Report: خروجی Excel'],['rep_backup','Report: پشتیبان‌گیری JSON'],['rep_restore','Report: بازیابی از پشتیبان'],['rep_open','Report: مشاهده و اصلاح رکوردهای خود'],['rep_delete','Report: حذف رکوردهای خود'],['sea_view','Search: مشاهده تب'],['sea_open','Search: باز کردن رکورد']];
+var CAPS = [['rep_view','Report: مشاهده تب'],['rep_export','Report: خروجی Excel'],['rep_backup','Report: پشتیبان‌گیری JSON'],['rep_restore','Report: بازیابی از پشتیبان'],['rep_open','Report: مشاهده و اصلاح رکوردهای خود'],['rep_delete','Report: حذف رکوردهای خود'],['sea_view','Search: مشاهده تب'],['sea_open','Search: باز کردن رکورد'],['phone_view','Station Telephone: مشاهده تب'],['map_view','PLC Map: مشاهده تب'],['tps_view','TPS Wireing: مشاهده تب'],['daily_view','Report: تست شیت روزانه'],['daq_view','Report: گزارش برداشت اطلاعات']];
 var DEFON = ['rep_view','rep_open','rep_delete'];   // ticked by default for every user (the admin can untick them)
 function permOn(u, cap){ var v = (PERMS[u] || {})[cap]; return v === undefined ? DEFON.indexOf(cap) >= 0 : !!v; }
 function can(cap){ return !!(session && (session.admin || permOn(session.u, cap))); }
@@ -3644,8 +3648,10 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.02', d:'1.2.87', items:[{adm:'نسخه ی موبایل: سه دکمه ی Station Telephone، PLC Map و TPS Wireing در یک سطر قرار گرفتند.', usr:''}]},
+    {v:'1.9.01', d:'1.2.86', items:[{adm:'مدیریت دسترسی ها: امکانات ویژه ی ادمین (Station Telephone، PLC Map، TPS Wireing، تست شیت روزانه و گزارش برداشت اطلاعات) به جدول دسترسی کاربران اضافه شد تا ادمین بتواند برای هر کاربر فعال کند (به طور پیش فرض غیرفعال). توضیح تغییرات صفحه های PLC Map و TPS Wireing برای کاربران عادی نمایش داده نمی شود.', usr:''}]},
     {v:'1.9.00', d:'1.2.85', items:[{adm:'دفترچه تلفن: شماره ی تلفن همراه 09171508048 به ایستگاه سورمق اضافه شد.', usr:'برخی اطلاعات سامانه به روز شد.'}]},
-    {v:'1.8.99', d:'1.2.84', items:[{adm:'دو منوی جدید کنار Station Telephone اضافه شد: «PLC Map» (نقشه ی جامع شبکه ی مخابراتی PLC با وضوح بالا) و «TPS Wireing» با دو دکمه ی Selta و ABB (تصویر سیم کشی ترمینال TPS هر برند). همه ی تصاویر قابل زوم و جابه جایی هستند (دو انگشت، چرخ ماوس، دو بار لمس و دکمه های + و -) و حالت تمام صفحه دارند.', usr:'برخی اطلاعات سامانه به روز شد.'}]},
+    {v:'1.8.99', d:'1.2.84', items:[{adm:'دو منوی جدید کنار Station Telephone اضافه شد: «PLC Map» (نقشه ی جامع شبکه ی مخابراتی PLC با وضوح بالا) و «TPS Wireing» با دو دکمه ی Selta و ABB (تصویر سیم کشی ترمینال TPS هر برند). همه ی تصاویر قابل زوم و جابه جایی هستند (دو انگشت، چرخ ماوس، دو بار لمس و دکمه های + و -) و حالت تمام صفحه دارند.', usr:''}]},
     {v:'1.8.98', d:'1.2.83', items:[{adm:'تست شیت روزانه: فایل Excel و تصویر خروجی مطابق فایل جدید «for output» (عرض ستون ها و چیدمان) ساخته می شوند و تیک تایید در تصویر خروجی سبز پررنگ است.', usr:'برخی اطلاعات سامانه به روز شد.'}]},
     {v:'1.8.97', d:'1.2.82', items:[{adm:'افکت خاموش و روشن شدن چراغ های تصویر زمینه ی صفحه ی ورود حذف شد و صفحه ی ورود به حالت قبل برگشت.', usr:'ظاهر صفحه ی ورود به حالت قبل برگشت.'}]},
     {v:'1.8.95', d:'1.2.80', items:[{adm:'تست شیت روزانه: صفحه ی برنامه مطابق فایل «for app» (جدول جمع و جور برای موبایل) و فایل Excel و تصویر خروجی مطابق فایل «for output» بازطراحی شد. تیک ها در ستون وضعیت قرار گرفتند و تیک خورده ها سبز پررنگ هستند. به طور پیش فرض همه ی موارد تیک خورده است به جز ۳ مورد بی سیم و Electrolyte Level. نام انجام دهنده و تاریخ با فونت B Titr نوشته می شود.', usr:'برخی اطلاعات سامانه به روز شد.'}]},
@@ -3736,15 +3742,15 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
     {v:'1.8.6', items:['هنگام محو شدن پیام خوش‌آمدگویی، کادر «ناحیه و تاریخ» ثابت می‌ماند و جابه‌جا نمی‌شود.']},
     {v:'1.8.5', items:['پیام خوش‌آمدگویی در صفحه ی انتخاب ناحیه، از پایین صفحه به بالای کادر «ناحیه و تاریخ» منتقل شد.']}
   ];
-  function itemTx(t){ if (typeof t === 'string') return t; var adm = false; try { adm = !!(window.__isAdmin && window.__isAdmin()); } catch(e){} return adm ? t.adm : t.usr; }   // an item can be {adm: detail for admins, usr: short text for everyone else}
+  function itemTx(t){ if (typeof t === 'string') return t; var adm = false; try { adm = !!(window.__isAdmin && window.__isAdmin()); } catch(e){} return adm ? t.adm : (t.usr || ''); }   // an item can be {adm: detail for admins, usr: short text for everyone else}
   window.__showHistory = function(){   // user menu: full history of updates from version 1.2.3 on, newest first
     if (document.getElementById('hsOv')) return;
     function e(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     var h = '<h2>🕘 سابقه ی بروزرسانی ها</h2><div style="font-size:15px;margin-bottom:4px">تغییرات هر نسخه، از جدیدترین نسخه به قدیمی ترین:</div>';
     CHANGELOG.forEach(function(c){
-      if (!c.d) return;
+      if (!c.d || !c.items.some(function(t){ return itemTx(t); })) return;
       h += '<div class="hsv">نسخه ' + e(c.d) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
-      c.items.forEach(function(t){ h += '<li>' + e(itemTx(t)) + '</li>'; });
+      c.items.forEach(function(t){ if (itemTx(t)) h += '<li>' + e(itemTx(t)) + '</li>'; });
       h += '</ul>';
     });
     h += '<button class="btn pri" id="hsOk" style="width:100%;justify-content:center;margin-top:18px;padding:12px;font-size:15px">بستن</button>';
@@ -3770,11 +3776,12 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
   function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function show(){
     if (document.getElementById('wnOv')) return;
+    if (!list.some(function(c){ return c.items.some(function(t){ return itemTx(t); }); })){ lsSet(SEEN_KEY, CUR); return; }   // nothing meant for this user
     var ub = document.getElementById('updBar'); if (ub && ub.classList.contains('show')){ setTimeout(show, 1500); return; }   // never on top of the update window
     var h = '<h2>🆕 تغییرات نسخه ی جدید</h2><div style="font-size:15px;color:#6b7a8c;margin-bottom:8px">برنامه به نسخه ی ' + esc(CURD) + ' بروزرسانی شد. تغییرات اعمال‌شده:</div>';
     list.forEach(function(c){
       h += '<div style="margin:12px 0 4px;font-weight:800;color:#1d3e78;direction:ltr;text-align:right">نسخه ' + esc(c.d || c.v) + '</div><ul style="margin:0;padding:0 20px 0 0;line-height:1.9;font-size:16px">';
-      c.items.forEach(function(t){ h += '<li>' + esc(itemTx(t)) + '</li>'; });
+      c.items.forEach(function(t){ if (itemTx(t)) h += '<li>' + esc(itemTx(t)) + '</li>'; });
       h += '</ul>';
     });
     h += '<button class="btn pri" id="wnOk" style="width:100%;justify-content:center;margin-top:18px;padding:12px;font-size:15px">متوجه شدم</button>';
