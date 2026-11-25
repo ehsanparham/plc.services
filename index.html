@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.03">
-<meta name="app-display-version" content="1.2.88">
+<meta name="app-version" content="1.9.04">
+<meta name="app-display-version" content="1.2.89">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -606,6 +606,22 @@ body[data-report="1"] .savewrap,body[data-report="1"] #btnClear,body[data-report
 .pgBtn span{direction:ltr}
 @media (max-width:760px){.tabs .tab.r3h{grid-column:span 3;order:5}.tabs.many .tab.r3,.tabs.many .tab.r3h{grid-column:span 2;order:4;font-size:min(11px,2.9vw);padding-left:0;padding-right:0}.oiStage.zmIn{height:calc(100vh - 300px);height:calc(100dvh - 300px)}.pgBtn{padding:22px 8px;font-size:18px}}
 @media (min-width:761px){.tabs.many{flex-wrap:wrap;justify-content:center;overflow-x:visible;border-radius:26px;row-gap:4px}.tabs.many .tab{flex:0 0 auto}}
+.jcal{position:fixed;z-index:100002;width:288px;max-width:calc(100vw - 16px);box-sizing:border-box;background:#fff;color:#0d2551;border:1px solid rgba(29,62,120,.35);border-radius:16px;box-shadow:0 12px 34px rgba(5,20,60,.45);padding:10px;direction:rtl;font:600 15px "FaNazanin",Tahoma,sans-serif;user-select:none}
+.jcal .jh{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:6px}
+.jcal .jh b{flex:1;text-align:center;font-size:17px;color:#1d3e78}
+.jcal .jb{width:34px;height:34px;border-radius:10px;border:1px solid rgba(29,62,120,.25);background:#eef3fb;color:#1d3e78;font:700 16px sans-serif;cursor:pointer;padding:0}
+.jcal .jb:hover{background:#dbe7fb}
+.jcal .jg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.jcal .jw{font-size:13px;color:#6b7a8c;padding:2px 0}
+.jcal .jd{height:34px;line-height:34px;border-radius:9px;cursor:pointer;font-size:16px}
+.jcal .jd:hover{background:#dbe7fb}
+.jcal .jd.fri{color:#c0392b}
+.jcal .jd.tod{outline:2px solid #6ea8ff;outline-offset:-2px}
+.jcal .jd.sel{background:#1d3e78;color:#fff}
+.jcal .jd.off{cursor:default;pointer-events:none}
+.jcal .jf{display:flex;gap:8px;margin-top:8px}
+.jcal .jf button{flex:1;height:34px;border-radius:10px;border:1px solid rgba(29,62,120,.3);background:#eef3fb;color:#1d3e78;font:700 14px "FaNazanin",Tahoma,sans-serif;cursor:pointer}
+.jcal .jf button:hover{background:#dbe7fb}
 .oiView{position:fixed;inset:0;z-index:99999;background:#081024;display:flex;flex-direction:column;direction:rtl}
 .oiTop{padding:10px 14px;color:#fff;font-family:"FaTitr","FaNazanin",Tahoma,sans-serif;font-size:16px;text-align:center;flex:0 0 auto}
 .oiStage{flex:1 1 auto;position:relative;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;background:#0b1530}
@@ -913,7 +929,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.88</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.89</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -941,7 +957,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.88</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.89</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2701,7 +2717,8 @@ function devArea(r){   // SELTA / ABB / Dimat forms have no area: take it from t
 function rv(r, k){ if (k === 'area' && DEVNAME[r.form]){ var own = String(((r.vals||{})[(REFS[r.form]||{}).area] || '')).trim(); return own || devArea(r); } if (k === 'device' && DEVNAME[r.form]) return DEVNAME[r.form]; var R = REFS[r.form] || {}, v = R[k] ? (r.vals||{})[R[k]] : ''; return String(v === undefined ? '' : v).trim(); }
 var FILT = {from:'', to:'', form:'', user:'', q:''}, REP_DINIT = false;
 function filtered(){
-  var f = dkey(FILT.from), t = dkey(FILT.to), q = faDigits(FILT.q).trim().toLowerCase();
+  var f = dkey(FILT.from), t = dkey(FILT.to); if (f && !t) t = f; else if (t && !f) f = t;   // nothing entered = every record; a single date = just that day; both = a range
+  var q = faDigits(FILT.q).trim().toLowerCase();
   return RECS.filter(function(r){
     if (session && !session.admin && r.uid !== session.u) return false;
     if (f && r.dk < f) return false; if (t && r.dk > t) return false;
@@ -2717,8 +2734,64 @@ function summaryOf(list){
 }
 function tabName(k){ var s = shByKey(k); return s ? s.tab : k; }
 
+
+/*JCAL*/
+var JBRK = [-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+function jdiv(a,b){ return ~~(a / b); }
+function jmod(a,b){ return a - ~~(a / b) * b; }
+function jalCal(jy){
+  var bl = JBRK.length, gy = jy + 621, leapJ = -14, jp = JBRK[0], jm, jump = 0, leap, leapG, march, n, i;
+  for (i = 1; i < bl; i++){ jm = JBRK[i]; jump = jm - jp; if (jy < jm) break; leapJ += jdiv(jump,33) * 8 + jdiv(jmod(jump,33),4); jp = jm; }
+  n = jy - jp; leapJ += jdiv(n,33) * 8 + jdiv(jmod(n,33) + 3, 4); if (jmod(jump,33) === 4 && jump - n === 4) leapJ += 1;
+  leapG = jdiv(gy,4) - jdiv((jdiv(gy,100) + 1) * 3, 4) - 150; march = 20 + leapJ - leapG;
+  if (jump - n < 6) n = n - jump + jdiv(jump + 4, 33) * 33;
+  leap = jmod(jmod(n + 1, 33) - 1, 4); if (leap === -1) leap = 4;
+  return {leap: leap, gy: gy, march: march};
+}
+function jG2D(gy,gm,gd){ var d = jdiv((gy + jdiv(gm - 8, 6) + 100100) * 1461, 4) + jdiv(153 * jmod(gm + 9, 12) + 2, 5) + gd - 34840408; return d - jdiv(jdiv(gy + 100100 + jdiv(gm - 8, 6), 100) * 3, 4) + 752; }
+function jJ2D(jy,jm,jd){ var r = jalCal(jy); return jG2D(r.gy, 3, r.march) + (jm - 1) * 31 - jdiv(jm, 7) * (jm - 7) + jd - 1; }
+function jMonthLen(jy,jm){ return jm <= 6 ? 31 : jm <= 11 ? 30 : (jalCal(jy).leap === 0 ? 30 : 29); }
+function jFirstWd(jy,jm){ return jmod(jJ2D(jy,jm,1) + 2, 7); }   // 0 = Saturday
+var JMN = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+var JCAL = null;
+function closeJcal(){ if (JCAL){ document.removeEventListener('pointerdown', JCAL.out, true); document.removeEventListener('keydown', JCAL.key, true); window.removeEventListener('resize', JCAL.close); if (JCAL.el.parentNode) JCAL.el.parentNode.removeChild(JCAL.el); JCAL = null; } }
+function openJcal(input, onPick){
+  if (JCAL && JCAL.input === input) return; closeJcal();
+  var tk = faDigits(jalaliToday() || ''), tm = tk.match(/(\d+)\D+(\d+)\D+(\d+)/), ty = tm ? +tm[1] : 1405, tmn = tm ? +tm[2] : 1, td = tm ? +tm[3] : 1;
+  var cur = dkey(input.value), vy = cur ? jdiv(cur, 10000) : ty, vm = cur ? jmod(jdiv(cur, 100), 100) : tmn, vd = cur ? jmod(cur, 100) : 0;
+  if (vm < 1 || vm > 12){ vy = ty; vm = tmn; vd = 0; }
+  var y = vy, m = vm;
+  var box = document.createElement('div'); box.className = 'jcal'; document.body.appendChild(box);
+  function p2(n){ return (n < 10 ? '0' : '') + n; }
+  function draw(){
+    var h = '<div class="jh"><button type="button" class="jb" data-a="py" title="سال قبل">«</button><button type="button" class="jb" data-a="pm" title="ماه قبل">›</button><b>' + JMN[m - 1] + ' ' + y + '</b><button type="button" class="jb" data-a="nm" title="ماه بعد">‹</button><button type="button" class="jb" data-a="ny" title="سال بعد">»</button></div><div class="jg">';
+    ['ش','ی','د','س','چ','پ','ج'].forEach(function(w){ h += '<div class="jw">' + w + '</div>'; });
+    var fw = jFirstWd(y, m), len = jMonthLen(y, m), i;
+    for (i = 0; i < fw; i++) h += '<div class="jd off"></div>';
+    for (i = 1; i <= len; i++){ var wd = (fw + i - 1) % 7; h += '<div class="jd' + (wd === 6 ? ' fri' : '') + (y === ty && m === tmn && i === td ? ' tod' : '') + (y === vy && m === vm && i === vd ? ' sel' : '') + '" data-d="' + i + '">' + i + '</div>'; }
+    h += '</div><div class="jf"><button type="button" data-a="today">امروز</button><button type="button" data-a="clear">پاک کردن</button></div>';
+    box.innerHTML = h;
+  }
+  function pick(v){ input.value = v; onPick(v); closeJcal(); }
+  box.addEventListener('click', function(e){
+    var t = e.target; if (!t || !t.getAttribute) return; var a = t.getAttribute('data-a'), d = t.getAttribute('data-d');
+    if (d){ pick(y + '/' + p2(m) + '/' + p2(+d)); return; }
+    if (a === 'pm'){ m--; if (m < 1){ m = 12; y--; } draw(); } else if (a === 'nm'){ m++; if (m > 12){ m = 1; y++; } draw(); }
+    else if (a === 'py'){ y--; draw(); } else if (a === 'ny'){ y++; draw(); }
+    else if (a === 'today') pick(ty + '/' + p2(tmn) + '/' + p2(td)); else if (a === 'clear') pick('');
+  });
+  draw();
+  var r = input.getBoundingClientRect(), w = box.offsetWidth, hh = box.offsetHeight;
+  var left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2)), top = r.bottom + 6;
+  if (top + hh > window.innerHeight - 8) top = Math.max(8, r.top - hh - 6);
+  box.style.left = left + 'px'; box.style.top = top + 'px';
+  JCAL = {el: box, input: input, close: closeJcal,
+    out: function(e){ if (!box.contains(e.target) && e.target !== input) closeJcal(); },
+    key: function(e){ if (e.key === 'Escape' || e.key === 'Tab') closeJcal(); }};
+  document.addEventListener('pointerdown', JCAL.out, true); document.addEventListener('keydown', JCAL.key, true); window.addEventListener('resize', closeJcal);
+}
+
 function renderReport(){
-  if (!REP_DINIT){ REP_DINIT = true; var td0 = faDigits((info && info.date) || jalaliToday() || ''); if (!FILT.from && !FILT.to){ FILT.from = td0; FILT.to = td0; } }
   document.body.setAttribute('data-report','1');
   var stage = $('stage'); stage.innerHTML = ''; stage.className = 'stage mod';
   var page = el('div','mpage'); page.setAttribute('dir','rtl'); stage.appendChild(page);
@@ -2727,7 +2800,7 @@ function renderReport(){
   var card = el('div','mcard'); page.appendChild(card);
   var fg = el('div','mgrid rfilter'); fg.style.gridTemplateColumns = 'repeat(auto-fit,minmax(150px,1fr))'; fg.style.minWidth = '0'; card.appendChild(fg);
   function field(label, node){ var w = el('div','mlf'); var s = el('span'); s.textContent = label; w.appendChild(s); w.appendChild(node); fg.appendChild(w); return node; }
-  function inp(key, ph){ var i = el('input','mi'); i.value = FILT[key]; i.placeholder = ph || ''; i.setAttribute('dir','ltr'); i.setAttribute('inputmode','numeric'); i.addEventListener('input', function(){ FILT[key] = i.value; refresh(); }); return i; }
+  function inp(key, ph){ var i = el('input','mi'); i.value = FILT[key]; i.placeholder = ph || ''; i.setAttribute('dir','ltr'); i.setAttribute('inputmode','none'); i.setAttribute('autocomplete','off'); i.addEventListener('input', function(){ FILT[key] = i.value; refresh(); }); var op = function(){ openJcal(i, function(v){ FILT[key] = v; refresh(); }); }; i.addEventListener('click', op); i.addEventListener('focus', op); return i; }
   field('از تاریخ', inp('from','1405/01/01')); field('تا تاریخ', inp('to','1405/12/29'));
   var sf = el('select','mi'); sf.innerHTML = '<option value="">همه فرم‌ها</option>'; SHEETS.forEach(function(s){ var o = document.createElement('option'); o.value = s.key; o.textContent = s.tab; sf.appendChild(o); }); sf.value = FILT.form; sf.addEventListener('change', function(){ FILT.form = sf.value; refresh(); }); field('نوع فرم', sf);
   var su = el('select','mi'); su.innerHTML = '<option value="">همه کاربران</option>'; USERS.forEach(function(u){ var o = document.createElement('option'); o.value = u.u; o.textContent = u.name; su.appendChild(o); }); su.value = FILT.user; su.addEventListener('change', function(){ FILT.user = su.value; refresh(); }); field('ثبت‌کننده', su);
@@ -3648,6 +3721,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.04', d:'1.2.89', items:[{adm:'صفحه ی Report: با کلیک روی کادرهای «از تاریخ» و «تا تاریخ» یک تقویم شمسی کوچک باز می شود و تاریخ را می توان انتخاب کرد. فهرست فرم های ثبت شده به طور پیش فرض همه ی رکوردها را نشان می دهد؛ با وارد کردن یک تاریخ فقط همان روز و با وارد کردن هر دو تاریخ بازه ی انتخابی نمایش داده می شود.', usr:''}]},
     {v:'1.9.03', d:'1.2.88', items:[{adm:'دفترچه تلفن: نام ایستگاه «صفاد» به «صغاد» اصلاح شد.', usr:'برخی اطلاعات سامانه به روز شد.'}]},
     {v:'1.9.02', d:'1.2.87', items:[{adm:'نسخه ی موبایل: سه دکمه ی Station Telephone، PLC Map و TPS Wireing در یک سطر قرار گرفتند.', usr:''}]},
     {v:'1.9.01', d:'1.2.86', items:[{adm:'مدیریت دسترسی ها: امکانات ویژه ی ادمین (Station Telephone، PLC Map، TPS Wireing، تست شیت روزانه و گزارش برداشت اطلاعات) به جدول دسترسی کاربران اضافه شد تا ادمین بتواند برای هر کاربر فعال کند (به طور پیش فرض غیرفعال). توضیح تغییرات صفحه های PLC Map و TPS Wireing برای کاربران عادی نمایش داده نمی شود.', usr:''}]},
