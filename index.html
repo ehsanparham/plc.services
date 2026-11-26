@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.10">
-<meta name="app-display-version" content="1.2.95">
+<meta name="app-version" content="1.9.12">
+<meta name="app-display-version" content="1.2.97">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -663,6 +663,16 @@ body[data-theme="emerald"] .savewrap .btn.arch{background:#fff;color:#0f4c45;box
 .mrt th{background:rgba(47,98,201,.12);color:#0c2454;font-weight:800;padding:9px 10px;text-align:right;white-space:nowrap}
 .mrt td{padding:8px 10px;border-bottom:1px solid rgba(18,50,110,.12);white-space:nowrap}
 .mrt .btn{padding:5px 12px;font-size:14px}
+.mrt th,.mrt td{border:1px solid rgba(18,50,110,.38)}
+.mrt th:first-child,.mrt td:first-child{text-align:center}
+body[data-theme="dark"] .mrt th,body[data-theme="dark"] .mrt td{border-color:rgba(120,210,255,.4)}
+body[data-theme="emerald"] .mrt th,body[data-theme="emerald"] .mrt td{border-color:#c9bfa6}
+.mamtb td,.mamtb th{text-align:center}
+.mamtb td,.mamtb th{white-space:normal}
+.mamtb td.mtl{min-width:110px}
+.mamtb td:last-child{white-space:nowrap}
+@media (max-width:900px){.mamtb{font-size:13px}.mamtb th,.mamtb td{padding:6px 4px}.mamtb td:last-child{white-space:normal}.mamtb td:last-child .btn{display:block;width:100%;margin:0 0 4px!important;padding:4px 6px;font-size:12px}.mamtb td.mtl{min-width:0}}
+.mambar.two{display:grid;grid-template-columns:1fr 1fr}.mambar.two .full{grid-column:1 / -1}
 body[data-theme="dark"] .mrt th{background:rgba(39,198,255,.15);color:#bfe3ff}
 body[data-theme="dark"] .mrt td{border-color:rgba(90,200,255,.2)}
 body[data-theme="dark"] .mhint{color:#8fb6e4}
@@ -950,7 +960,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.95</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.97</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -978,7 +988,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.95</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.97</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2717,12 +2727,13 @@ function addRecord(sh){
   var rec = {id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), ts: Date.now(), date: date, dk: dkey(date), time: nowTime(),
     user: session ? session.name : '', uid: session ? session.u : '', form: sh.key, post: post, sup: supFor(vals[REFS[sh.key] && REFS[sh.key].area]) || (info && info.sup) || '', vals: snap};
   var eid = state.edit && state.edit[sh.key], er = null; if (eid) RECS.forEach(function(x){ if (x.id === eid) er = x; });
-  if (er && er.uid === rec.uid){ er.vals = snap; er.post = post; er.date = date; er.dk = rec.dk; er.ts = rec.ts; er.time = rec.time; er.sup = rec.sup; return saveRecs(); }
+  addRecord.upd = false;
+  if (er && (er.uid === rec.uid || (session && session.admin))){ er.vals = snap; er.post = post; er.date = date; er.dk = rec.dk; er.ts = rec.ts; er.time = rec.time; er.sup = rec.sup; addRecord.upd = true; return saveRecs(); }   // an opened record is replaced, never duplicated (an admin may correct anybody's record; it keeps its original owner)
   if (last && JSON.stringify(last.vals) === snapStr && last.date === date && last.uid === rec.uid){ last.ts = rec.ts; last.time = rec.time; return saveRecs(); }
   RECS.push(rec); return saveRecs();
 }
 function shByKey(k){ for (var i=0;i<SHEETS.length;i++) if (SHEETS[i].key === k) return SHEETS[i]; return null; }
-var REFS = {plc:{area:'E10',post:'G10',line:'I10',num:'K10',phone:'R27',device:'M10'}, lmu:{area:'D11',post:'G11',line:'I11',num:'K11',device:'M11',phase:'O11',coupling:'R11'}, selta:{post:'C3',line:'C4',num:'I3'}, abb:{post:'C3',line:'C4',num:'I3'}, dimat:{post:'C3',line:'C4'}};
+var REFS = {plc:{area:'E10',post:'G10',line:'I10',num:'K10',phone:'R27',device:'M10'}, lmu:{area:'D11',post:'G11',line:'I11',num:'K11',device:'M11',phase:'O11',coupling:'R11'}, selta:{post:'C3',line:'C4',num:'I3'}, abb:{post:'C3',line:'C4',num:'I3'}, dimat:{post:'C3',line:'C4',num:'K5'}};   // Dimat has no line number box: its "IP Address" box (K5) is what the report shows as the line number
 var DEVNAME = {selta:'SELTA', abb:'ABB', dimat:'Dimat'};
 function devArea(r){   // SELTA / ABB / Dimat forms have no area: take it from the PLC record completed together with them (same date and post, preferably same line and device)
   var post = rv(r,'post'), line = rv(r,'line'), best = '', bs = 0;
@@ -2857,6 +2868,20 @@ function mamBuildBlob(list){
     });
   });
 }
+function makeMamImage(list){
+  var HD = ['ردیف','محل ماموریت','موضوع ماموریت','تاریخ شروع','تاریخ پایان','کد','توقف'], cw = [7,22,40,15,15,7,20], px = cw.map(function(c){ return Math.round(c * 7 + 5); }), w = px.reduce(function(a,b){ return a + b; }, 0);
+  function x(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var cell = 'box-sizing:border-box;padding:3px 6px;text-align:center;vertical-align:middle;white-space:pre-line;word-break:break-word;color:#000;font:600 17px/22px FaNazanin,Tahoma,sans-serif;border:1px solid #444;';
+  var h = '<div style="width:' + (w + 4) + 'px;background:#fff;direction:rtl;padding:0 2px;box-sizing:border-box"><table dir="rtl" style="border-collapse:collapse;table-layout:fixed;width:' + w + 'px"><colgroup>' + px.map(function(p){ return '<col style="width:' + p + 'px">'; }).join('') + '</colgroup><tbody>';
+  h += '<tr style="height:43px"><td colspan="7" style="' + cell + 'font:800 22px/30px FaNazanin,Tahoma,sans-serif">مأموریت‌ها</td></tr>';
+  h += '<tr style="height:38px">' + HD.map(function(t){ return '<td style="' + cell + 'font-weight:800;background:#eef3f9">' + x(t) + '</td>'; }).join('') + '</tr>';
+  list.forEach(function(r, i){ h += '<tr style="min-height:36px">' + [i + 1, r.p, r.s, r.d1, r.d2, r.c || '', r.t].map(function(v, ci){ return '<td style="' + cell + '">' + (ci === 3 || ci === 4 ? '<span dir="ltr" style="unicode-bidi:isolate">' + x(v) + '</span>' : x(v)) + '</td>'; }).join('') + '</tr>'; });
+  h += '</tbody></table></div>';
+  var host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-30000px;top:0;visibility:hidden;pointer-events:none'; host.innerHTML = h; document.body.appendChild(host);
+  var wr = host.firstChild, hh = Math.ceil(wr.getBoundingClientRect().height);
+  var sty = document.createElement('style'); sty.textContent = outCss(); wr.insertBefore(sty, wr.firstChild); wr.style.height = hh + 'px';
+  return htmlToJpg(wr, w + 4, hh).then(function(r){ try { document.body.removeChild(host); } catch(e){} return r; }, function(e){ try { document.body.removeChild(host); } catch(z){} throw e; });
+}
 function renderMam(page, h){
   mamLoad(); h.textContent = 'مأموریت‌ها';
   var FR = {from: '', to: ''}, cur = {p:'', s:'', d1:'', d2:'', c:'', t:''}, editId = null, fields = {};
@@ -2906,29 +2931,36 @@ function renderMam(page, h){
   di('from','از تاریخ'); di('to','تا تاریخ');
   var info2 = el('div','mhint'); info2.style.textAlign = 'center'; info2.style.margin = '8px 0'; acard.appendChild(info2);
   var lbox = el('div','mamlist'); acard.appendChild(lbox);
-  var abar = el('div','mambar'); abar.style.justifyContent = 'center'; acard.appendChild(abar);
+  var abar = el('div','mambar two'); acard.appendChild(abar);
   function ab(t, cls, fn){ var x = el('button','btn ' + cls); x.type = 'button'; x.textContent = t; x.addEventListener('click', fn); abar.appendChild(x); return x; }
-  ab('⬇ خروجی Excel این بازه','pri', function(){
+  ab('⬇ ذخیره ی اکسل این بازه','pri', function(){
     var list = mamRange(FR.from, FR.to);
     if (!list.length){ toast('در این بازه مأموریتی ثبت نشده است'); return; }
     askDailyName('Mamuriat_' + (dayStamp(FR.from) || 'all') + (FR.to && dkey(FR.to) !== dkey(FR.from) ? '_to_' + dayStamp(FR.to) : ''), function(){ return mamBuildBlob(list); });
   });
-  ab('‹ بازگشت به Report','sec', function(){ state.pg = ''; state.report = true; state.search = false; state.phone = false; render(); fadeStage(); $('desk').scrollTop = 0; });
+  ab('🖼 نمایش تصویر خروجی','pri', function(){
+    var list = mamRange(FR.from, FR.to);
+    if (!list.length){ toast('در این بازه مأموریتی ثبت نشده است'); return; }
+    toast('در حال ساخت تصویر ...');
+    makeMamImage(list).then(function(res){ showImageViewer(res, 'تصویر مأموریت‌ها', 'Mamuriat_' + (dayStamp(FR.from) || 'all') + (FR.to && dkey(FR.to) !== dkey(FR.from) ? '_to_' + dayStamp(FR.to) : '')); }).catch(function(e){ console.error(e); toast('خطا در ساخت تصویر: ' + (e && e.message || e)); });
+  });
+  ab('‹ بازگشت به Report','sec', function(){ state.pg = ''; state.report = true; state.search = false; state.phone = false; render(); fadeStage(); $('desk').scrollTop = 0; }).classList.add('full');
   function drawList(){
     var list = mamRange(FR.from, FR.to); lbox.innerHTML = '';
     info2.textContent = list.length ? (list.length + ' مأموریت' + (MAM.recs.length !== list.length ? ' از ' + MAM.recs.length + ' مورد ثبت شده' : ' ثبت شده')) : (MAM.recs.length ? 'در این بازه مأموریتی ثبت نشده است' : 'هنوز مأموریتی ثبت نشده است');
     if (!list.length) return;
-    var hd = el('div','mamhd mamlst'); ['ردیف','محل ماموریت','موضوع ماموریت','تاریخ شروع','تاریخ پایان','کد','توقف',''].forEach(function(t){ var d = el('div'); d.textContent = t; hd.appendChild(d); }); lbox.appendChild(hd);
+    var wrap = el('div','mscroll'), tb = el('table','mrt mamtb'), thd = document.createElement('thead'), htr = document.createElement('tr');
+    ['ردیف','محل مأموریت','تاریخ شروع','کد','موضوع مأموریت',''].forEach(function(t){ var th = document.createElement('th'); th.textContent = t; htr.appendChild(th); }); thd.appendChild(htr); tb.appendChild(thd);
+    var tbd = document.createElement('tbody');
     list.forEach(function(r, i){
-      var row = el('div','mamrow mamlst'), n = el('div','mamn'); n.textContent = String(i + 1); row.appendChild(n);
-      [['p','محل ماموریت',1],['s','موضوع ماموریت',1],['d1','تاریخ شروع'],['d2','تاریخ پایان'],['c','کد'],['t','توقف']].forEach(function(k){
-        var c = el('div','mamc' + (k[2] ? ' w2' : '')), s = el('span'), v = el('div','mamv'); s.textContent = k[1]; v.textContent = r[k[0]] || ''; if (k[0] === 'd1' || k[0] === 'd2') v.setAttribute('dir','ltr'); c.appendChild(s); c.appendChild(v); row.appendChild(c);
-      });
-      var act = el('div','mamact'), e1 = el('button','btn sec'), e2 = el('button','btn sec'); e1.type = e2.type = 'button'; e1.textContent = 'ویرایش'; e2.textContent = 'حذف';
+      var tr = document.createElement('tr');
+      [String(i + 1), r.p, r.d1, r.c || '—', r.s].forEach(function(v, ci){ var td = document.createElement('td'); td.textContent = v; if (ci === 2){ td.setAttribute('dir','ltr'); } if (ci === 1 || ci === 4) td.className = 'mtl'; tr.appendChild(td); });
+      var td = document.createElement('td'), e1 = el('button','btn sec'), e2 = el('button','btn sec'); e1.type = e2.type = 'button'; e1.textContent = 'ویرایش'; e2.textContent = 'حذف'; e2.style.marginInlineStart = '6px';
       e1.addEventListener('click', function(){ editId = r.id; loadForm(r); okBtn.textContent = '💾 ذخیره ی تغییرات'; note('در حال ویرایش ماموریت؛ پس از اصلاح، دکمه ی ذخیره را بزنید', true); fcard.scrollIntoView({behavior: 'smooth', block: 'start'}); });
       e2.addEventListener('click', function(){ if (confirm('این مأموریت حذف شود؟')){ MAM.recs = MAM.recs.filter(function(x){ return x.id !== r.id; }); if (editId === r.id){ editId = null; okBtn.textContent = '✅ ثبت مأموریت'; loadForm(null); } mamSave(); drawList(); } });
-      act.appendChild(e1); act.appendChild(e2); row.appendChild(act); lbox.appendChild(row);
+      td.appendChild(e1); td.appendChild(e2); tr.appendChild(td); tbd.appendChild(tr);
     });
+    tb.appendChild(tbd); wrap.appendChild(tb); lbox.appendChild(wrap);
   }
   drawList();
 }
@@ -3231,7 +3263,7 @@ function restoreRecs(){
   f.click();
 }
 $('btnBackup').addEventListener('click', askBackup);
-$('btnArchive').addEventListener('click', function(){ var sh = SHEETS[state.active]; if (!hasUserData(sh.key)){ toast('خطا: هیچ اطلاعاتی به‌صورت دستی وارد نشده است؛ رکورد ثبت نشد'); return; } if (sh.key === 'plc') phSync(state.vals.plc && state.vals.plc.E10, state.vals.plc && state.vals.plc.G10, state.vals.plc && state.vals.plc.R27); if (addRecord(sh)) toast('در بایگانی ثبت شد'); });
+$('btnArchive').addEventListener('click', function(){ var sh = SHEETS[state.active]; if (!hasUserData(sh.key)){ toast('خطا: هیچ اطلاعاتی به‌صورت دستی وارد نشده است؛ رکورد ثبت نشد'); return; } if (sh.key === 'plc') phSync(state.vals.plc && state.vals.plc.E10, state.vals.plc && state.vals.plc.G10, state.vals.plc && state.vals.plc.R27); if (addRecord(sh)) toast(addRecord.upd ? 'رکورد قبلی اصلاح و جایگزین شد' : 'در بایگانی ثبت شد'); });
 
 function clearForm(sh){   // removes only what was typed / picked by hand; defaults (names, date, supervisor, fixed values) stay
   var key = sh.key, old = state.vals[key] || {}, base = state.base[key];
@@ -3864,6 +3896,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.12', d:'1.2.97', items:[{adm:'مأموریت‌ها: بایگانی به صورت جدول خط‌کشی شده (ردیف، محل مأموریت، تاریخ شروع، کد، موضوع مأموریت) نمایش داده می شود؛ دکمه ی «نمایش تصویر خروجی» اضافه شد و دکمه ها مرتب شدند. جدول فهرست فرم های ثبت شده و دفترچه تلفن نیز با خطوط عمودی و افقی جدول بندی شدند.', usr:'جدول فهرست فرم های ثبت شده و دفترچه تلفن با خطوط عمودی و افقی نمایش داده می شود.'}]},
+    {v:'1.9.11', d:'1.2.96', items:[{adm:'فهرست فرم های ثبت شده: رکوردی که برای مشاهده و اصلاح باز می شود، پس از «ثبت در بایگانی» جایگزین همان رکورد قبلی می شود (برای ادمین نیز، حتی برای رکورد کاربران دیگر) و رکورد جدید اضافه نمی شود. برای فرم Dimat، ستون «شماره خط» همان IP Address را نشان می دهد.', usr:'رکوردی که برای اصلاح باز می شود پس از ثبت در بایگانی جایگزین رکورد قبلی می شود و رکورد تکراری ساخته نمی شود.'}]},
     {v:'1.9.10', d:'1.2.95', items:[{adm:'ثبت مأموریت: انتخاب «کد» اختیاری شد و مأموریت بدون کد هم ثبت می شود.', usr:''}]},
     {v:'1.9.09', d:'1.2.94', items:[{adm:'صفحه ی مأموریت‌ها: ثبت موردی؛ هر مأموریت با فرم ثبت (محل، موضوع، تاریخ شروع و پایان، کد، توقف) در بایگانی همین صفحه ذخیره می شود و با انتخاب بازه ی تاریخ (با تقویم) می توان از آن ها فایل Excel گرفت. امکان ویرایش و حذف هر مورد وجود دارد.', usr:''}]},
     {v:'1.9.08', d:'1.2.93', items:[{adm:'صفحه ی Report: چیدمان دکمه ها و فیلترها دو ستونه و مرتب شد. دکمه ی جدید «مأموریت‌ها» (ویژه ی ادمین؛ قابل فعال سازی برای کاربران در مدیریت دسترسی ها) صفحه ای با لیست های کشویی محل ماموریت، موضوع، تاریخ شروع و پایان (با تقویم)، کد و توقف باز می کند و ردیف ها در فایل Excel ماموریت ها ثبت می شوند.', usr:''}]},
