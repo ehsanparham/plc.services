@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.09">
-<meta name="app-display-version" content="1.2.94">
+<meta name="app-version" content="1.9.10">
+<meta name="app-display-version" content="1.2.95">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -950,7 +950,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.94</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.95</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -978,7 +978,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.94</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.95</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2875,18 +2875,18 @@ function renderMam(page, h){
     } else { f.placeholder = 'انتخاب'; makeCombo(f, {strict: true, opts: opts}, function(v){ cur[key] = v; }); }
     var w = el('div','mlf' + (wide ? ' w2' : '')), s = el('span'); s.textContent = label; w.appendChild(s); w.appendChild(f); form.appendChild(w); fields[key] = f;
   }
-  mk('p','محل ماموریت','post',null,true); mk('s','موضوع ماموریت','sel',MAM_SUBJ,true); mk('d1','تاریخ شروع','date'); mk('d2','تاریخ پایان','date'); mk('c','کد','sel',MAM_CODE); mk('t','توقف','sel',MAM_STOP);
+  mk('p','محل ماموریت','post',null,true); mk('s','موضوع ماموریت','sel',MAM_SUBJ,true); mk('d1','تاریخ شروع','date'); mk('d2','تاریخ پایان','date'); mk('c','کد (اختیاری)','sel',MAM_CODE); mk('t','توقف','sel',MAM_STOP);
   var fmsg = el('div','msg'); fmsg.style.textAlign = 'center'; fcard.appendChild(fmsg);
   var fbar = el('div','mambar'); fbar.style.justifyContent = 'center'; fcard.appendChild(fbar);
   function fb(t, cls, fn){ var x = el('button','btn ' + cls); x.type = 'button'; x.textContent = t; x.addEventListener('click', fn); fbar.appendChild(x); return x; }
   function loadForm(r){ ['p','s','d1','d2','c','t'].forEach(function(k){ cur[k] = r ? r[k] : ''; fields[k].value = cur[k]; }); }
   function note(t, ok){ fmsg.textContent = t; fmsg.className = 'msg ' + (ok ? 'ok' : 'err'); }
   var okBtn = fb('✅ ثبت مأموریت','pri', function(){
-    var miss = []; [['p','محل'],['s','موضوع'],['d1','تاریخ شروع'],['d2','تاریخ پایان'],['c','کد'],['t','توقف']].forEach(function(k){ if (!String(cur[k[0]] || '').trim()) miss.push(k[1]); });
+    var miss = []; [['p','محل'],['s','موضوع'],['d1','تاریخ شروع'],['d2','تاریخ پایان'],['t','توقف']].forEach(function(k){ if (!String(cur[k[0]] || '').trim()) miss.push(k[1]); });
     if (miss.length){ note('این موارد تکمیل نشده است: ' + miss.join('، '), false); return; }
     if (!dkey(cur.d1) || !dkey(cur.d2)){ note('تاریخ ها را از تقویم انتخاب کنید (مثل 1405/08/06)', false); return; }
     if (dkey(cur.d1) > dkey(cur.d2)){ note('تاریخ شروع نباید بعد از تاریخ پایان باشد', false); return; }
-    var rec = {p: cur.p.trim(), s: cur.s, d1: faDigits(cur.d1).trim(), d2: faDigits(cur.d2).trim(), c: cur.c, t: cur.t};
+    var rec = {p: cur.p.trim(), s: cur.s, d1: faDigits(cur.d1).trim(), d2: faDigits(cur.d2).trim(), c: cur.c || '', t: cur.t};
     if (editId){ MAM.recs.forEach(function(r){ if (r.id === editId){ r.p = rec.p; r.s = rec.s; r.d1 = rec.d1; r.d2 = rec.d2; r.c = rec.c; r.t = rec.t; } }); }
     else { rec.id = 'm' + Date.now() + Math.floor(Math.random() * 1000); rec.ts = Date.now(); MAM.recs.push(rec); }
     mamSave(); var was = editId; editId = null; okBtn.textContent = '✅ ثبت مأموریت'; loadForm(null); drawList();
@@ -3864,6 +3864,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.10', d:'1.2.95', items:[{adm:'ثبت مأموریت: انتخاب «کد» اختیاری شد و مأموریت بدون کد هم ثبت می شود.', usr:''}]},
     {v:'1.9.09', d:'1.2.94', items:[{adm:'صفحه ی مأموریت‌ها: ثبت موردی؛ هر مأموریت با فرم ثبت (محل، موضوع، تاریخ شروع و پایان، کد، توقف) در بایگانی همین صفحه ذخیره می شود و با انتخاب بازه ی تاریخ (با تقویم) می توان از آن ها فایل Excel گرفت. امکان ویرایش و حذف هر مورد وجود دارد.', usr:''}]},
     {v:'1.9.08', d:'1.2.93', items:[{adm:'صفحه ی Report: چیدمان دکمه ها و فیلترها دو ستونه و مرتب شد. دکمه ی جدید «مأموریت‌ها» (ویژه ی ادمین؛ قابل فعال سازی برای کاربران در مدیریت دسترسی ها) صفحه ای با لیست های کشویی محل ماموریت، موضوع، تاریخ شروع و پایان (با تقویم)، کد و توقف باز می کند و ردیف ها در فایل Excel ماموریت ها ثبت می شوند.', usr:''}]},
     {v:'1.9.07', d:'1.2.92', items:[{adm:'نام پست «موشکان» در تمام اپلیکیشن به «موشگان» اصلاح شد.', usr:'برخی اطلاعات سامانه به روز شد.'}]},
