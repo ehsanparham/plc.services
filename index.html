@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.15">
-<meta name="app-display-version" content="1.2.100">
+<meta name="app-version" content="1.9.16">
+<meta name="app-display-version" content="1.2.101">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -960,7 +960,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.100</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.101</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -988,7 +988,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.100</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.101</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -2885,9 +2885,109 @@ function makeMamImage(list){
   var sty = document.createElement('style'); sty.textContent = outCss(); wr.insertBefore(sty, wr.firstChild); wr.style.height = hh + 'px';
   return htmlToJpg(wr, w + 4, hh).then(function(r){ try { document.body.removeChild(host); } catch(e){} return r; }, function(e){ try { document.body.removeChild(host); } catch(z){} throw e; });
 }
+// ---- printable mission sheets (A5, front / back) → PDF ----
+var MAM_WORDS = ['','یک','دو','سه','چهار','پنج','شش','هفت','هشت','نه','ده','یازده','دوازده','سیزده','چهارده','پانزده','شانزده','هفده','هجده','نوزده','بیست'];
+function mamNumWord(n){ if (n <= 20) return MAM_WORDS[n] || String(n); if (n < 30) return 'بیست و ' + MAM_WORDS[n - 20]; if (n === 30) return 'سی'; if (n === 31) return 'سی و یک'; return String(n); }
+function mamDays(d1, d2){
+  var a = dkey(d1), b = dkey(d2 || d1); if (!a) return 1; if (!b) b = a;
+  var A = jJ2D(jdiv(a, 10000), jmod(jdiv(a, 100), 100), jmod(a, 100)), B = jJ2D(jdiv(b, 10000), jmod(jdiv(b, 100), 100), jmod(b, 100));
+  return Math.max(1, B - A + 1);
+}
+function mamSheetHtml(kind, r){
+  var W = 559.37, H = 793.7, S = 1.5;
+  function x(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var d1 = faDigits(r.d1 || ''), d2 = faDigits(r.d2 || r.d1 || ''), n = mamDays(d1, d2), code = r.c ? faDigits(String(r.c)) : '';
+  var css = '.mp{position:relative;width:' + W + 'px;height:' + H + 'px;background:#fff;color:#000;direction:rtl;font-family:FaNazanin,"B Nazanin",Tahoma,sans-serif;transform:scale(' + S + ');transform-origin:0 0;overflow:hidden}' +
+    '.mp table{position:absolute;left:33.5px;top:105px;width:492px;border-collapse:collapse;table-layout:fixed}' +
+    '.mp td{border:1.6px solid #000;padding:0 6px;vertical-align:middle;font-size:14.67px;line-height:20px;text-align:right}' +
+    '.mp td.vt{padding:0;text-align:center}.mp td.vt div{writing-mode:vertical-rl;transform:rotate(180deg);margin:0 auto;font-weight:800;text-align:center;line-height:1.25}' +
+    '.mp b{font-weight:800}.mp .mpv{font-family:FaTitr,FaNazanin,sans-serif;font-weight:800}.mp .mph{position:absolute;left:30px;top:25px;width:493px;text-align:center}' +
+    '.mp .mpl{display:flex;justify-content:space-between;align-items:center}';
+  var hd = '<img src="' + LOGO + '" style="position:absolute;left:405px;top:23px;width:126px;height:78px">' +
+    '<div class="mph" style="top:' + (kind === 'f' ? 26 : 32) + 'px"><div style="font-size:' + (kind === 'f' ? 20 : 22) + 'px;font-weight:800;line-height:30px">' + (kind === 'f' ? 'برگ درخواست و حکم مأموریت روزانه' : 'گزارش مأموریت') + '</div>' +
+    (kind === 'f' ? '<div style="font-size:13.3px;line-height:20px">داخل کشور</div>' : '') +
+    '<div style="margin-top:' + (kind === 'f' ? 4 : 14) + 'px;font-size:' + (kind === 'f' ? 17 : 14.67) + 'px;font-weight:800;line-height:24px;display:flex;justify-content:center;gap:34px;direction:rtl"><span>کد مأموریت: ( <span class="mpv">' + x(code) + '</span> )</span>' + (kind === 'f' ? '<span dir="ltr">FR106-00</span>' : '') + '</div></div>';
+  var tb;
+  if (kind === 'f'){
+    var line = function(h, inner){ return '<tr style="height:' + h + 'px"><td colspan="2">' + inner + '</td></tr>'; };
+    tb = '<table><colgroup><col style="width:48.5px"><col style="width:284px"><col style="width:160px"></colgroup><tbody>' +
+      '<tr style="height:35.6px"><td class="vt" rowspan="7"><div style="font-size:13.3px;white-space:nowrap">الف: در واحد متقاضی تکمیل میشود</div></td><td>1- نام و نام خانوادگی: <span class="mpv">احسان پرهام</span></td><td>2- شماره پرسنلی: <span class="mpv">12408</span></td></tr>' +
+      line(35, '3- نام واحد سازمانی: <span class="mpv">اتوماسیون و مخابرات</span>') +
+      line(35.6, '4- محل مأموریت: <span class="mpv">' + x(r.p) + '</span>') +
+      line(35, '5- موضوع مأموریت: <span class="mpv">' + x(r.s) + '</span>') +
+      '<tr style="height:51.8px"><td>6- تاریخ شروع مأموریت:<br><span class="mpv" dir="ltr" style="unicode-bidi:isolate">' + x(d1) + '</span> لغایت <span class="mpv" dir="ltr" style="unicode-bidi:isolate">' + x(d2) + '</span></td><td>7- مدت مأموریت:<br><span class="mpv">(' + n + ') ' + mamNumWord(n) + ' روز</span></td></tr>' +
+      line(35.6, '8- نوع وسیله نقلیه: ☑ <span class="mpv">اتومبیل شرکت</span>') +
+      line(148.7, '<div style="height:134px;display:flex;flex-direction:column;justify-content:space-between;padding:4px 0"><div>9- اظهار نظر مقام مسئول:<span style="margin-inline-start:30px">⃝ موافقت می شود</span><span style="margin-inline-start:20px">⃝ موافقت نمی شود</span></div>' +
+        '<div style="text-align:center;font-size:13.3px"><b>نام و نام خانوادگی: مهندس داریوش چراغپور &nbsp;&nbsp;&nbsp; عنوان پست سازمانی: رئیس قسمت</b></div>' +
+        '<div class="mpl" style="font-size:13.3px"><span>تاریخ:</span><span style="margin-inline-end:30px">امضاء</span></div></div>') +
+      '<tr style="height:27.7px"><td class="vt" rowspan="2"><div style="font-size:12px;white-space:nowrap">ب: در واحد امور کارکنان و رفاه<br>تکمیل میشود.</div></td><td colspan="2" style="text-align:center"><b>(حکم مأموریت)</b></td></tr>' +
+      line(160.5, '<div style="height:150px;display:flex;flex-direction:column;justify-content:space-around;font-size:13.3px">' +
+        '<div>10- جمع مدتی که در ماه جاری به مأموریت اعزام شده ................................. روز است. بنابراین مأموریت نامبرده مجاز می باشد.</div>' +
+        '<div class="mpl"><span>11- نام و نام خانوادگی مسئول مأموریت ها:</span><span>امضاء</span><span style="margin-inline-end:10px">تاریخ</span></div>' +
+        '<div class="mpl"><span>12- نام و نام خانوادگی مقام مسئول: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; عنوان مقام مسئول</span><span style="margin-inline-end:20px">امضاء</span></div></div>') +
+      '<tr style="height:59.5px"><td class="vt"><div style="font-size:12px;white-space:nowrap">متصدی<br>دفتر</div></td><td colspan="2" style="font-size:13.3px">13- شماره و تاریخ حکم: شماره: <span style="display:inline-block;width:150px"></span> تاریخ:</td></tr>' +
+      '</tbody></table>';
+  } else {
+    var stop = r.t ? ' ' + x(r.t) : '';
+    tb = '<table><colgroup><col style="width:48.5px"><col style="width:443.5px"></colgroup><tbody>' +
+      '<tr style="height:291px"><td class="vt" rowspan="2"><div style="font-size:13.3px;white-space:nowrap">د: در واحد متقاضی تکمیل میشود</div></td><td style="vertical-align:top;padding-top:6px"><div>14- گزارش مأموریت:</div>' +
+        '<div style="text-align:center;margin-top:8px;line-height:26px"><b>اینجانب <span class="mpv">احسان پرهام</span> بر اساس این حکم از تاریخ <span class="mpv" dir="ltr" style="unicode-bidi:isolate">' + x(d1) + '</span> الی <span class="mpv" dir="ltr" style="unicode-bidi:isolate">' + x(d2) + '</span></b></div>' +
+        '<div style="text-align:center;line-height:26px"><b>با ☑ اتومبیل شرکت به <span class="mpv">' + x(r.p) + '</span> عزیمت کرده؛</b></div>' +
+        '<div style="text-align:center;line-height:26px"><b>و پس از ' + mamNumWord(n) + '(' + n + ') روز مأموریت' + stop + ' وظایف مشروحه زیر را انجام دادم:</b></div>' +
+        '<div style="text-align:center;line-height:26px"><b><span class="mpv">' + x(r.s) + '</span></b></div>' +
+        '<div style="position:absolute;left:46px;top:196px;width:170px;text-align:center;line-height:26px;font-size:13.3px">تاریخ <span dir="ltr" style="unicode-bidi:isolate">' + x(d2) + '</span><br><b style="font-size:14.67px">احسان پرهام</b><br><b style="font-size:13.3px">امضاء</b></div></td></tr>' +
+      '<tr style="height:130.5px"><td style="vertical-align:top;padding-top:8px;font-size:14.67px">15- مدت ..................... روز مأموریت نامبرده مورد تایید است؛ ضمناً مأموریت در این حکم تمدید شده⃝ تمدید نشده⃝ است.<div class="mpl" style="margin-top:34px;padding:0 60px 0 40px;font-size:13.3px"><span>امضاء</span><span>تاریخ:</span></div></td></tr>' +
+      '<tr style="height:215px"><td class="vt"><div style="font-size:12px;white-space:nowrap">ه: واحد مالی تکمیل شود.</div></td><td style="vertical-align:top;padding-top:8px;font-size:14.67px">16- محاسبات واحد مالی برای پرداخت فوق العاده روزانه و سایر هزینه های مربوطه:</td></tr>' +
+      '</tbody></table>';
+  }
+  return '<div style="width:' + Math.round(W * S) + 'px;height:' + Math.round(H * S) + 'px;background:#fff;overflow:hidden"><style>' + css + '</style><div class="mp">' + hd + tb + '</div></div>';
+}
+function mamSheetJpg(kind, r){
+  var host = document.createElement('div'); host.style.cssText = 'position:fixed;left:-30000px;top:0;visibility:hidden;pointer-events:none'; host.innerHTML = mamSheetHtml(kind, r); document.body.appendChild(host);
+  var wr = host.firstChild, sty = document.createElement('style'); sty.textContent = outCss(); wr.insertBefore(sty, wr.firstChild);
+  var w = Math.round(559.37 * 1.5), h = Math.round(793.7 * 1.5);
+  function done(){ try { document.body.removeChild(host); } catch(e){} }
+  return htmlToJpg(wr, w, h).then(function(res){ done(); return res; }, function(e){ done(); throw e; });
+}
+function jpgSize(u){ var i = 2; while (i < u.length){ if (u[i] !== 0xFF){ i++; continue; } var m = u[i + 1]; if (m >= 0xC0 && m <= 0xC3) return {h: (u[i + 5] << 8) | u[i + 6], w: (u[i + 7] << 8) | u[i + 8]}; i += 2 + ((u[i + 2] << 8) | u[i + 3]); } return null; }
+function makePdf(jpgs){   // jpgs: [Uint8Array] one A5 page each
+  var PW = 419.53, PH = 595.28, parts = [], len = 0, offs = [], enc = new TextEncoder();
+  function add(x){ var u = typeof x === 'string' ? enc.encode(x) : x; parts.push(u); len += u.length; }
+  function obj(n, body){ offs[n] = len; add(n + ' 0 obj\n'); add(body); add('\nendobj\n'); }
+  function objStream(n, dict, data){ offs[n] = len; add(n + ' 0 obj\n<<' + dict + ' /Length ' + data.length + '>>\nstream\n'); add(data); add('\nendstream\nendobj\n'); }
+  add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+  var N = jpgs.length, kids = []; for (var i = 0; i < N; i++) kids.push((3 + i * 3) + ' 0 R');
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>'); obj(2, '<< /Type /Pages /Count ' + N + ' /Kids [' + kids.join(' ') + '] >>');
+  for (var k = 0; k < N; k++){
+    var pg = 3 + k * 3, sz = jpgSize(jpgs[k]) || {w: 1678, h: 2382};
+    obj(pg, '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + PW + ' ' + PH + '] /Resources << /XObject << /Im0 ' + (pg + 2) + ' 0 R >> >> /Contents ' + (pg + 1) + ' 0 R >>');
+    var cs = 'q ' + PW + ' 0 0 ' + PH + ' 0 0 cm /Im0 Do Q'; objStream(pg + 1, '', enc.encode(cs));
+    objStream(pg + 2, '/Type /XObject /Subtype /Image /Width ' + sz.w + ' /Height ' + sz.h + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode', jpgs[k]);
+  }
+  var total = 3 + N * 3, xr = len;
+  add('xref\n0 ' + total + '\n0000000000 65535 f \n'); for (var j = 1; j < total; j++) add(('0000000000' + offs[j]).slice(-10) + ' 00000 n \n');
+  add('trailer\n<< /Size ' + total + ' /Root 1 0 R >>\nstartxref\n' + xr + '\n%%EOF');
+  return new Blob(parts, {type: 'application/pdf'});
+}
+function mamPrintPdf(list, kind, base){
+  if (!list.length){ toast('ابتدا مأموریت‌های موردنظر را تیک بزنید'); return; }
+  var out = [], i = 0, n = list.length;
+  function step(){
+    if (i >= n){
+      toast('در حال ساخت فایل PDF ...');
+      var blob = makePdf(out); downloadBlob(blob, base + '.pdf'); toast('فایل PDF ذخیره شد: ' + base + '.pdf'); return;
+    }
+    toast('در حال ساخت صفحه ی ' + faDigits(String(i + 1)) + ' از ' + faDigits(String(n)) + ' ...');
+    mamSheetJpg(kind, list[i]).then(function(res){
+      if (res.type !== 'jpg') throw new Error('ساخت تصویر صفحه ممکن نشد');
+      return new Response(res.blob).arrayBuffer();
+    }).then(function(buf){ out.push(new Uint8Array(buf)); i++; step(); }).catch(function(e){ console.error(e); toast('خطا در ساخت PDF: ' + (e && e.message || e)); });
+  }
+  step();
+}
 function renderMam(page, h){
   mamLoad(); h.textContent = 'مأموریت‌ها';
-  var FR = {from: '', to: ''}, cur = {p:'', s:'', d1:'', d2:'', c:'', t:''}, editId = null, fields = {};
+  var sel = {}, FR = {from: '', to: ''}, cur = {p:'', s:'', d1:'', d2:'', c:'', t:''}, editId = null, fields = {};
   // ---- entry form (one mission at a time) ----
   var fcard = el('div','mcard'); page.appendChild(fcard);
   var ft = el('div','mamsub'); ft.textContent = 'ثبت مأموریت جدید'; fcard.appendChild(ft);
@@ -2947,16 +3047,24 @@ function renderMam(page, h){
     toast('در حال ساخت تصویر ...');
     makeMamImage(list).then(function(res){ showImageViewer(res, 'تصویر مأموریت‌ها', 'Mamuriat_' + (dayStamp(FR.from) || 'all') + (FR.to && dkey(FR.to) !== dkey(FR.from) ? '_to_' + dayStamp(FR.to) : '')); }).catch(function(e){ console.error(e); toast('خطا در ساخت تصویر: ' + (e && e.message || e)); });
   });
+  function pickedList(){ return mamRange(FR.from, FR.to).filter(function(r){ return sel[r.id]; }); }
+  function pdfBase(k){ var l = pickedList(); return 'Mamuriat_' + k + '_' + dayStamp(l.length ? l[0].d1 : '') + '_' + faDigits(String(l.length)); }
+  ab('🖨 PDF روی برگه ها (رو)','pri', function(){ mamPrintPdf(pickedList(), 'f', pdfBase('Front')); });
+  ab('🖨 PDF پشت برگه ها','pri', function(){ mamPrintPdf(pickedList(), 'b', pdfBase('Back')); });
   ab('‹ بازگشت به Report','sec', function(){ state.pg = ''; state.report = true; state.search = false; state.phone = false; render(); fadeStage(); $('desk').scrollTop = 0; }).classList.add('full');
   function drawList(){
     var list = mamRange(FR.from, FR.to); lbox.innerHTML = '';
     info2.textContent = list.length ? (list.length + ' مأموریت' + (MAM.recs.length !== list.length ? ' از ' + MAM.recs.length + ' مورد ثبت شده' : ' ثبت شده')) : (MAM.recs.length ? 'در این بازه مأموریتی ثبت نشده است' : 'هنوز مأموریتی ثبت نشده است');
     if (!list.length) return;
     var wrap = el('div','mscroll'), tb = el('table','mrt mamtb'), thd = document.createElement('thead'), htr = document.createElement('tr');
+    var allCb = document.createElement('input'); allCb.type = 'checkbox'; allCb.title = 'انتخاب همه'; allCb.checked = list.every(function(r){ return sel[r.id]; });
+    allCb.addEventListener('change', function(){ list.forEach(function(r){ sel[r.id] = allCb.checked; }); drawList(); });
+    var th0 = document.createElement('th'); th0.appendChild(allCb); htr.appendChild(th0);
     ['ردیف','محل مأموریت','تاریخ شروع','کد','موضوع مأموریت',''].forEach(function(t){ var th = document.createElement('th'); th.textContent = t; htr.appendChild(th); }); thd.appendChild(htr); tb.appendChild(thd);
     var tbd = document.createElement('tbody');
     list.forEach(function(r, i){
       var tr = document.createElement('tr');
+      var c0 = document.createElement('td'), cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!sel[r.id]; cb.addEventListener('change', function(){ sel[r.id] = cb.checked; allCb.checked = list.every(function(q){ return sel[q.id]; }); }); c0.appendChild(cb); tr.appendChild(c0);
       [String(i + 1), r.p, r.d1, r.c || '—', r.s].forEach(function(v, ci){ var td = document.createElement('td'); td.textContent = v; if (ci === 2){ td.setAttribute('dir','ltr'); } if (ci === 1 || ci === 4) td.className = 'mtl'; tr.appendChild(td); });
       var td = document.createElement('td'), e1 = el('button','btn sec'), e2 = el('button','btn sec'); e1.type = e2.type = 'button'; e1.textContent = 'ویرایش'; e2.textContent = 'حذف'; e2.style.marginInlineStart = '6px';
       e1.addEventListener('click', function(){ editId = r.id; loadForm(r); okBtn.textContent = '💾 ذخیره ی تغییرات'; note('در حال ویرایش ماموریت؛ پس از اصلاح، دکمه ی ذخیره را بزنید', true); fcard.scrollIntoView({behavior: 'smooth', block: 'start'}); });
@@ -3906,6 +4014,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.16', d:'1.2.101', items:[{adm:'مأموریت‌ها: امکان تیک زدن مأموریت‌های ثبت شده و ساخت دو فایل PDF روی برگه ی A5 مأموریت (رو و پشت، به ترتیب صفحه) برای چاپ دورو. دسترسی به این بخش مانند خود مأموریت‌ها از منوی دسترسی کاربران قابل تنظیم است.', usr:''}]},
     {v:'1.9.15', d:'1.2.100', items:[{adm:'نسخه ی موبایل: ترتیب فیلدهای چک لیست PLC، ستون های فهرست فرم ها، بانک فرکانس و گزارش برداشت داخل صفحه، تقویم تاریخ پایین فرم ها و محل/موضوع مأموریت (ویژه ی موبایل).', usr:''}]},
     {v:'1.9.14', d:'1.2.99', items:[{adm:'ترتیب جدید فیلدهای ابتدایی فرم چک لیست PLC فقط برای نسخه ی موبایل اعمال می شود و در نسخه ی ویندوز به حالت قبل برگشت.', usr:''}]},
     {v:'1.9.13', d:'1.2.98', items:[{adm:'مأموریت‌ها: محل و موضوع مأموریت در یک سطر قرار گرفتند. بانک فرکانس‌ها و گزارش برداشت اطلاعات به جای پنجره ی بازشو، داخل صفحه ی نرم افزار نمایش داده می شوند. ترتیب ستون های فهرست فرم های ثبت شده: ردیف، ناحیه، نام پست، نام خط، شماره خط، نام فرم، تاریخ، ثبت کننده، عملیات. فیلد تاریخ پایین فرم ها با کلیک تقویم باز می کند. در فرم چک لیست PLC ترتیب فیلدهای ابتدایی تغییر کرد (ناحیه و پست / نام خط و شماره خط / نام دستگاه و فرکانس).', usr:'ترتیب ستون های فهرست فرم های ثبت شده، تقویم فیلد تاریخ پایین فرم ها و ترتیب فیلدهای ابتدایی چک لیست PLC بهبود یافت.'}]},
