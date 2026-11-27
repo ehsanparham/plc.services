@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.12">
-<meta name="app-display-version" content="1.2.97">
+<meta name="app-version" content="1.9.14">
+<meta name="app-display-version" content="1.2.99">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -960,7 +960,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.97</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.99</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -988,7 +988,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.97</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.99</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1169,7 +1169,7 @@ function fontCss(c){
   return 'font-family:'+fontStack(c.font)+';font-size:'+px(c.sz).toFixed(2)+'px;'+(c.b?'font-weight:700;':'')+(c.i?'font-style:italic;':'')+(c.color?'color:'+c.color+';':'');
 }
 
-function render(){ if ((state.pg === 'map' && !can('map_view')) || (state.pg === 'tps' && !can('tps_view')) || (state.pg === 'mam' && !can('mam_view'))) state.pg = ''; if (state.pg){ state.report = (state.pg === 'mam'); state.search = false; state.phone = false; state.daily = false; renderPg(); return; } if (state.daily && (state.report || state.search || state.phone || !can('daily_view'))) state.daily = false; if (state.daily && !state.phone){ renderDaily(); return; } if (!state.phone) document.body.removeAttribute('data-phone'); if (state.phone && !can('phone_view')) state.phone = false; if (state.phone){ state.report = false; state.search = false; renderPhone(); return; } if (state.report && !can('rep_view')) state.report = false; if (state.search && !can('sea_view')) state.search = false; if (state.search){ renderSearch(); return; } if (state.report){ renderReport(); return; } document.body.removeAttribute('data-report'); renderModern(); }
+function render(){ if ((state.pg === 'map' && !can('map_view')) || (state.pg === 'tps' && !can('tps_view')) || (state.pg === 'mam' && !can('mam_view')) || (state.pg === 'daq' && !can('daq_view'))) state.pg = ''; if (state.pg){ state.report = (state.pg === 'mam' || state.pg === 'freq' || state.pg === 'daq'); state.search = false; state.phone = false; state.daily = false; renderPg(); return; } if (state.daily && (state.report || state.search || state.phone || !can('daily_view'))) state.daily = false; if (state.daily && !state.phone){ renderDaily(); return; } if (!state.phone) document.body.removeAttribute('data-phone'); if (state.phone && !can('phone_view')) state.phone = false; if (state.phone){ state.report = false; state.search = false; renderPhone(); return; } if (state.report && !can('rep_view')) state.report = false; if (state.search && !can('sea_view')) state.search = false; if (state.search){ renderSearch(); return; } if (state.report){ renderReport(); return; } document.body.removeAttribute('data-report'); renderModern(); }
 function renderClassic(o){
   o = o || {};
   var sh = o.sh || SHEETS[state.active], vals = o.vals || state.vals[sh.key], rtl = !!sh.rtl;
@@ -1247,6 +1247,7 @@ function renderClassic(o){
       inp.value = (vals[c.ref] !== undefined) ? vals[c.ref] : labelDefault(c); inp.dataset.ref = c.ref;
       inp.addEventListener('input', function(){ vals[c.ref] = inp.value; saveSoon(); markTab(); if (sh.key === 'plc') syncLmu(c.ref, inp.value); });
       inp.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); focusNext(inp); } });
+      if (/^(date|تاریخ)/i.test(String(c.text || '').trim())){ inp.setAttribute('dir','ltr'); inp.setAttribute('inputmode','none'); var opj = function(){ openJcal(inp, function(v){ vals[c.ref] = v; saveSoon(); markTab(); }); }; inp.addEventListener('click', opj); inp.addEventListener('focus', opj); }
       lab.appendChild(inp); paper.appendChild(lab); fields.push(inp);
       return;
     }
@@ -1673,7 +1674,9 @@ function renderModern(){
   }
   if (sh.key === 'plc'){
     var pc = el('section','mcard'); page.insertBefore(pc, head.nextSibling);
-    [[[['E10','ناحیه'],['G10','نام پست'],['I10','نام خط'],['K10','شماره خط'],['M10','نام دستگاه'],['O10','فرکانس TX-RX (khz)']],'repeat(5,minmax(0,1fr)) minmax(0,1.9fr)'],
+    [[[['E10','ناحیه'],['G10','نام پست']],'repeat(2,minmax(0,1fr))'],
+     [[['I10','نام خط'],['K10','شماره خط']],'repeat(2,minmax(0,1fr))'],
+     [[['M10','نام دستگاه'],['O10','فرکانس TX-RX (khz)']],'minmax(0,1fr) minmax(0,2.4fr)'],
      [[['E13','ولتاژ شارژ 48 ولت'],['H13','ولتاژ تغذیه PLC'],['K13','قدرت خروجی'],['N13','مدل شارژر']],4]].forEach(function(gs){
       var g = el('div','mgrid mhdr'); g.style.gridTemplateColumns = typeof gs[1] === 'string' ? gs[1] : 'repeat('+gs[1]+',minmax(0,1fr))'; g.style.minWidth = '0';
       gs[0].forEach(function(q){
@@ -2900,7 +2903,7 @@ function renderMam(page, h){
     } else { f.placeholder = 'انتخاب'; makeCombo(f, {strict: true, opts: opts}, function(v){ cur[key] = v; }); }
     var w = el('div','mlf' + (wide ? ' w2' : '')), s = el('span'); s.textContent = label; w.appendChild(s); w.appendChild(f); form.appendChild(w); fields[key] = f;
   }
-  mk('p','محل ماموریت','post',null,true); mk('s','موضوع ماموریت','sel',MAM_SUBJ,true); mk('d1','تاریخ شروع','date'); mk('d2','تاریخ پایان','date'); mk('c','کد (اختیاری)','sel',MAM_CODE); mk('t','توقف','sel',MAM_STOP);
+  mk('p','محل ماموریت','post'); mk('s','موضوع ماموریت','sel',MAM_SUBJ); mk('d1','تاریخ شروع','date'); mk('d2','تاریخ پایان','date'); mk('c','کد (اختیاری)','sel',MAM_CODE); mk('t','توقف','sel',MAM_STOP);
   var fmsg = el('div','msg'); fmsg.style.textAlign = 'center'; fcard.appendChild(fmsg);
   var fbar = el('div','mambar'); fbar.style.justifyContent = 'center'; fcard.appendChild(fbar);
   function fb(t, cls, fn){ var x = el('button','btn ' + cls); x.type = 'button'; x.textContent = t; x.addEventListener('click', fn); fbar.appendChild(x); return x; }
@@ -3001,7 +3004,7 @@ function renderReport(){
     listBox.innerHTML = '';
     var t2 = el('div','mtitle'); t2.textContent = 'فهرست فرم‌های ثبت شده'; listBox.appendChild(t2);
     if (!list.length){ var e1 = el('div','mhint'); e1.textContent = '—'; listBox.appendChild(e1); return; }
-    var tb = table(['#','نام فرم','ناحیه','نام پست','نام خط','شماره خط','تاریخ','ثبت‌کننده','عملیات'], list.map(function(r,i){ return [String(i+1), tabName(r.form), rv(r,'area') || '—', rv(r,'post') || '—', rv(r,'line') || '—', rv(r,'num') || '—', r.date, r.user, r]; }), function(td, r){
+    var tb = table(['ردیف','ناحیه','نام پست','نام خط','شماره خط','نام فرم','تاریخ','ثبت‌کننده','عملیات'], list.map(function(r,i){ return [String(i+1), rv(r,'area') || '—', rv(r,'post') || '—', rv(r,'line') || '—', rv(r,'num') || '—', tabName(r.form), r.date, r.user, r]; }), function(td, r){
       var mine = session && (session.admin || r.uid === session.u);
       if (mine){ var b0 = el('button','btn sec'); b0.textContent = 'Excel'; b0.style.marginInlineEnd = '6px'; b0.addEventListener('click', function(){ exportRecordXlsx(r); }); td.appendChild(b0); }
       if (mine && can('rep_open')){ var b1 = el('button','btn sec'); b1.textContent = 'مشاهده و اصلاح'; b1.addEventListener('click', function(){ openRecord(r); }); td.appendChild(b1); }
@@ -3065,20 +3068,24 @@ function exportReport(){
   z.generateAsync({type:'blob', mimeType:XLSX_MIME, compression:'DEFLATE'}).then(function(b){ downloadBlob(b, nm); toast('گزارش ذخیره شد: ' + nm); }).catch(function(e){ toast('خطا: ' + (e && e.message || e)); });
 }
 function daqList(){ return filtered().filter(function(r){ return r.form === 'plc' && r.vals && r.vals['DAQ:1']; }); }
-function askDaq(){
-  if (!can('daq_view')) return;
+function askDaq(){ goPg('daq'); }
+function goPg(k){ state.pg = k; state.report = true; state.search = false; state.phone = false; state.daily = false; render(); fadeStage(); $('desk').scrollTop = 0; }
+function pgBack(){ state.pg = ''; state.report = true; state.search = false; state.phone = false; render(); fadeStage(); $('desk').scrollTop = 0; }
+function renderDaqPg(page, hd){
+  if (!can('daq_view')){ pgBack(); return; }
+  hd.textContent = 'گزارش برداشت اطلاعات ایستگاه ها'; var card = el('div','mcard'); page.appendChild(card);
   var dl = daqList(), posts = {}; dl.forEach(function(r){ posts[rv(r,'post') || '—'] = 1; });
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  var h = '<h2>گزارش برداشت اطلاعات ایستگاه ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نام پست). تعداد: ' + dl.length + ' رکورد در ' + Object.keys(posts).length + ' ایستگاه</div>';
+  var h = '<div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نام پست). تعداد: ' + dl.length + ' رکورد در ' + Object.keys(posts).length + ' ایستگاه</div>';
   if (!dl.length) h += '<div class="msg" style="display:block">رکوردی که «برداشت اطلاعات» آن تیک خورده باشد پیدا نشد.</div>';
   else {
-    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:560px"><thead><tr><th>#</th><th>ناحیه</th><th>نام پست</th><th>نام خط</th><th>شماره خط</th><th>تاریخ</th><th>ثبت‌کننده</th></tr></thead><tbody>';
+    h += '<div style="overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt" style="min-width:560px"><thead><tr><th>#</th><th>ناحیه</th><th>نام پست</th><th>نام خط</th><th>شماره خط</th><th>تاریخ</th><th>ثبت‌کننده</th></tr></thead><tbody>';
     dl.forEach(function(r,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(rv(r,'area') || '—') + '</td><td>' + esc(rv(r,'post') || '—') + '</td><td>' + esc(rv(r,'line') || '—') + '</td><td>' + esc(rv(r,'num') || '—') + '</td><td>' + esc(r.date) + '</td><td>' + esc(r.user) + '</td></tr>'; });
     h += '</tbody></table></div>';
   }
-  h += '<div class="row2"><button class="btn sec" id="dqClose">بستن</button>' + (dl.length ? '<button class="btn pri" id="dqXls">⬇ خروجی Excel</button>' : '') + '</div>';
-  openModal(h);
-  $('dqClose').onclick = closeModal;
+  h += '<div class="row2"><button class="btn sec" id="dqClose">‹ بازگشت به Report</button>' + (dl.length ? '<button class="btn pri" id="dqXls">⬇ خروجی Excel</button>' : '') + '</div>';
+  card.innerHTML = h;
+  $('dqClose').onclick = pgBack;
   if (dl.length) $('dqXls').onclick = function(){ exportDaqXlsx(); };
 }
 function exportDaqXlsx(){
@@ -3135,21 +3142,22 @@ function freqRows(list){
   out.forEach(function(o){ var k = [o.post, o.line, o.num, o.dev, o.tx, o.rx].join('|'), i = seen[k]; if (i == null){ seen[k] = res.length; res.push(o); } else if (String(o.date || '') > String(res[i].date || '')) res[i] = o; });
   return res;   // the SELTA / ABB / Dimat form of the same station and date has priority; PLC frequencies are used only when no device form was completed
 }
-function askFreq(){
+function askFreq(){ goPg('freq'); }
+function renderFreqPg(page, hd){
+  hd.textContent = 'بانک فرکانس TX / RX ایستگاه‌ها'; var card = el('div','mcard'); page.appendChild(card);
   var fr = freqRows(filtered());
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  var h = '<h2>بانک فرکانس TX / RX ایستگاه‌ها</h2><div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
+  var h = '<div style="font-size:15px;color:#6b7a8c">بر اساس فیلترهای صفحه ی Report (تاریخ، ثبت‌کننده، نوع فرم، نام پست). تعداد: ' + fr.length + ' ردیف</div>';
   if (!fr.length) h += '<div class="msg" style="display:block">رکوردی که فرکانس TX یا RX داشته باشد پیدا نشد.</div>';
   else {
-    h += '<div style="max-height:46vh;overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>شماره خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>نام دستگاه</th><th>تاریخ</th></tr></thead><tbody>';
+    h += '<div style="overflow:auto;margin:10px 0;border:1px solid rgba(18,50,110,.2);border-radius:10px"><table class="mrt"><thead><tr><th>#</th><th>نام پست</th><th>خط</th><th>شماره خط</th><th>TX</th><th>RX</th><th>کانال</th><th>مقادیر Transmitter</th><th>مقادیر Receiver</th><th>نام دستگاه</th><th>تاریخ</th></tr></thead><tbody>';
     fr.forEach(function(o,i){ h += '<tr><td>' + (i+1) + '</td><td>' + esc(o.post || '—') + '</td><td>' + esc(o.line || '—') + '</td><td>' + esc(o.num || '—') + '</td><td dir="ltr">' + esc(o.tx || '—') + '</td><td dir="ltr">' + esc(o.rx || '—') + '</td><td>' + esc(o.ch || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.txv || '—') + '</td><td dir="ltr" style="font-size:13px;white-space:pre-line;text-align:left">' + esc(o.rxv || '—') + '</td><td>' + esc(o.dev || o.form) + '</td><td>' + esc(o.date) + '</td></tr>'; });
     h += '</tbody></table></div>';
   }
-  h += '<div class="row2"><button class="btn sec" id="frClose">بستن</button>' + (fr.length ? '<button class="btn sec" id="frImg">🖼 نمایش تصویر فرکانس ها</button><button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
-  openModal(h);
-  if (window.innerWidth > 760) $('modal').style.width = 'min(96vw, 1240px)';   // Windows: wide window, every column visible
-  $('frClose').onclick = closeModal;
-  if (fr.length){ $('frXls').onclick = function(){ exportFreqXlsx(); }; $('frImg').onclick = function(){ closeModal(); showFreqImage(); }; }
+  h += '<div class="row2"><button class="btn sec" id="frClose">‹ بازگشت به Report</button>' + (fr.length ? '<button class="btn sec" id="frImg">🖼 نمایش تصویر فرکانس ها</button><button class="btn pri" id="frXls">⬇ خروجی Excel</button>' : '') + '</div>';
+  card.innerHTML = h;
+  $('frClose').onclick = pgBack;
+  if (fr.length){ $('frXls').onclick = function(){ exportFreqXlsx(); }; $('frImg').onclick = function(){ showFreqImage(); }; }
 }
 function exportFreqXlsx(){
   if (!window.JSZip){ toast('کتابخانه ی ساخت فایل بارگذاری نشده است'); return; }
@@ -3833,6 +3841,8 @@ function renderPg(){
   var page = el('div','mpage'); page.setAttribute('dir','rtl'); stage.appendChild(page);
   var head = el('div','mhead ctr'), h = el('h2'); head.appendChild(h); page.appendChild(head);
   if (state.pg === 'mam'){ renderMam(page, h); return; }
+  if (state.pg === 'freq'){ renderFreqPg(page, h); return; }
+  if (state.pg === 'daq'){ renderDaqPg(page, h); return; }
   if (state.pg === 'map'){ h.textContent = 'PLC Map'; zoomPage(page, PG_IMG.map, 'PLC Map'); return; }
   if (state.tps === 'selta' || state.tps === 'abb'){
     var nm = state.tps === 'selta' ? 'Selta' : 'ABB'; h.textContent = nm + ' TPS Wireing';
@@ -3896,6 +3906,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.14', d:'1.2.99', items:[{adm:'ترتیب جدید فیلدهای ابتدایی فرم چک لیست PLC فقط برای نسخه ی موبایل اعمال می شود و در نسخه ی ویندوز به حالت قبل برگشت.', usr:''}]},
+    {v:'1.9.13', d:'1.2.98', items:[{adm:'مأموریت‌ها: محل و موضوع مأموریت در یک سطر قرار گرفتند. بانک فرکانس‌ها و گزارش برداشت اطلاعات به جای پنجره ی بازشو، داخل صفحه ی نرم افزار نمایش داده می شوند. ترتیب ستون های فهرست فرم های ثبت شده: ردیف، ناحیه، نام پست، نام خط، شماره خط، نام فرم، تاریخ، ثبت کننده، عملیات. فیلد تاریخ پایین فرم ها با کلیک تقویم باز می کند. در فرم چک لیست PLC ترتیب فیلدهای ابتدایی تغییر کرد (ناحیه و پست / نام خط و شماره خط / نام دستگاه و فرکانس).', usr:'ترتیب ستون های فهرست فرم های ثبت شده، تقویم فیلد تاریخ پایین فرم ها و ترتیب فیلدهای ابتدایی چک لیست PLC بهبود یافت.'}]},
     {v:'1.9.12', d:'1.2.97', items:[{adm:'مأموریت‌ها: بایگانی به صورت جدول خط‌کشی شده (ردیف، محل مأموریت، تاریخ شروع، کد، موضوع مأموریت) نمایش داده می شود؛ دکمه ی «نمایش تصویر خروجی» اضافه شد و دکمه ها مرتب شدند. جدول فهرست فرم های ثبت شده و دفترچه تلفن نیز با خطوط عمودی و افقی جدول بندی شدند.', usr:'جدول فهرست فرم های ثبت شده و دفترچه تلفن با خطوط عمودی و افقی نمایش داده می شود.'}]},
     {v:'1.9.11', d:'1.2.96', items:[{adm:'فهرست فرم های ثبت شده: رکوردی که برای مشاهده و اصلاح باز می شود، پس از «ثبت در بایگانی» جایگزین همان رکورد قبلی می شود (برای ادمین نیز، حتی برای رکورد کاربران دیگر) و رکورد جدید اضافه نمی شود. برای فرم Dimat، ستون «شماره خط» همان IP Address را نشان می دهد.', usr:'رکوردی که برای اصلاح باز می شود پس از ثبت در بایگانی جایگزین رکورد قبلی می شود و رکورد تکراری ساخته نمی شود.'}]},
     {v:'1.9.10', d:'1.2.95', items:[{adm:'ثبت مأموریت: انتخاب «کد» اختیاری شد و مأموریت بدون کد هم ثبت می شود.', usr:''}]},
