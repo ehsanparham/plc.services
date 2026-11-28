@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.19">
-<meta name="app-display-version" content="1.2.104">
+<meta name="app-version" content="1.9.21">
+<meta name="app-display-version" content="1.2.106">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -696,14 +696,16 @@ body .welcome{background:linear-gradient(135deg,#2ea043,#1f8a38) !important;font
 /* welcome message: shown alone in the middle of the screen for 3 seconds (fade in / out), then the area/date card fades in */
 #vInfo{flex-direction:column;gap:14px}
 #vInfo .welcome{position:static !important;transform:none !important;display:none;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;width:min(420px,100%);text-align:center;white-space:normal !important;font-size:20px !important;padding:12px 22px !important;border-radius:16px !important;opacity:0;pointer-events:none;z-index:70}
-#vInfo .welcome.show{display:flex;opacity:1;animation:welFade .6s ease both}
-#vInfo .welcome.show.out{animation:welFadeOut .5s ease both}
+#vInfo .welcome.show{display:flex;opacity:1;animation:opUpIn .9s ease both}
+#vInfo .welcome.show.out{animation:welFadeOut .7s ease both}
 @keyframes welFade{from{opacity:0}to{opacity:1}}
 @keyframes welFadeOut{from{opacity:1}to{opacity:0}}
 #vInfo #infoForm{animation:none !important;transition:opacity .6s ease}
-#infoForm .btn.rep{width:100%;margin-top:10px;background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.65);box-shadow:none;text-shadow:0 1px 6px rgba(0,20,70,.6)}
+#infoReport.btn{width:min(420px,100%);text-align:center;display:flex;align-items:center;justify-content:center;background:#fff !important;color:#12326e !important;border:0 !important;font-weight:700;box-shadow:0 10px 28px rgba(0,20,60,.35)}
 @keyframes pgFade{from{opacity:0}to{opacity:1}}
-#vInfo #infoForm{animation:pgFade .8s ease both !important}
+#vInfo #infoForm{animation:opDnIn .9s ease both !important}
+#vInfo #infoReport{animation:opDnIn .9s .1s ease both}
+#vInfo.op #infoReport{animation:opDn 1s ease-in both !important}
 body[data-view="app"] .bar,body[data-view="app"] .desk,body[data-view="app"] .savebar{animation:pgFade .8s ease both}
 #vInfo.op #infoForm{animation:opCardOut 1s ease-in both !important}
 #vInfo.op #infoForm p.sub{animation:opUp 1s ease-in both !important}
@@ -962,7 +964,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.104</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.106</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -970,8 +972,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="irow"><label class="fl" for="inArea">ناحیه</label><input class="in" id="inArea" autocomplete="off"><label class="fl" for="inDate">تاریخ</label><input class="in" id="inDate" placeholder="مثال: 1405/07/20" inputmode="text" dir="ltr"></div>
   <div class="supshow" id="inSupShow"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
-  <button class="btn rep" type="button" id="infoReport">Report</button>
-</form></section>
+</form><button class="btn" type="button" id="infoReport">Report</button></section>
 
 <header class="bar">
   <div class="bar-top">
@@ -991,7 +992,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.104</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.106</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -3539,7 +3540,8 @@ function loginOpen(name){
 }
 function showWelcome(name){
   var w = $('welcome'); $('welcomeTxt').textContent = name + ' خوش آمدید';
-  w.classList.remove('show'); void w.offsetWidth; w.classList.add('show');
+  clearTimeout(showWelcome._t); w.classList.remove('show'); w.classList.remove('out'); void w.offsetWidth; w.classList.add('show');
+  showWelcome._t = setTimeout(function(){ w.classList.add('out'); }, 3000);   // fades out after 3 s
 }
 function refreshHeader(){
   $('umName').textContent = session ? session.name : '';
@@ -3548,7 +3550,7 @@ function refreshHeader(){
   $('hdrMeta').textContent = '\u200F - تاریخ: ' + (info.date || '—');
 }
 function enterInfo(){
-  $('welcome').classList.remove('show'); $('infoReport').style.display = can('rep_view') ? '' : 'none';
+  clearTimeout(showWelcome._t); $('welcome').classList.remove('show'); $('welcome').classList.remove('out'); $('infoReport').style.display = can('rep_view') ? '' : 'none';
   $('inSup').value = info.sup || DEFAULT_SUP;
   $('inDate').value = info.date || jalaliToday();
   $('inArea').value = (state.vals.plc && state.vals.plc.E10) || ''; showInSup();
@@ -4040,6 +4042,8 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.21', d:'1.2.106', items:[{adm:'نوشته ی دکمه ی Report وسط دکمه قرار گرفت.', usr:''}]},
+    {v:'1.9.20', d:'1.2.105', items:[{adm:'صفحه ی ناحیه و تاریخ: پیغام خوش آمدگویی از بالا و کادر از پایین به جای خود می آیند (مانند صفحه ی لاگین) و پیغام بعد از ۳ ثانیه محو می شود؛ دکمه ی Report سفید و بیرون از کادر قرار گرفت.', usr:''}]},
     {v:'1.9.19', d:'1.2.104', items:[{adm:'پیغام خوش آمدگویی دیگر صفحه ی جدا ندارد و بالای کادر انتخاب ناحیه و تاریخ نمایش داده می شود؛ دکمه ی Report زیر دکمه ی «ورود به سامانه» اضافه شد؛ پیغام «لطفاً ابتدا ناحیه را انتخاب کنید» در موبایل در یک سطر نمایش داده می شود.', usr:'پیغام خوش آمدگویی بالای کادر انتخاب ناحیه و تاریخ نمایش داده می شود و دکمه ی Report به صفحه ی ورود افزوده شد.'}]},
     {v:'1.9.18', d:'1.2.103', items:[{adm:'رمز یکی از کاربران تغییر کرد.', usr:''}]},
     {v:'1.9.17', d:'1.2.102', items:[{adm:'برگه ی مأموریت: لوگوی خود فایل ورد، اعداد فارسی (به جز FR106 که بالای جدول سمت چپ قرار گرفت)؛ دکمه ی «نمایش تصویر مأموریت» (رو و پشت)؛ پشتیبان گیری و بازیابی شامل مأموریت‌ها شد؛ چیدمان فیلدهای ابتدایی فرم PLC به حالت قبل برگشت.', usr:''}]},
