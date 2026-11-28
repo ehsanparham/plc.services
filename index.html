@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="1.9.18">
-<meta name="app-display-version" content="1.2.103">
+<meta name="app-version" content="1.9.19">
+<meta name="app-display-version" content="1.2.104">
 <style>html,body{background:#dbe8f7}body{margin:0}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="application-name" content="PLC Service"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="PLC Service"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -688,18 +688,20 @@ select.mi{appearance:auto}
 
 .brandlogo{height:34px;width:auto;margin-inline-start:auto;background:none;align-self:center;object-fit:contain}
 @media (max-width:640px){.brandlogo{height:28px}}
+@media (max-width:640px){.toast.one{white-space:nowrap;font-size:14px !important;padding:10px 12px !important;max-width:98vw}}
 body[data-theme="dark"] .brandlogo{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 8px rgba(255,255,255,.8))}
 
 .toast{background:#1f8a38 !important;color:#fff !important;font-size:17px !important;font-weight:700;padding:12px 24px !important;border-radius:16px !important;box-shadow:0 12px 34px rgba(30,120,50,.5) !important;backdrop-filter:none !important}
 body .welcome{background:linear-gradient(135deg,#2ea043,#1f8a38) !important;font-size:18px !important;padding:11px 22px !important;box-shadow:0 12px 34px rgba(30,120,50,.5) !important}
 /* welcome message: shown alone in the middle of the screen for 3 seconds (fade in / out), then the area/date card fades in */
-#vInfo .welcome{position:fixed !important;left:50% !important;top:50% !important;right:auto !important;bottom:auto !important;transform:translate(-50%,-50%) !important;display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;width:min(86vw,420px);text-align:center;white-space:normal !important;font-size:22px !important;padding:16px 26px !important;opacity:0;pointer-events:none;transition:opacity .5s ease;z-index:70}
-#vInfo .welcome.show{opacity:1;animation:welFade .5s ease both}
+#vInfo{flex-direction:column;gap:14px}
+#vInfo .welcome{position:static !important;transform:none !important;display:none;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;width:min(420px,100%);text-align:center;white-space:normal !important;font-size:20px !important;padding:12px 22px !important;border-radius:16px !important;opacity:0;pointer-events:none;z-index:70}
+#vInfo .welcome.show{display:flex;opacity:1;animation:welFade .6s ease both}
 #vInfo .welcome.show.out{animation:welFadeOut .5s ease both}
 @keyframes welFade{from{opacity:0}to{opacity:1}}
 @keyframes welFadeOut{from{opacity:1}to{opacity:0}}
 #vInfo #infoForm{animation:none !important;transition:opacity .6s ease}
-body.welcoming #vInfo #infoForm{opacity:0 !important;pointer-events:none}
+#infoForm .btn.rep{width:100%;margin-top:10px;background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.65);box-shadow:none;text-shadow:0 1px 6px rgba(0,20,70,.6)}
 @keyframes pgFade{from{opacity:0}to{opacity:1}}
 #vInfo #infoForm{animation:pgFade .8s ease both !important}
 body[data-view="app"] .bar,body[data-view="app"] .desk,body[data-view="app"] .savebar{animation:pgFade .8s ease both}
@@ -762,7 +764,7 @@ body[data-view="app"] .bar,body[data-view="app"] .desk,body[data-view="app"] .sa
   .lgGlass{display:block;position:relative;width:min(72vw,280px);margin-top:3vh;padding:2px 16px 18px;background:none;border:0;-webkit-backdrop-filter:none;backdrop-filter:none;border-radius:0;box-shadow:none}
   #vLogin #loginForm .fl{color:#fff !important;text-shadow:0 1px 6px rgba(0,20,70,.7)}
   #vLogin #loginForm .in{background:rgba(255,255,255,.12) !important;border:1px solid rgba(255,255,255,.5) !important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-  #vInfo .welcome{font-size:18px !important;padding:13px 22px !important}
+  #vInfo .welcome{font-size:17px !important;padding:11px 18px !important}
 }
 /* mobile login window: smaller card; user name / password fields and the login button are half as wide */
 @media (max-width:640px){
@@ -960,7 +962,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="err" id="lgErr"></div>
   <button class="btn go" type="submit">ورود</button>
   </div>
-</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.103</i></span></div></section>
+</form><div class="copy"><span dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.104</i></span></div></section>
 
 <section class="screen" id="vInfo"><div class="welcome" id="welcome"><i>✓</i><span id="welcomeTxt"></span></div><form class="card" id="infoForm" autocomplete="off">
   <p class="sub">لطفاً ناحیه مربوطه و تاریخ روز را وارد کنید</p>
@@ -968,6 +970,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
   <div class="irow"><label class="fl" for="inArea">ناحیه</label><input class="in" id="inArea" autocomplete="off"><label class="fl" for="inDate">تاریخ</label><input class="in" id="inDate" placeholder="مثال: 1405/07/20" inputmode="text" dir="ltr"></div>
   <div class="supshow" id="inSupShow"></div>
   <button class="btn go" type="submit">ورود به سامانه</button>
+  <button class="btn rep" type="button" id="infoReport">Report</button>
 </form></section>
 
 <header class="bar">
@@ -988,7 +991,7 @@ body[data-theme="dark"] .devimg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0
 <main class="desk" id="desk"><div class="holder" id="holder"><div class="stage" id="stage"></div></div>
 <div class="savewrap"><button class="btn primary arch" id="btnArchive">🗂 ثبت در بایگانی</button><button class="btn primary" id="btnSave">⬇ ذخیره فایل Excel</button></div>
 <div class="savewrap sw2"><button class="btn primary arch" id="btnImg">🖼 نمایش تصویر خروجی</button></div>
-<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.103</i></div></main>
+<div class="credit" dir="ltr">Designed &amp; Developed by <b>Ehsan Parham</b><br><i style="font-style:normal;font-size:12.5px;font-weight:400">All Rights Reserved © 2026 | Version 1.2.104</i></div></main>
 <div id="updBar"><div class="ubox"><b>🔔 نسخه ی جدید برنامه آماده است</b><p id="updTxt"></p><div class="ub"><button class="go" id="updGo">بروزرسانی</button><button class="lt" id="updLater">بعداً</button></div></div></div>
 <div class="toast" id="toast"></div>
 <div class="ov" id="ov"><div class="modal" id="modal"></div></div>
@@ -1144,7 +1147,7 @@ SHEETS.forEach(function(s){ state.vals[s.key] = STORE[s.key] || {}; });
 var $ = function(id){ return document.getElementById(id); };
 function saveStore(){ try { localStorage.setItem(LS_KEY, JSON.stringify(state.vals)); } catch(e){} }
 var tmr; function saveSoon(){ clearTimeout(tmr); tmr = setTimeout(saveStore, 250); }
-function toast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(function(){t.classList.remove('show');}, 2800); }
+function toast(msg, one){ var t=$('toast'); t.classList.toggle('one', !!one); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(function(){t.classList.remove('show');}, 2800); }
 
 function fontStack(n){
   n = n || 'Calibri';
@@ -3532,15 +3535,11 @@ function infoOpen(){
 function loginOpen(name){
   var vl = $('vLogin'); if (vl.classList.contains('op')) return;
   var d = document.createElement('div'); d.className = 'opW'; d.innerHTML = '<i>\u2713</i><span></span>'; d.lastChild.textContent = name + ' خوش آمدید';
-  vl.appendChild(d); vl.classList.add('op');                       // login content opens up/down with blur, welcome appears in the middle
-  setTimeout(function(){ enterInfo(); vl.classList.remove('op'); if (d.parentNode) d.parentNode.removeChild(d); }, 2750);   // then the area/date card
+  enterInfo(); showWelcome(name);                                   // no separate welcome page: the welcome message appears above the area/date card
 }
 function showWelcome(name){
   var w = $('welcome'); $('welcomeTxt').textContent = name + ' خوش آمدید';
-  clearTimeout(showWelcome._t); clearTimeout(showWelcome._t2);
-  document.body.classList.add('welcoming'); w.classList.remove('out'); w.classList.add('show');          // welcome message alone in the middle of the screen
-  showWelcome._t = setTimeout(function(){ w.classList.add('out'); }, 2500);                              // fades out
-  showWelcome._t2 = setTimeout(function(){ w.classList.remove('show'); w.classList.remove('out'); document.body.classList.remove('welcoming'); }, 3000);   // after 3 s the area/date card fades in
+  w.classList.remove('show'); void w.offsetWidth; w.classList.add('show');
 }
 function refreshHeader(){
   $('umName').textContent = session ? session.name : '';
@@ -3549,6 +3548,7 @@ function refreshHeader(){
   $('hdrMeta').textContent = '\u200F - تاریخ: ' + (info.date || '—');
 }
 function enterInfo(){
+  $('welcome').classList.remove('show'); $('infoReport').style.display = can('rep_view') ? '' : 'none';
   $('inSup').value = info.sup || DEFAULT_SUP;
   $('inDate').value = info.date || jalaliToday();
   $('inArea').value = (state.vals.plc && state.vals.plc.E10) || ''; showInSup();
@@ -3571,17 +3571,19 @@ $('loginForm').addEventListener('submit', function(e){
   }
 });
 $('lgEye').addEventListener('click', function(){ var p = $('lgP'); p.type = (p.type === 'password') ? 'text' : 'password'; });
-$('infoForm').addEventListener('submit', function(e){
-  e.preventDefault();
+function infoGo(toRep){
   info = {sup: $('inSup').value.trim() || info.sup || DEFAULT_SUP, date: $('inDate').value.trim()};
   clearLabelOverrides(/^date|ناظر|^تاریخ/i);
   var ar = $('inArea').value.trim(), pv = state.vals.plc || (state.vals.plc = {});
-  if (!ar){ toast('لطفاً ابتدا ناحیه را انتخاب کنید'); try { $('inArea').focus(); } catch(x){} return; }
+  if (!ar && !toRep){ toast('لطفاً ابتدا ناحیه را انتخاب کنید', true); try { $('inArea').focus(); } catch(x){} return; }
   if (ar){ applyAreaSup('plc', ar); }
-  if (ar !== String(pv.E10 || '')){ pv.E10 = ar; syncLmu('E10', ar); onAreaChange('plc','E10',['G10','I10']); if (state.vals.lmu) onAreaChange('lmu','D11',['G11','I11']); saveStore(); }
+  if (ar && ar !== String(pv.E10 || '')){ pv.E10 = ar; syncLmu('E10', ar); onAreaChange('plc','E10',['G10','I10']); if (state.vals.lmu) onAreaChange('lmu','D11',['G11','I11']); saveStore(); }
   sessSet({u:session.u, info:info});
+  if (toRep){ state.report = true; state.search = false; state.phone = false; state.daily = false; state.pg = ''; }
   infoOpen();
-});
+}
+$('infoForm').addEventListener('submit', function(e){ e.preventDefault(); infoGo(false); });
+$('infoReport').addEventListener('click', function(){ infoGo(true); });
 $('hdrMeta').addEventListener('click', enterInfo);
 function showInSup(){ var sp = supFor($('inArea').value); $('inSupShow').textContent = sp ? 'ناظر ناحیه: ' + sp : ''; }
 makeCombo($('inArea'), {opts:AREAS, strict:true}, function(){ showInSup(); });
@@ -4038,6 +4040,7 @@ window.__app = {state: state, SHEETS: SHEETS, render: render, sha256: sha256, US
 (function(){
   // NEWEST FIRST. Add one entry for every new version: {v:'x.y.z', items:['...', '...']}
   var CHANGELOG = [
+    {v:'1.9.19', d:'1.2.104', items:[{adm:'پیغام خوش آمدگویی دیگر صفحه ی جدا ندارد و بالای کادر انتخاب ناحیه و تاریخ نمایش داده می شود؛ دکمه ی Report زیر دکمه ی «ورود به سامانه» اضافه شد؛ پیغام «لطفاً ابتدا ناحیه را انتخاب کنید» در موبایل در یک سطر نمایش داده می شود.', usr:'پیغام خوش آمدگویی بالای کادر انتخاب ناحیه و تاریخ نمایش داده می شود و دکمه ی Report به صفحه ی ورود افزوده شد.'}]},
     {v:'1.9.18', d:'1.2.103', items:[{adm:'رمز یکی از کاربران تغییر کرد.', usr:''}]},
     {v:'1.9.17', d:'1.2.102', items:[{adm:'برگه ی مأموریت: لوگوی خود فایل ورد، اعداد فارسی (به جز FR106 که بالای جدول سمت چپ قرار گرفت)؛ دکمه ی «نمایش تصویر مأموریت» (رو و پشت)؛ پشتیبان گیری و بازیابی شامل مأموریت‌ها شد؛ چیدمان فیلدهای ابتدایی فرم PLC به حالت قبل برگشت.', usr:''}]},
     {v:'1.9.16', d:'1.2.101', items:[{adm:'مأموریت‌ها: امکان تیک زدن مأموریت‌های ثبت شده و ساخت دو فایل PDF روی برگه ی A5 مأموریت (رو و پشت، به ترتیب صفحه) برای چاپ دورو. دسترسی به این بخش مانند خود مأموریت‌ها از منوی دسترسی کاربران قابل تنظیم است.', usr:''}]},
